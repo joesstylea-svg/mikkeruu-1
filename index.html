@@ -113,8 +113,14 @@
     .notice-thumb{width:64px;height:64px;border-radius:16px;object-fit:cover;background:var(--soft)}
     .notice-summary b{display:block;font-size:14px;line-height:1.45}.notice-summary span{display:block;margin-top:3px;color:var(--sub);font-size:12px}
     .notice-chevron{color:#b7aab0;transition:transform .18s ease}.notice-card.open .notice-chevron{transform:rotate(90deg)}
-    .notice-detail{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
-    .notice-card.open .notice-detail{display:grid;gap:10px}
+    .notice-detail{display:none}
+    .notice-card.open{box-shadow:0 12px 28px rgba(237,95,125,.18);border-color:var(--ruu)}
+    .notice-card.open .notice-detail{display:block;padding:14px 16px 16px;background:#fff5f7;border-top:1px solid #fde8ee;animation:slideDown .25s ease-out;line-height:1.7}
+    @keyframes slideDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+    .notice-detail .helper{margin:0;color:var(--ink);font-size:13px}
+    .notice-detail .notice-image{margin-bottom:8px}
+    .notice-card{cursor:pointer;transition:.18s}
+    .notice-card:hover{background:#fffafc}
     .notice-image{width:100%;aspect-ratio:1.8/1;border-radius:16px;object-fit:cover}
     .notice-meta{display:flex;gap:8px;flex-wrap:wrap}
     .mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
@@ -367,6 +373,48 @@
     .album-delete-card{margin-top:14px;padding:11px;border:1px solid #f0c8c8;background:#fff8f8;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
     .album-delete-card .lbl{font-size:11px;color:#c84a4a;font-weight:900}
     .album-delete-card .del-btn{min-height:34px;padding:0 14px;border-radius:99px;border:1px solid #f0c8c8;background:#fff;color:#c84a4a;font-size:12px;font-weight:900;cursor:pointer}
+    /* 単体ボタン全幅化 */
+    .actions.application-actions{display:grid;grid-template-columns:1fr;gap:8px}
+    .actions.application-actions a.primary,.actions.application-actions button{min-height:48px;display:flex;align-items:center;justify-content:center;font-size:14px;width:100%}
+    .admin-card-actions.single-btn{grid-template-columns:1fr}
+    .admin-card-actions.single-btn button{width:100%}
+    .primary,.secondary{transition:transform .1s}
+    .primary:active,.secondary:active{transform:scale(.97)}
+    /* 定型文 */
+    .tpl-card{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+    .tpl-card-head{display:grid;grid-template-columns:1fr 16px;align-items:center;gap:10px;padding:12px 14px;cursor:pointer}
+    .tpl-card-title{margin:0;font-size:13px;font-weight:900;color:var(--ink);line-height:1.4}
+    .tpl-card-sub{margin:3px 0 0;font-size:10px;color:var(--sub);font-weight:850}
+    .tpl-card .chev{width:16px;height:16px;color:#c0b0d0;transition:.18s}
+    .tpl-card.open .chev{transform:rotate(90deg);color:var(--ruu)}
+    .tpl-body{display:none;border-top:1px solid var(--line);padding:12px 14px;background:#fdfbfe}
+    .tpl-card.open .tpl-body{display:block}
+    .tpl-preview{background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px;font-size:12px;color:var(--ink);line-height:1.7;white-space:pre-wrap;word-break:break-word;max-height:280px;overflow:auto;font-family:inherit}
+    .tpl-actions{display:grid;grid-template-columns:1fr 1fr 36px;gap:6px;margin-top:10px}
+    .tpl-actions button{min-height:36px;border-radius:10px;font-size:12px;font-weight:900;cursor:pointer}
+    .tpl-actions .copy{background:var(--ruu);border:none;color:#fff}
+    .tpl-actions .edit{background:#fff;border:1px solid var(--line);color:var(--ink)}
+    .tpl-actions .del{background:#fff;border:1px solid #f0c8c8;color:#c84a4a;padding:0;display:grid;place-items:center}
+    .tpl-tag-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+    .tpl-tag-chips button{font-size:11px;padding:4px 9px;border-radius:99px;background:#fff5f7;border:1px solid #fde8ee;color:var(--ruu);font-weight:850;cursor:pointer;font-family:inherit}
+    .tpl-tag-chips button:hover{background:var(--ruu);color:#fff;border-color:var(--ruu)}
+    .tpl-category-badge{display:inline-block;font-size:9px;font-weight:900;padding:2px 7px;border-radius:99px;background:#f3eff7;color:var(--sub);letter-spacing:.04em;margin-right:5px}
+    .tpl-category-badge.recruit{background:#fff5f7;color:var(--ruu)}
+    .tpl-category-badge.confirm{background:#e1f5ee;color:#3ba48a}
+    .tpl-category-badge.remind{background:#fff3e8;color:#d97a4a}
+    .tpl-category-badge.thanks{background:#f7f0ff;color:#8a72a8}
+    .tpl-char-counter{display:flex;flex-wrap:wrap;gap:8px;font-size:9px;font-weight:850;margin-bottom:8px;padding:6px 8px;background:#fdfbfe;border:1px solid var(--line);border-radius:8px}
+    .tpl-char-counter .cc-item.ok{color:#3ba48a}
+    .tpl-char-counter .cc-item.over{color:#c84a4a;font-weight:900}
+    .tpl-share-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+    .tpl-share-actions button{font-size:11px;padding:6px 11px;border-radius:99px;border:1px solid var(--line);background:#fff;font-weight:900;cursor:pointer}
+    .tpl-share-actions .line{background:#06c755;color:#fff;border-color:#06c755}
+    .tpl-share-actions .twitter{background:#000;color:#fff;border-color:#000}
+    .tpl-share-actions .threads{background:#fff;color:#000;border-color:#000}
+    .tpl-share-actions .notice{background:#fff5f7;color:var(--ruu);border-color:#fde8ee}
+    .tpl-share-actions .duplicate{background:#fff;color:var(--sub)}
+    .tpl-history{margin-top:8px;padding:6px 9px;background:#fdfbfe;border:1px solid var(--line);border-radius:8px;font-size:10px;color:var(--sub);line-height:1.6}
+    .tpl-history b{color:var(--ink);font-weight:900;margin-right:4px}
     /* イベント一覧カード（管理側） */
     .ev-card{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden;margin-bottom:10px}
     .ev-card .ev-head{display:grid;grid-template-columns:1fr 18px;gap:10px;align-items:flex-start;padding:13px 14px;cursor:pointer}
@@ -542,7 +590,7 @@
         <a class="brand-mark" href="#home" onclick="showPage('home', true)" aria-label="Mikke ruu ホーム"><img class="logo" src="./mikke-ruu-logo.png" alt="Mikke ruu"></a>
         <div class="top-actions">
           <button class="icon-button" onclick="showPage('favorites')" aria-label="お気に入り一覧"><svg class="icon"><use href="#i-heart"/></svg></button>
-          <a class="icon-button insta-button" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon"><use href="#i-instagram"/></svg></a>
+          <a class="icon-button insta-button" id="header-insta-link" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon"><use href="#i-instagram"/></svg></a>
           <button class="icon-button" onclick="showPage('news')" aria-label="お知らせ"><svg class="icon"><use href="#i-bell"/></svg></button>
         </div>
       </div>
@@ -565,12 +613,12 @@
             <span><svg class="icon"><use href="#i-map"/></svg> Peoplewise Cafe</span>
           </div>
           <div class="actions application-actions">
-            <button class="secondary" onclick="toggleInlineDetail()">イベント詳細を見る</button>
+            <button class="secondary" id="home-detail-btn" onclick="viewEventDetail(getUpcomingEvent().id)">イベント詳細を見る</button>
             <a class="primary apply-link" href="#apply" onclick="showPage('apply')">出店申し込み</a>
           </div>
           <div id="home-inline-detail" class="inline-detail">
             <div class="home-expanded-actions">
-              <a class="icon-action" href="#"><svg class="icon"><use href="#i-map"/></svg>MAP</a>
+              <a class="icon-action" href="javascript:void(0)" onclick="openMap(this)" data-address="神奈川県横浜市青葉区美しが丘1-1-2"><svg class="icon"><use href="#i-map"/></svg>MAP</a>
               <a class="icon-action" href="#exhibitors" onclick="showPage('exhibitors')"><svg class="icon"><use href="#i-user"/></svg>出店者</a>
               <a class="icon-action" href="#party" onclick="showPage('party')"><svg class="icon"><use href="#i-utensils"/></svg>交流会参加</a>
             </div>
@@ -605,7 +653,7 @@
           </article>
           <div id="upcoming-15" class="inline-detail">
             <div class="home-expanded-actions">
-              <a class="icon-action" href="#"><svg class="icon"><use href="#i-map"/></svg>MAP</a>
+              <a class="icon-action" href="javascript:void(0)" onclick="openMap(this)" data-address="神奈川県横浜市青葉区美しが丘1-1-2"><svg class="icon"><use href="#i-map"/></svg>MAP</a>
               <a class="icon-action" href="#exhibitors" onclick="showPage('exhibitors')"><svg class="icon"><use href="#i-user"/></svg>出店者</a>
               <a class="icon-action" href="#party" onclick="showPage('party')"><svg class="icon"><use href="#i-utensils"/></svg>交流会参加</a>
             </div>
@@ -624,7 +672,7 @@
           </article>
           <div id="upcoming-16" class="inline-detail">
             <div class="home-expanded-actions">
-              <a class="icon-action" href="#"><svg class="icon"><use href="#i-map"/></svg>MAP</a>
+              <a class="icon-action" href="javascript:void(0)" onclick="openMap(this)" data-address="神奈川県横浜市青葉区美しが丘1-1-2"><svg class="icon"><use href="#i-map"/></svg>MAP</a>
               <a class="icon-action" href="#exhibitors" onclick="showPage('exhibitors')"><svg class="icon"><use href="#i-user"/></svg>出店者</a>
               <a class="icon-action" href="#party" onclick="showPage('party')"><svg class="icon"><use href="#i-utensils"/></svg>交流会参加</a>
             </div>
@@ -653,7 +701,7 @@
         <h1 class="page-title">お気に入り</h1>
         <p class="helper" style="margin-bottom:14px">気になるイベントを保存して、あとから見返せます。</p>
         <div class="event-list">
-          <article class="card event-row with-fav" onclick="showPage('detail')">
+          <article class="card event-row with-fav" onclick="viewEventDetail('vol14')">
             <img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E" alt="">
             <div><span class="badge">募集中</span><h2>Vol.14 たまプラーザ</h2><p>6/17（水） 10:00〜16:00</p><p>Peoplewise Cafe</p></div>
             <button class="fav-button active" onclick="toggleFavorite(event,this)" aria-label="お気に入り"><svg class="icon"><use href="#i-heart"/></svg></button>
@@ -664,16 +712,22 @@
       <section id="events" class="page">
         <h1 class="page-title">イベント一覧</h1>
         <input class="input event-search" type="search" placeholder="イベント名・会場で検索">
-        <div class="tabs filter-tabs"><button class="active">すべて</button><button>募集中</button><button>開催予定</button><button>交流会</button><button onclick="showPage('archive')">過去イベント</button></div>
+        <div class="tabs filter-tabs" id="events-filter-tabs">
+          <button class="active" onclick="filterEventsPage(this,'all')">すべて</button>
+          <button onclick="filterEventsPage(this,'recruiting')">募集中</button>
+          <button onclick="filterEventsPage(this,'upcoming')">開催予定</button>
+          <button onclick="filterEventsPage(this,'dinner')">交流会</button>
+          <button onclick="showPage('archive')">過去イベント</button>
+        </div>
         <div class="event-list">
-          <article class="card event-row with-fav" onclick="toggleEventListDetail('event-list-14')">
+          <article class="card event-row with-fav" data-evfilter="recruiting" onclick="toggleEventListDetail('event-list-14')">
             <img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E" alt="">
             <div><span class="badge">募集中</span><div class="row-title"><h2>Mikke bazar vol.14 たまプラーザ</h2><svg class="icon row-chevron"><use href="#i-chevron"/></svg></div><p>2026.6.17（水） 10:00〜16:00</p><p>神奈川県横浜市青葉区美しが丘1-1-2</p><p>Peoplewise Cafe</p><p class="section-link">詳細を見る</p></div>
             <button class="fav-button" onclick="toggleFavorite(event,this)" aria-label="お気に入り"><svg class="icon"><use href="#i-heart"/></svg></button>
           </article>
-          <div id="event-list-14" class="inline-detail">
+          <div id="event-list-14" class="inline-detail" data-evid="vol14">
             <div class="home-expanded-actions">
-              <a class="icon-action" href="#" onclick="event.stopPropagation()"><svg class="icon"><use href="#i-map"/></svg>MAP</a>
+              <a class="icon-action" href="javascript:void(0)" onclick="event.stopPropagation();openMap(this)" data-address="神奈川県横浜市青葉区美しが丘1-1-2"><svg class="icon"><use href="#i-map"/></svg>MAP</a>
               <a class="icon-action" href="#party" onclick="event.stopPropagation();showPage('party')"><svg class="icon"><use href="#i-utensils"/></svg>交流会参加</a>
             </div>
             <p class="helper">ハンドメイド、ワークショップ、フード、施術などが集まるイベントです。食事会や交流会など、Mikkeのイベント情報もここから確認できます。</p>
@@ -694,14 +748,14 @@
               <button class="shop" onclick="openExhibitorModal(event,'kitchen くらら','MKR-67890','飲食','軽食とドリンク','体にやさしい軽食と季節のドリンクをご用意します。','data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E','https://instagram.com/','https://u-word.example/kitchen')"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E" alt=""><div><b>kitchen くらら</b><span>飲食</span></div></button>
             </div>
           </div>
-          <article class="card event-row with-fav" onclick="toggleEventListDetail('event-list-dinner')">
+          <article class="card event-row with-fav" data-evfilter="dinner" onclick="toggleEventListDetail('event-list-dinner')">
             <img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E" alt="">
             <div><span class="badge mint">受付前</span><div class="row-title"><h2>Mikke dinner 交流会</h2><svg class="icon row-chevron"><use href="#i-chevron"/></svg></div><p>2026.7.12（日） 18:00〜20:00</p><p>錦糸町</p><p>Kitchen mikke</p><p class="section-link">詳細を見る</p></div>
             <button class="fav-button" onclick="toggleFavorite(event,this)" aria-label="お気に入り"><svg class="icon"><use href="#i-heart"/></svg></button>
           </article>
-          <div id="event-list-dinner" class="inline-detail">
+          <div id="event-list-dinner" class="inline-detail" data-evid="vol14">
             <div class="home-expanded-actions">
-              <a class="icon-action" href="#" onclick="event.stopPropagation()"><svg class="icon"><use href="#i-map"/></svg>MAP</a>
+              <a class="icon-action" href="javascript:void(0)" onclick="event.stopPropagation();openMap(this)" data-address="神奈川県横浜市青葉区美しが丘1-1-2"><svg class="icon"><use href="#i-map"/></svg>MAP</a>
               <a class="icon-action" href="#party" onclick="event.stopPropagation();showPage('party')"><svg class="icon"><use href="#i-utensils"/></svg>交流会参加</a>
             </div>
             <p class="helper">出店者さん、来場者さん、関係者さんがゆるやかにつながる食事会です。</p>
@@ -711,75 +765,21 @@
       </section>
 
       <section id="detail" class="page">
-        <article class="card event-card" data-application-status="open">
-          <div class="event-photo"></div>
-          <span class="badge">募集中</span>
-          <h1 class="event-title">Mikke bazar vol.14<br>たまプラーザ</h1>
-          <div class="event-meta">
-            <span><svg class="icon"><use href="#i-calendar"/></svg> 2026.6.17（水） 10:00〜16:00</span>
-            <span><svg class="icon"><use href="#i-map"/></svg> たまプラーザ テラス</span>
-          </div>
-          <div class="info"><b>交流会　17:30〜19:00</b></div>
-          <p class="helper" style="margin-top:12px">ハンドメイド、ワークショップ、フード、施術などが集まるイベントです。</p>
-          <div class="actions application-actions">
-            <a class="primary apply-link" href="#apply" onclick="showPage('apply')">出店申し込み</a>
-            <a class="secondary" href="#party" onclick="showPage('party')">参加申し込み</a>
-          </div>
-        </article>
-        <div class="section-head"><h2 class="section-title">出店者</h2></div>
-        <div class="exhibitors">
-          <button class="shop" onclick="openExhibitorModal(event,'Joe's Style','MKR-12345','アクセサリー','天然石アクセサリー','天然石を使ったアクセサリーと小さなギフト雑貨を販売します。','data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E','https://instagram.com/','https://u-word.example/joe')"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E" alt=""><div><b>Joe's Style</b><span>アクセサリー</span></div></button>
-          <button class="shop" onclick="openExhibitorModal(event,'Atelier petit','MKR-23456','布小物','バッグと布雑貨','やさしい色合いの布小物とバッグを制作しています。','data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E','https://instagram.com/','https://u-word.example/petit')"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E" alt=""><div><b>Atelier petit</b><span>布小物</span></div></button>
-          <button class="shop" onclick="openExhibitorModal(event,'Cafe くうら','MKR-34567','焼き菓子','焼き菓子','イベント限定の焼き菓子をお持ちします。','data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E','https://instagram.com/','https://u-word.example/cafe')"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E" alt=""><div><b>Cafe くうら</b><span>焼き菓子</span></div></button>
-          <button class="shop" onclick="openExhibitorModal(event,'relax time','MKR-45678','施術','ハンドケア','短時間で受けられるハンドケアをご用意します。','data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E','https://instagram.com/','https://u-word.example/relax')"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E" alt=""><div><b>relax time</b><span>施術</span></div></button>
-          <button class="shop" onclick="openExhibitorModal(event,'花と雑貨 nico','MKR-56789','ドライフラワー','リースと花雑貨','季節の花を使ったリースと小さな花雑貨をお持ちします。','data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E','https://instagram.com/','https://u-word.example/nico')"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E" alt=""><div><b>花と雑貨 nico</b><span>ドライフラワー</span></div></button>
-          <button class="shop" onclick="openExhibitorModal(event,'kitchen くらら','MKR-67890','飲食','軽食とドリンク','体にやさしい軽食と季節のドリンクをご用意します。','data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E','https://instagram.com/','https://u-word.example/kitchen')"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E" alt=""><div><b>kitchen くらら</b><span>飲食</span></div></button>
-        </div>
+        <div id="detail-host"><!-- 動的描画 --></div>
       </section>
 
       <section id="exhibitors" class="page">
         <h1 class="page-title">出店者一覧</h1>
-        <p class="helper" style="margin-top:-8px">vol.14 たまプラーザに参加する出店者さんをご紹介します。</p>
-        <div class="exhibitor-category-tabs">
-          <button class="active" onclick="filterExhibitorPublic(this,'all')">すべて <span id="ex-count-all">8</span></button>
-          <button onclick="filterExhibitorPublic(this,'retail')">物販 3</button>
-          <button onclick="filterExhibitorPublic(this,'food')">飲食 2</button>
-          <button onclick="filterExhibitorPublic(this,'session')">セッション 1</button>
-          <button onclick="filterExhibitorPublic(this,'treatment')">施術 2</button>
+        <p class="helper" style="margin-top:-8px" id="exhibitors-subtitle">出店者をご紹介します。</p>
+        <div class="exhibitor-category-tabs" id="exhibitors-tabs">
+          <button class="active" onclick="filterExhibitorPublic(this,'all')">すべて</button>
+          <button onclick="filterExhibitorPublic(this,'retail')">物販</button>
+          <button onclick="filterExhibitorPublic(this,'food')">飲食</button>
+          <button onclick="filterExhibitorPublic(this,'session')">セッション</button>
+          <button onclick="filterExhibitorPublic(this,'treatment')">施術</button>
         </div>
         <div class="exhibitor-public-grid" id="exhibitor-public-grid">
-          <button class="exhibitor-public-card" data-cat="retail" onclick="openExhibitorModal(event,'Joe\\'s Style','MKR-12345','物販','天然石アクセサリー','天然石を使ったアクセサリーと小さなギフト雑貨を販売します。','','https://instagram.com/','https://u-word.example/joe')">
-            <span class="ex-img"></span>
-            <div class="ex-info"><b>Joe's Style</b><span>物販 / アクセサリー</span></div>
-          </button>
-          <button class="exhibitor-public-card" data-cat="retail" onclick="openExhibitorModal(event,'Atelier petit','MKR-23456','物販','バッグと布雑貨','やさしい色合いの布小物とバッグを制作しています。','','https://instagram.com/','https://u-word.example/petit')">
-            <span class="ex-img"></span>
-            <div class="ex-info"><b>Atelier petit</b><span>物販 / 布小物</span></div>
-          </button>
-          <button class="exhibitor-public-card" data-cat="food" onclick="openExhibitorModal(event,'Cafe くうら','MKR-34567','飲食','焼き菓子','イベント限定の焼き菓子をお持ちします。','','https://instagram.com/','https://u-word.example/cafe')">
-            <span class="ex-img"></span>
-            <div class="ex-info"><b>Cafe くうら</b><span>飲食 / 焼き菓子</span></div>
-          </button>
-          <button class="exhibitor-public-card" data-cat="treatment" onclick="openExhibitorModal(event,'relax time','MKR-45678','施術','ハンドケア','短時間で受けられるハンドケアをご用意します。','','https://instagram.com/','https://u-word.example/relax')">
-            <span class="ex-img"></span>
-            <div class="ex-info"><b>relax time</b><span>施術 / ハンドケア</span></div>
-          </button>
-          <button class="exhibitor-public-card" data-cat="retail" onclick="openExhibitorModal(event,'花と雑貨 nico','MKR-56789','物販','リースと花雑貨','季節の花を使ったリースと小さな花雑貨をお持ちします。','','https://instagram.com/','https://u-word.example/nico')">
-            <span class="ex-img"></span>
-            <div class="ex-info"><b>花と雑貨 nico</b><span>物販 / ドライフラワー</span></div>
-          </button>
-          <button class="exhibitor-public-card" data-cat="food" onclick="openExhibitorModal(event,'kitchen くらら','MKR-67890','飲食','軽食とドリンク','体にやさしい軽食と季節のドリンクをご用意します。','','https://instagram.com/','https://u-word.example/kitchen')">
-            <span class="ex-img"></span>
-            <div class="ex-info"><b>kitchen くらら</b><span>飲食 / 軽食</span></div>
-          </button>
-          <button class="exhibitor-public-card" data-cat="session" onclick="openExhibitorModal(event,'月のしずく','MKR-78901','セッション','タロット占い','短時間で受けられるタロット占いをご用意します。','','https://instagram.com/','https://u-word.example/tuki')">
-            <span class="ex-img"></span>
-            <div class="ex-info"><b>月のしずく</b><span>セッション / 占い</span></div>
-          </button>
-          <button class="exhibitor-public-card" data-cat="treatment" onclick="openExhibitorModal(event,'Atelier soleil','MKR-89012','施術','フェイシャル','10分のフェイシャル体験をご提供します。','','https://instagram.com/','https://u-word.example/soleil')">
-            <span class="ex-img"></span>
-            <div class="ex-info"><b>Atelier soleil</b><span>施術 / フェイシャル</span></div>
-          </button>
+          <!-- 動的描画 -->
         </div>
       </section>
 
@@ -888,12 +888,12 @@
           </div>
         </div>
 
-        <div class="support-card">
-          <h2>よく分からないところは、まるごと相談できます。</h2>
-          <p>ユーワード登録後のページ作成、メニュー作成、アイキャッチ作成、出店準備の整理までサポートできます。</p>
+        <div class="support-card" id="guide-support-card">
+          <h2 id="guide-support-title">よく分からないところは、まるごと相談できます。</h2>
+          <p id="guide-support-desc">ユーワード登録後のページ作成、メニュー作成、アイキャッチ作成、出店準備の整理までサポートできます。</p>
           <div class="actions">
-            <a class="secondary" href="#news" onclick="showPage('news')">無料で相談する</a>
-            <a class="primary" href="#mypage" onclick="showPage('mypage')">サポートを見る</a>
+            <a class="secondary" id="guide-consult-btn" href="javascript:void(0)" onclick="openConsultLink()">無料で相談する</a>
+            <a class="primary" id="guide-support-btn" href="javascript:void(0)" onclick="openSupportApp()">サポートを見る</a>
           </div>
         </div>
       </section>
@@ -911,112 +911,19 @@
         </div>
       </section>
 
-      <section id="schedule" class="page">
-        <h1 class="page-title">スケジュール</h1>
-        <div class="calendar-box">
-          <div class="section-head" style="margin-top:0"><h2 class="section-title">2026年6月</h2><span class="section-link">次月</span></div>
-          <div class="calendar-grid">
-            <b>日</b><b>月</b><b>火</b><b>水</b><b>木</b><b>金</b><b>土</b>
-            <span></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
-            <span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span>
-            <span>14</span><span>15</span><span>16</span><span class="calendar-day active">17</span><span>18</span><span>19</span><span>20</span>
-          </div>
-        </div>
-        <div class="section-head"><h2 class="section-title">6月17日（水）の予定</h2></div>
-        <div class="list">
-          <div class="list-item"><div><b>9:30 搬入開始</b><span>たまプラーザ テラス</span></div></div>
-          <div class="list-item"><div><b>10:00 イベント開始</b><span>Mikke bazar vol.14</span></div></div>
-          <div class="list-item"><div><b>17:30 交流会</b><span>希望者のみ参加</span></div></div>
-        </div>
-      </section>
-
-      <section id="documents" class="page">
-        <h1 class="page-title">各種資料</h1>
-        <div class="card content">
-          <div class="doc-row"><span class="list-icon"><svg class="icon"><use href="#i-file"/></svg></span><div><b>出店申込書</b><span>2026.05.01</span></div><svg class="icon"><use href="#i-chevron"/></svg></div>
-          <div class="doc-row"><span class="list-icon"><svg class="icon"><use href="#i-file"/></svg></span><div><b>出店ガイド</b><span>搬入・支払い・当日の流れ</span></div><svg class="icon"><use href="#i-chevron"/></svg></div>
-          <div class="doc-row"><span class="list-icon"><svg class="icon"><use href="#i-map"/></svg></span><div><b>配置図</b><span>vol.14 たまプラーザ</span></div><svg class="icon"><use href="#i-chevron"/></svg></div>
-        </div>
-      </section>
-
-      <section id="sales" class="page">
-        <h1 class="page-title">売上記録</h1>
-        <div class="card content">
-          <span class="badge">2026年</span>
-          <h2 class="event-title">合計売上 ¥128,500</h2>
-          <div class="status-stack">
-            <div class="status-item"><span>6月</span><b>¥22,000</b></div>
-            <div class="status-item"><span>5月</span><b>¥45,500</b></div>
-            <div class="status-item"><span>4月</span><b>¥33,000</b></div>
-          </div>
-          <a class="primary" style="margin-top:14px" href="#">売上明細をダウンロード</a>
-        </div>
-      </section>
-
-      <section id="settings" class="page">
-        <h1 class="page-title">設定</h1>
-        <div class="list">
-          <div class="list-item"><div><b>通知設定</b><span>お知らせの受け取り</span></div><svg class="icon"><use href="#i-chevron"/></svg></div>
-          <div class="list-item"><div><b>プロフィール公開設定</b><span>来場者に表示する項目</span></div><svg class="icon"><use href="#i-chevron"/></svg></div>
-          <div class="list-item"><div><b>プライバシーポリシー</b><span>個人情報の取り扱い</span></div><svg class="icon"><use href="#i-chevron"/></svg></div>
-        </div>
-        <div class="card content" style="margin-top:14px">
-          <span class="badge">公開プロフィール</span>
-          <h2 class="section-title" style="margin:10px 0">来場者に見せる内容</h2>
-          <p class="helper">デフォルトは、アイキャッチ・ショップ名・出店カテゴリ・出店内容を表示します。Instagram、ユーワードURL、予約リンク、コメントは出店者さんが表示するか選べます。</p>
-        </div>
-      </section>
-
       <section id="faq" class="page">
         <h1 class="page-title">FAQ・お問い合わせ</h1>
-        <p class="helper">よくある質問をまとめました。内容は今後、主催者ページから編集できる想定です。</p>
-
-        <h2 class="faq-section-title"><svg class="icon"><use href="#i-file"/></svg>出店・申し込みについて</h2>
-        <div class="faq-group">
-          <details class="faq-card" open>
-            <summary><span class="faq-q">Q</span><span>出店するにはどうすればいいですか？</span><svg class="icon faq-arrow"><use href="#i-chevron"/></svg></summary>
-            <div class="faq-answer">「出店ガイド」を確認してから、イベント詳細ページの申込フォームよりお申し込みください。Mikke主催イベントはMikke ruu内で申し込みできます。</div>
-          </details>
-          <details class="faq-card">
-            <summary><span class="faq-q">Q</span><span>会員じゃないと出店できませんか？</span><svg class="icon faq-arrow"><use href="#i-chevron"/></svg></summary>
-            <div class="faq-answer">トライアル出店が可能なイベントもあります。イベントごとに条件が異なるため、申し込みページの案内をご確認ください。</div>
-          </details>
-          <details class="faq-card">
-            <summary><span class="faq-q">Q</span><span>出店料金はいくらですか？</span><svg class="icon faq-arrow"><use href="#i-chevron"/></svg></summary>
-            <div class="faq-answer">イベントごとに異なります。出店料はイベント詳細ではなく、申込フォーム内で確認できるようにしています。</div>
-          </details>
-          <details class="faq-card">
-            <summary><span class="faq-q">Q</span><span>申し込みのキャンセルはできますか？</span><svg class="icon faq-arrow"><use href="#i-chevron"/></svg></summary>
-            <div class="faq-answer">各イベントのキャンセルポリシーに従います。申し込み後に変更やキャンセルが必要な場合は、できるだけ早めにご連絡ください。</div>
-          </details>
+        <p class="helper">よくある質問をまとめました。キーワードで検索もできます。</p>
+        <input class="input" id="faq-search" type="search" placeholder="🔍 キーワードで検索（例：出店料、雨天）" oninput="renderUserFAQs()" style="margin-top:8px;min-height:44px">
+        <div id="faq-list-host">
+          <!-- 動的描画 -->
         </div>
-
-        <h2 class="faq-section-title"><svg class="icon"><use href="#i-book"/></svg>ユーワードについて</h2>
-        <div class="faq-group">
-          <details class="faq-card">
-            <summary><span class="faq-q">Q</span><span>紹介者IDはどこで確認できますか？</span><svg class="icon faq-arrow"><use href="#i-chevron"/></svg></summary>
-            <div class="faq-answer">紹介してくれた方に直接確認してください。IDがないとユーワード登録ができないため、ご注意ください。</div>
-          </details>
-          <details class="faq-card">
-            <summary><span class="faq-q">Q</span><span>ホームページメニューは必ず作らないといけませんか？</span><svg class="icon faq-arrow"><use href="#i-chevron"/></svg></summary>
-            <div class="faq-answer">ポイント決済や来場者への案内に使うため、加盟店になったらホームページメニューを整えておくのがおすすめです。難しい場合はサポートも相談できます。</div>
-          </details>
-        </div>
-
-        <h2 class="faq-section-title"><svg class="icon"><use href="#i-help"/></svg>その他</h2>
-        <div class="faq-group">
-          <details class="faq-card">
-            <summary><span class="faq-q">Q</span><span>食べ物や飲み物の販売はできますか？</span><svg class="icon faq-arrow"><use href="#i-chevron"/></svg></summary>
-            <div class="faq-answer">イベントによって異なります。食品販売には保健所の許可が必要な場合があります。詳細は各イベントの案内をご確認ください。</div>
-          </details>
-          <details class="faq-card">
-            <summary><span class="faq-q">Q</span><span>雨天の場合はどうなりますか？</span><svg class="icon faq-arrow"><use href="#i-chevron"/></svg></summary>
-            <div class="faq-answer">室内開催を基本としているため、原則として雨天決行です。荒天などで変更がある場合は、お知らせやマイページでご案内します。</div>
-          </details>
-          <details class="faq-card">
-            <summary><span class="faq-q">Q</span><span>問い合わせ先はどこですか？</span><svg class="icon faq-arrow"><use href="#i-chevron"/></svg></summary>
-            <div class="faq-answer">お問い合わせは mikke.ruu2025@gmail.com までお気軽にどうぞ。今後はアプリ内のお問い合わせ導線も整えていきます。</div>
-          </details>
+        <div class="support-card" style="margin-top:24px">
+          <h2>解決しない場合はお問い合わせください</h2>
+          <p>FAQで見つからなかった疑問は、運営に直接ご相談いただけます。</p>
+          <div class="actions">
+            <a class="primary" id="faq-contact-btn" href="javascript:void(0)" onclick="openConsultLink()">運営に問い合わせる</a>
+          </div>
         </div>
       </section>
 
@@ -1131,12 +1038,29 @@
 
       <section id="party" class="page">
         <h1 class="page-title">交流会参加申し込み</h1>
-        <form class="card content form">
-          <input class="input" placeholder="お名前">
+        <div class="card content" style="background:linear-gradient(135deg,#f3fdf8,#fff);border:1px solid #cce7dd">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <svg class="icon" style="width:18px;height:18px;color:#3ba48a"><use href="#i-utensils"/></svg>
+            <h2 class="event-title" style="font-size:16px;margin:0">Mikke dinner 交流会</h2>
+          </div>
+          <div class="event-meta">
+            <span><svg class="icon"><use href="#i-calendar"/></svg> 2026.6.17（水） 17:30〜19:00</span>
+            <span><svg class="icon"><use href="#i-map"/></svg> Peoplewise Cafe 近隣</span>
+          </div>
+          <div class="status-stack" style="margin-top:8px">
+            <div class="status-item"><span>参加費</span><b>¥1,500（当日現金）</b></div>
+            <div class="status-item"><span>定員</span><b>20名（残り 6名）</b></div>
+            <div class="status-item"><span>申込締切</span><b>2026.6.10</b></div>
+          </div>
+          <p class="helper" style="margin-top:8px">お食事しながらゆるやかに交流できる時間です。1人参加でも安心してご参加ください。</p>
+        </div>
+        <form class="card content form" style="margin-top:14px">
+          <h2 class="section-title" style="font-size:14px;margin-top:0">参加者情報</h2>
+          <input class="input" placeholder="お名前（フルネーム）">
           <input class="input" type="email" placeholder="メールアドレス">
-          <input class="input" type="number" value="1" placeholder="人数">
-          <textarea class="input" placeholder="備考"></textarea>
-          <a class="primary" href="#complete" onclick="showPage('complete')">参加申し込み</a>
+          <input class="input" type="number" value="1" min="1" placeholder="人数">
+          <textarea class="input" placeholder="アレルギー・苦手な食べ物・備考があれば"></textarea>
+          <a class="primary" href="#complete" onclick="showPage('complete')">参加を申し込む</a>
         </form>
       </section>
 
@@ -1248,11 +1172,7 @@
               <a class="icon-action" href="#party" onclick="showPage('party')"><svg class="icon"><use href="#i-utensils"/></svg>交流会参加</a>
               <a class="icon-action" href="javascript:void(0)" onclick="scrollToMypageNotices()"><svg class="icon"><use href="#i-bell"/></svg>運営からのお知らせ<span id="mypage-notice-count-1" class="badge orange" style="margin-left:6px;font-size:10px;padding:1px 7px;display:none">0</span></a>
             </div>
-            <div class="event-notice-mini">
-              <div class="status-item"><span>お知らせ</span><b>搬入時間が決まりました</b></div>
-              <div class="status-item"><span>資料</span><b>配置図・出店ガイドを確認</b></div>
-              <div class="status-item"><span>終了後</span><b>アンケートフォームを送る</b></div>
-            </div>
+            
           </div>
         </article>
 
@@ -1286,10 +1206,9 @@
           <div id="mypage-event-3" class="inline-detail">
             <div class="home-expanded-actions">
               <a class="icon-action" href="#archive" onclick="showPage('archive')"><svg class="icon"><use href="#i-camera"/></svg>アルバム</a>
-              <a class="icon-action" href="javascript:void(0)" onclick="scrollToMypageNotices()"><svg class="icon"><use href="#i-bell"/></svg>運営からのお知らせ</a>
-              <a class="icon-action" href="javascript:void(0)" onclick="openHistorySheet(event)"><svg class="icon"><use href="#i-check"/></svg>出店履歴</a>
+              <a class="icon-action" href="javascript:void(0)" onclick="openExhibitorSurveyForm('vol13')"><svg class="icon"><use href="#i-file"/></svg>出店アンケート</a>
             </div>
-            <p class="helper">イベント終了後のアンケートや過去の出店履歴を確認できます。</p>
+            <p class="helper">出店終了後の振り返りアンケートにご協力ください。回答は次回イベントの改善に活かします。</p>
           </div>
         </article>
 
@@ -1366,6 +1285,33 @@
             </div>
           </div>
 
+          <!-- 売上カード -->
+          <button id="dash-revenue-card" onclick="openSelectedEventInList()" style="display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;width:100%;padding:14px 16px;border-radius:17px;border:1px solid #fde8ee;background:linear-gradient(135deg,#fff5f7,#fff);cursor:pointer;margin-top:4px;text-align:left">
+            <span style="width:36px;height:36px;border-radius:12px;background:#ffe6ec;display:grid;place-items:center;flex-shrink:0">
+              <svg class="icon" style="width:18px;height:18px;color:var(--ruu)"><use href="#i-file"/></svg>
+            </span>
+            <div>
+              <p style="margin:0;font-size:11px;color:var(--sub);font-weight:850" id="dash-rev-label">見込み売上（出店料＋交流会）</p>
+              <p style="margin:2px 0 0;font-size:18px;font-weight:900;color:var(--ruu)" id="dash-rev-amount">¥0</p>
+              <p style="margin:1px 0 0;font-size:10px;color:var(--sub);font-weight:600" id="dash-rev-breakdown">タップで詳細</p>
+            </div>
+            <svg class="icon" style="width:16px;height:16px;color:var(--sub)"><use href="#i-chevron"/></svg>
+          </button>
+
+          <!-- イベント詳細ページへのリンク -->
+          <button onclick="openSelectedEventInList()" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px 16px;border-radius:17px;border:1px solid var(--line);background:#fff;cursor:pointer;margin-top:4px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="width:36px;height:36px;border-radius:12px;background:#f3f0ff;display:grid;place-items:center;flex-shrink:0">
+                <svg class="icon" style="width:18px;height:18px;color:var(--ruu)"><use href="#i-calendar"/></svg>
+              </span>
+              <div style="text-align:left">
+                <p style="margin:0;font-size:13px;font-weight:900;color:var(--ink)">このイベントの詳細を見る</p>
+                <p style="margin:0;font-size:11px;color:var(--sub)">タイムライン・出店者・編集・売上集計まで</p>
+              </div>
+            </div>
+            <svg class="icon" style="width:16px;height:16px;color:var(--sub)"><use href="#i-chevron"/></svg>
+          </button>
+
           <button onclick="toggleAdminPanel('admin-eyecatch')" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px 16px;border-radius:17px;border:1px solid var(--line);background:#fff;cursor:pointer;margin-top:4px">
             <div style="display:flex;align-items:center;gap:10px">
               <span style="width:36px;height:36px;border-radius:12px;background:#f3f0ff;display:grid;place-items:center;flex-shrink:0">
@@ -1399,7 +1345,7 @@
           <div class="admin-warning-card">
             <b>メールアドレスが重複しています</b>
             <p>同じメール（hanako@example.com）で2件の申し込みがあります。どちらを残すか確認してください。</p>
-            <div class="admin-card-actions">
+            <div class="admin-card-actions single-btn">
               <button class="primary-mini" onclick="openDuplicatesView('hanako@example.com')">確認する</button>
             </div>
           </div>
@@ -1416,6 +1362,9 @@
             <button onclick="toggleAdminPanel('admin-faq')"><svg class="icon"><use href="#i-help"/></svg>FAQ</button>
             <button onclick="toggleAdminPanel('admin-archive-edit')"><svg class="icon"><use href="#i-camera"/></svg>アルバム</button>
             <button onclick="toggleAdminPanel('admin-template')"><svg class="icon"><use href="#i-file"/></svg>定型文</button>
+            <button onclick="toggleAdminPanel('admin-survey')"><svg class="icon"><use href="#i-file"/></svg>アンケート</button>
+            <button onclick="toggleAdminPanel('admin-org-settings')"><svg class="icon"><use href="#i-settings"/></svg>サイト設定</button>
+            <button onclick="logoutAdmin()" style="grid-column:1/-1;background:#fff8f8;border-color:#f0c8c8;color:#c84a4a;font-size:12px;min-height:42px">🔒 ログアウト</button>
           </div>
         </div>
 
@@ -2008,46 +1957,6 @@
           </div>
         </div>
 
-        <div id="admin-confirm" class="admin-panel">
-          <div class="admin-panel-head"><div><h3>出店確定</h3><p>確定にすると、出店者マイページで支払い・LINE・資料・お知らせが見られる想定です。</p></div><span class="badge">5件</span></div>
-          <div class="admin-card-list">
-            <article class="admin-work-card"><h4>Joe's Style</h4><p>アクセサリー枠。ブース番号と公開プロフィールを確認してから確定。</p><input class="input" value="A-03" aria-label="ブース番号"><div class="admin-card-actions"><button>保留</button><button class="primary-mini">出店確定にする</button></div></article>
-            <article class="admin-work-card"><h4>Cafe くうら</h4><p>焼き菓子枠。食品販売条件と保健所確認メモをチェック。</p><input class="input" placeholder="確認メモ"><div class="admin-card-actions"><button>見送り</button><button class="primary-mini">出店確定にする</button></div></article>
-          </div>
-        </div>
-
-        <div id="admin-exhibitors" class="admin-panel">
-          <button class="admin-panel-back" onclick="closeAdminPanel(event)"><svg class="icon"><use href="#i-chevron"/></svg>戻る</button>
-          <div class="admin-panel-head"><div><h3>出店者一覧</h3><p>出店申込一覧に統合されました。</p></div></div>
-          <div style="text-align:center;padding:24px 0 12px">
-            <svg style="width:48px;height:48px;color:#c0b0d0;margin:0 auto 12px;display:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <p style="color:var(--sub);font-size:13px;margin:0 0 16px">出店者一覧・申込管理は<br>「出店申込一覧」に統合されました。</p>
-            <button class="primary" onclick="closeAdminPanel(event);toggleAdminPanel('admin-applications')" style="width:100%">出店申込一覧を開く</button>
-          </div>
-        </div>
-
-        <div id="admin-payment" class="admin-panel">
-          <button class="admin-panel-back" onclick="closeAdminPanel(event)"><svg class="icon"><use href="#i-chevron"/></svg>戻る</button>
-          <div class="admin-panel-head"><div><h3>現地決済確認</h3><p>当日用です。屋号ごとに、現地決済予定・確認済・免除/不要を切り替えます。</p></div><span class="badge orange" id="pay-count-badge">5件</span></div>
-          <div class="admin-count-line"><span><b id="pay-paid-count">1</b>確認済</span><span><b id="pay-pending-count">3</b>未確認</span><span><b id="pay-skip-count">1</b>免除</span></div>
-          <div id="admin-payment-list">
-            <div class="pay-row" data-pay="paid"><div><div class="pay-name">Hanako ハンドメイド <span class="badge mint" style="font-size:10px">あなた</span></div><span class="pay-meta">出店料 6,000円</span></div><button class="pay-status paid" onclick="togglePayStatus(this,'hanako-handmade')">確認済</button></div>
-            <div class="pay-row" data-pay="pending"><div><div class="pay-name">Joe's Style</div><span class="pay-meta">出店料 6,000円 / 現地決済予定</span></div><button class="pay-status pending" onclick="togglePayStatus(this)">未確認</button></div>
-            <div class="pay-row" data-pay="pending"><div><div class="pay-name">Atelier petit</div><span class="pay-meta">出店料 6,000円 / 現地決済予定</span></div><button class="pay-status pending" onclick="togglePayStatus(this)">未確認</button></div>
-            <div class="pay-row" data-pay="pending"><div><div class="pay-name">Cafe くうら</div><span class="pay-meta">出店料 7,000円 / 現地決済予定</span></div><button class="pay-status pending" onclick="togglePayStatus(this)">未確認</button></div>
-            <div class="pay-row" data-pay="skip"><div><div class="pay-name">relax time</div><span class="pay-meta">出店料 免除</span></div><button class="pay-status" onclick="togglePayStatus(this)">免除</button></div>
-          </div>
-        </div>
-
-        <div id="admin-line" class="admin-panel">
-          <div class="admin-panel-head"><div><h3>LINE参加</h3><p>LINEは交流・自己紹介・予約案内用。正式連絡はアプリ側に集約します。</p></div><span class="badge">4件</span></div>
-          <div class="admin-note-box">送る文面例：Mikke ruuアプリを更新しました。詳細はマイページをご確認ください。</div>
-          <div class="admin-card-list">
-            <article class="admin-work-card"><h4>Atelier petit</h4><p>招待リンク未送付</p><div class="admin-card-actions"><button>コピー</button><button class="primary-mini">参加済にする</button></div></article>
-            <article class="admin-work-card"><h4>relax time</h4><p>招待済 / 参加確認待ち</p><div class="admin-card-actions"><button>再送する</button><button class="primary-mini">参加済</button></div></article>
-          </div>
-        </div>
-
         <div id="admin-eyecatch" class="admin-panel">
           <button class="admin-panel-back" onclick="closeAdminPanel(event)"><svg class="icon"><use href="#i-chevron"/></svg>戻る</button>
           <div class="admin-panel-head"><div><h3>アイキャッチ一覧</h3><p>提出済み画像の確認・一括DLができます。チラシ・SNS素材に。</p></div><span class="badge" id="eyecatch-count-badge">8枚</span></div>
@@ -2074,128 +1983,6 @@
             <div class="eyecatch-item" data-name="はなももや はなももや"><div class="eyecatch-item-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E" alt=""><button class="eyecatch-dl-btn" onclick="showToast('DL開始（プロトタイプ）')"><svg class="icon" style="width:14px;height:14px"><use href="#i-download"/></svg></button></div><p class="eyecatch-item-name">はなもも屋</p></div>
             <div class="eyecatch-item" data-name="Atelier soleil あとりえそれいゆ"><div class="eyecatch-item-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E" alt=""><button class="eyecatch-dl-btn" onclick="showToast('DL開始（プロトタイプ）')"><svg class="icon" style="width:14px;height:14px"><use href="#i-download"/></svg></button></div><p class="eyecatch-item-name">Atelier soleil</p></div>
           </div>
-        </div>
-
-        <div id="admin-party" class="admin-panel">
-          <div class="admin-panel-head"><div><h3>交流会</h3><p>調整さんの代わりに、参加・不参加・未定と人数、現地支払いをここで確認します。</p></div><span class="badge mint">交流会</span></div>
-          <div class="admin-count-line"><span><b>18</b>参加</span><span><b>4</b>未定</span><span><b>6</b>不参加</span><span><b>2</b>現地払い</span></div>
-          <div class="admin-card-list">
-            <article class="admin-work-card"><h4>Joe's Style</h4><p>出店者 / 1名 / 現地払い</p><div class="admin-card-actions"><button>未定にする</button><button class="primary-mini">参加</button></div></article>
-            <article class="admin-work-card"><h4>Atelier petit</h4><p>出店者 / 未定 / 備考あり</p><div class="admin-card-actions"><button>不参加</button><button class="primary-mini">参加</button></div></article>
-          </div>
-        </div>
-
-        <div id="admin-event-edit" class="admin-panel">
-          <div class="admin-panel-head"><div><h3>イベント作成</h3><p>まずイベント本体を登録します。交流会がある場合は、保存後に次の画面で詳しく設定できます。</p></div></div>
-          <div class="admin-form-grid">
-            <div class="admin-mini-tabs two"><button class="active" onclick="setAdminEventKind(event,'bazar')">バザール</button><button onclick="setAdminEventKind(event,'event')">イベント</button></div>
-            <label>イベント内容<input class="input" placeholder="例：ハンドメイドマルシェ、ランチ会、交流会など"></label>
-            <label>イベント名<input class="input" value="Mikke bazar vol.14 たまプラーザ"></label>
-            <div class="admin-two-col">
-              <label>開催日<input class="input" type="date" value="2026-06-17"></label>
-              <label>曜日（自動）<input class="input" value="水"></label>
-            </div>
-            <div class="admin-two-col">
-              <label>開始時間<input class="input" type="time" value="10:00"></label>
-              <label>終了時間<input class="input" type="time" value="16:00"></label>
-            </div>
-            <label>会場名<input class="input" value="Peoplewise Cafe"></label>
-            <label>住所<input id="admin-event-address" class="input" value="神奈川県横浜市青葉区美しが丘1-1-2" oninput="updateAdminMapUrl()"></label>
-            <label>GoogleマップURL<input id="admin-event-map-url" class="input" value="https://www.google.com/maps/search/?api=1&query=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%9D%92%E8%91%89%E5%8C%BA%E7%BE%8E%E3%81%97%E3%81%8C%E4%B8%981-1-2"></label>
-            <div class="admin-two-col">
-              <label>出店料<input class="input" placeholder="例：6,000円" value="6,000円"></label>
-              <label>定員（店舗数）<input class="input" type="number" placeholder="30" value="30"></label>
-            </div>
-            <div class="admin-two-col">
-              <label>募集締切日<input class="input" type="date"></label>
-              <label>アイキャッチ期限<input class="input" type="date"></label>
-            </div>
-            <div class="admin-two-col">
-              <label>Zoom説明会日<input class="input" type="date"></label>
-              <label>Zoom説明会時間<input class="input" type="time"></label>
-            </div>
-            <div class="admin-two-col">
-              <label>Zoom ID<input class="input" type="tel" inputmode="numeric" pattern="[0-9 ]*" placeholder="123 456 7890"></label>
-              <label>Zoom パス<input class="input" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="123123"></label>
-            </div>
-            <label>イベント詳細<textarea class="input" placeholder="イベント詳細に表示する内容を入力..."></textarea></label>
-            <label>チラシ画像（最大4枚）<input class="input" type="file" multiple accept="image/*"></label>
-            <label>会場写真（最大4枚）<input class="input" type="file" multiple accept="image/*"></label>
-            <button id="admin-party-next" class="primary" onclick="toggleAdminPanel('admin-party-edit')">交流会登録へ進む</button>
-            <button id="admin-event-save-only" class="primary" style="display:none" onclick="toggleAdminPanel('admin-event-preview')">プレビューへ進む</button>
-            <button class="secondary" onclick="closeAdminPanel(event)">キャンセル</button>
-          </div>
-        </div>
-
-        <div id="admin-party-edit" class="admin-panel">
-          <div class="admin-panel-head"><div><h3>交流会登録</h3><p>イベントに紐づく交流会をアプリ内フォームで受け付けるための設定です。</p></div></div>
-          <div class="admin-form-grid">
-            <label>交流会の有無<select class="input"><option>あり</option><option>なし</option><option>未定</option></select></label>
-            <label>交流会タイトル<input class="input" placeholder="例：Mikke dinner 交流会"></label>
-            <div class="admin-two-col">
-              <label>開催日<input class="input" type="date"></label>
-              <label>申込締切日<input class="input" type="date"></label>
-            </div>
-            <div class="admin-two-col">
-              <label>開始時間<input class="input" type="time"></label>
-              <label>終了時間<input class="input" type="time"></label>
-            </div>
-            <label>会場<input class="input" placeholder="例：イベント会場内 / 近隣飲食店"></label>
-            <label>住所<input id="admin-party-address" class="input" placeholder="例：東京都墨田区太平3丁目2-8" oninput="updateAdminPartyMapUrl()"></label>
-            <label>GoogleマップURL<input id="admin-party-map-url" class="input" placeholder="住所を入れると自動生成されます"></label>
-            <div class="admin-two-col">
-              <label>参加費<input class="input" inputmode="numeric" placeholder="1500"></label>
-              <label>定員<input class="input" inputmode="numeric" placeholder="20"></label>
-            </div>
-            <label>支払い方法<select class="input"><option>当日現金</option><option>事前振込</option><option>無料</option></select></label>
-            <label>受付範囲<select class="input"><option>出店者と一般参加どちらも受付</option><option>出店者のみ</option><option>一般参加のみ</option></select></label>
-            <label>説明文<textarea class="input" placeholder="交流会の内容、持ち物、注意事項など"></textarea></label>
-            <button class="primary" onclick="toggleAdminPanel('admin-event-preview')">プレビューへ進む</button>
-            <button class="secondary" onclick="toggleAdminPanel('admin-event-edit')">イベント作成へ戻る</button>
-          </div>
-        </div>
-
-        <div id="admin-event-preview" class="admin-panel">
-          <div class="admin-panel-head"><div><h3>プレビュー確認</h3><p>公開前に、イベント詳細・申込ボタン・交流会情報の見え方を確認します。</p></div></div>
-          <div class="admin-note-box">流れ：イベント作成 → 交流会登録 → プレビュー確認 → 公開 / 下書き保存</div>
-          <article class="card event-card" style="margin:0">
-            <div class="event-photo"></div>
-            <span class="badge">募集中</span>
-            <h2 class="event-title">Mikke bazar vol.14<br>たまプラーザ</h2>
-            <div class="event-meta">
-              <span><svg class="icon"><use href="#i-calendar"/></svg> 2026.6.17（水） 10:00〜16:00</span>
-              <span><svg class="icon"><use href="#i-map"/></svg> 神奈川県横浜市青葉区美しが丘1-1-2</span>
-              <span><svg class="icon"><use href="#i-map"/></svg> Peoplewise Cafe</span>
-            </div>
-            <div class="home-expanded-actions">
-              <span class="icon-action"><svg class="icon"><use href="#i-map"/></svg>MAP</span>
-              <span class="icon-action"><svg class="icon"><use href="#i-user"/></svg>出店者</span>
-              <span class="icon-action"><svg class="icon"><use href="#i-utensils"/></svg>交流会参加</span>
-            </div>
-            <p class="helper">ハンドメイド、ワークショップ、フード、施術などが集まるイベントです。食事会や交流会など、Mikkeのイベント情報もここから確認できます。</p>
-            <div class="detail-photo-grid">
-              <div class="detail-photo flyer" aria-label="チラシ画像"></div>
-              <div class="detail-photo" aria-label="会場写真"></div>
-            </div>
-            <a class="primary" href="#apply" onclick="event.preventDefault()">出店申し込み</a>
-          </article>
-          <div class="admin-note-box">
-            <b>交流会プレビュー</b><br>
-            Mikke dinner 交流会 / 17:30〜19:00 / Peoplewise Cafe 近隣<br>
-            参加費 1,500円 / 当日現金 / 定員 20名<br>
-            出店者と一般参加どちらも受付
-          </div>
-          <div class="home-expanded-actions">
-            <span class="icon-action"><svg class="icon"><use href="#i-map"/></svg>交流会MAP</span>
-            <span class="icon-action"><svg class="icon"><use href="#i-utensils"/></svg>参加申込</span>
-            <span class="icon-action"><svg class="icon"><use href="#i-bell"/></svg>お知らせ</span>
-          </div>
-          <div class="admin-card-actions">
-            <button onclick="toggleAdminPanel('admin-event-edit')">イベントを修正</button>
-            <button onclick="toggleAdminPanel('admin-party-edit')">戻って修正</button>
-          </div>
-          <button class="secondary">下書き保存</button>
-          <button class="primary">イベント＆交流会を公開</button>
         </div>
 
         <div id="admin-notice" class="admin-panel">
@@ -2256,16 +2043,32 @@
         </div>
 
         <div id="admin-faq" class="admin-panel">
-          <div class="admin-panel-head"><div><h3>FAQ</h3><p>今までのFAQ一覧と新規作成です。あとから編集・削除できます。</p></div><span class="badge">FAQ</span></div>
-          <div class="admin-card-list">
-            <article class="admin-work-card"><h4>出店するにはどうすればいいですか？</h4><p>出店ガイドを確認してから、イベント詳細ページよりお申し込みください。</p><div class="admin-card-actions"><button>編集</button><button>削除</button></div></article>
-            <article class="admin-work-card"><h4>会員じゃないと出店できませんか？</h4><p>トライアル出店が可能です。お気軽にご相談ください。</p><div class="admin-card-actions"><button>編集</button><button>削除</button></div></article>
+          <button class="admin-panel-back" onclick="closeAdminPanel(event)"><svg class="icon"><use href="#i-chevron"/></svg>戻る</button>
+          <div class="admin-panel-head"><div><h3>FAQ管理</h3><p>FAQ一覧から編集・削除、または新規追加できます。カテゴリで分類されます。</p></div><span class="badge" id="admin-faq-count">0件</span></div>
+          <div class="admin-note-box"><b>新規FAQを追加</b><br>カテゴリを選んで、質問と回答を入力してください。</div>
+          <div class="admin-form-grid">
+            <label style="font-size:11px;font-weight:900;color:var(--sub)">カテゴリ
+              <select class="input" id="faq-new-cat">
+                <option value="apply">出店・申し込みについて</option>
+                <option value="uword">ユーワードについて</option>
+                <option value="other">その他</option>
+              </select>
+            </label>
+            <label style="font-size:11px;font-weight:900;color:var(--sub)">質問<input class="input" id="faq-new-q" placeholder="例：当日の搬入時間は？"></label>
+            <label style="font-size:11px;font-weight:900;color:var(--sub)">回答<textarea class="input" id="faq-new-a" rows="3" placeholder="自由に記入してください" style="resize:vertical"></textarea></label>
+            <button class="primary" onclick="postFAQ()">FAQを追加</button>
           </div>
-          <div class="admin-note-box"><b>新規FAQ</b></div>
-          <div class="admin-form-grid"><input class="input" placeholder="質問"><textarea class="input" placeholder="回答"></textarea><button class="primary">FAQを追加</button></div>
+          <div class="admin-mini-tabs" style="margin-top:14px" id="admin-faq-tabs">
+            <button class="active" onclick="filterAdminFAQs(this,'all')">すべて</button>
+            <button onclick="filterAdminFAQs(this,'apply')">申し込み</button>
+            <button onclick="filterAdminFAQs(this,'uword')">ユーワード</button>
+            <button onclick="filterAdminFAQs(this,'other')">その他</button>
+          </div>
+          <div id="admin-faq-list" class="admin-card-list">
+            <!-- 動的に描画 -->
+          </div>
         </div>
 
-        <div id="admin-files" class="admin-panel"><div class="admin-panel-head"><div><h3>資料アップロード</h3><p>配置図、出店ガイド、Zoom動画URLなどをイベントごとに追加します。</p></div></div><div class="admin-form-grid"><input class="input" placeholder="資料名"><input class="input" type="file"><select class="input"><option>出店者マイページに表示</option><option>イベント詳細に表示</option><option>主催者だけ</option></select><button class="primary">資料を追加</button></div></div>
         <div id="admin-archive-edit" class="admin-panel">
           <button class="admin-panel-back" onclick="closeAdminPanel(event)"><svg class="icon"><use href="#i-chevron"/></svg>戻る</button>
           <div class="admin-panel-head"><div><h3>アルバム管理</h3><p>過去イベントの記録と、自由テーマのアルバム（出店者紹介・関連シーンなど）を作成できます。</p></div><span class="badge" id="admin-album-count">0件</span></div>
@@ -2301,29 +2104,84 @@
           </div>
         </div>
         <div id="admin-template" class="admin-panel">
-          <div class="admin-panel-head"><div><h3>定型文</h3><p>コピー、編集、文章確認ができます。プレビューではタグを実際のイベント情報に置き換えて表示します。</p></div><span class="badge">コピー</span></div>
-          <select class="input"><option>2026.6.17（水） Mikke bazar vol.14 たまプラーザ</option><option>2026.7.12（日） Mikke bazar vol.15 錦糸町</option></select>
-          <details class="admin-template-card" open><summary>Googleフォーム募集要項文 <span>▲</span></summary><div class="admin-card-actions"><button class="primary-mini">コピー</button><button>編集</button></div><div class="template-preview">🎪 Mikke bazar vol.14 たまプラーザ
-出店者募集！！
-＼みんなで見つける・つながる・楽しむが集まる場所／
+          <button class="admin-panel-back" onclick="closeAdminPanel(event)"><svg class="icon"><use href="#i-chevron"/></svg>戻る</button>
+          <div class="admin-panel-head"><div><h3>定型文管理</h3><p>LINE・SNS・メール用の定型文を作成。タグ <code style="background:#fdf3e8;padding:1px 5px;border-radius:4px;font-size:11px;color:var(--ruu)">{{イベント名}}</code> 等を入れると、選んだイベントの情報に自動で置き換わります。</p></div><span class="badge" id="admin-tpl-count">0件</span></div>
 
-開催日：2026.6.17（水） 10:00〜16:00
-開催場所：Peoplewise Cafe
-住所：神奈川県横浜市青葉区美しが丘1-1-2
+          <label style="font-size:11px;font-weight:900;color:var(--sub);display:block;margin-bottom:8px">プレビュー対象イベント
+            <select class="input" id="tpl-event-sel" onchange="renderAdminTemplates()" style="margin-top:4px"></select>
+          </label>
 
-出店募集について
-出店数：約15店舗
-出店料：会員 3,500円 / 一般 4,000円
+          <div class="admin-mini-tabs" id="admin-tpl-tabs">
+            <button class="active" onclick="filterAdminTpl(this,'all')">すべて</button>
+            <button onclick="filterAdminTpl(this,'recruit')">募集</button>
+            <button onclick="filterAdminTpl(this,'confirm')">確定通知</button>
+            <button onclick="filterAdminTpl(this,'remind')">リマインド</button>
+            <button onclick="filterAdminTpl(this,'thanks')">お礼</button>
+            <button onclick="filterAdminTpl(this,'other')">その他</button>
+          </div>
 
-出店申込フォーム：
-https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
-          <details class="admin-template-card"><summary>ユーワード向け出店者募集文 <span>▼</span></summary><div class="admin-card-actions"><button class="primary-mini">コピー</button><button>編集</button></div></details>
-          <details class="admin-template-card"><summary>メール返信文（出店確定） <span>▼</span></summary><div class="admin-card-actions"><button class="primary-mini">コピー</button><button>編集</button></div></details>
-          <div class="admin-note-box"><b>使えるタグ</b><div class="tag-list"><button>{{イベント名}}</button><button>{{日付}}</button><button>{{曜日}}</button><button>{{時間}}</button><button>{{場所}}</button><button>{{住所}}</button><button>{{マップURL}}</button><button>{{ZoomDate}}</button><button>{{ZoomID}}</button><button>{{ZoomPass}}</button><button>{{募集URL}}</button></div></div>
-          <div class="admin-form-grid"><input class="input" placeholder="定型文タイトル"><textarea class="input" placeholder="ここに文章を入力。タグを入れても、確認時は実際の情報でプレビューします。"></textarea><button class="primary">定型文を保存</button></div>
+          <div id="admin-tpl-list" style="margin-top:14px;display:grid;gap:10px">
+            <!-- 動的描画 -->
+          </div>
+
+          <button class="primary" onclick="openNewTplSheet()" style="margin-top:14px;width:100%;min-height:46px;border-radius:14px;border:none;background:var(--ruu);color:#fff;font-weight:900;font-size:14px;cursor:pointer">＋ 新しい定型文を作る</button>
         </div>
-        <div id="admin-settings" class="admin-panel"><div class="admin-panel-head"><div><h3>主催者設定</h3><p>ロゴ、カラー、表示名などは将来ほかの主催者にも展開できるようにします。</p></div></div><div class="admin-form-grid"><input class="input" value="Mikke ruu"><input class="input" value="#ED5F7D"><button class="primary">設定を保存</button></div></div>
-      </section>
+
+        <!-- サイト設定 -->
+        <div id="admin-org-settings" class="admin-panel">
+          <button class="admin-panel-back" onclick="closeAdminPanel(event)"><svg class="icon"><use href="#i-chevron"/></svg>戻る</button>
+          <div class="admin-panel-head"><div><h3>サイト設定</h3><p>アプリ全体で使われるリンク・連絡先・案内文をここでまとめて管理します。</p></div></div>
+
+          <div class="admin-form-grid">
+            <p class="filter-label" style="margin-top:0;margin-bottom:0">▼ 基本情報</p>
+            <label style="font-size:11px;font-weight:900;color:var(--sub)">アプリ名<input class="input" id="org-name"></label>
+            <label style="font-size:11px;font-weight:900;color:var(--sub)">主催者名<input class="input" id="org-host"></label>
+
+            <p class="filter-label" style="margin-top:14px;margin-bottom:0">▼ 公開する外部リンク</p>
+            <label style="font-size:11px;font-weight:900;color:var(--sub)">Instagram URL<input class="input" id="org-instagram" placeholder="https://www.instagram.com/mikke_ruu"></label>
+            <label style="font-size:11px;font-weight:900;color:var(--sub)">ホームページURL（任意）<input class="input" id="org-website" placeholder="https://mikke-ruu.com"></label>
+
+            <p class="filter-label" style="margin-top:14px;margin-bottom:0">▼ お問い合わせ・サポート</p>
+            <label style="font-size:11px;font-weight:900;color:var(--sub)">お問い合わせメール<input class="input" id="org-email" type="email" placeholder="mikke.ruu2025@gmail.com"></label>
+            <label style="font-size:11px;font-weight:900;color:var(--sub)">サポート申込アプリURL（「サポートを見る」ボタンの飛び先）<input class="input" id="org-support-app" placeholder="https://example.com/order-form"></label>
+            <p class="helper" style="font-size:10px;color:var(--sub);margin-top:-4px">＊ 外部のサポート受付フォームや注文アプリのURL</p>
+            <label style="font-size:11px;font-weight:900;color:var(--sub)">「無料で相談する」の送信先
+              <select class="input" id="org-consult-type">
+                <option value="email">メール（上記アドレス）</option>
+                <option value="form">アプリ内フォーム（お知らせページに誘導）</option>
+              </select>
+            </label>
+
+            <p class="filter-label" style="margin-top:14px;margin-bottom:0">▼ 招待制チャネル（公開しない／管理者用メモ）</p>
+            <label style="font-size:11px;font-weight:900;color:var(--sub)">LINEオープンチャット URL<input class="input" id="org-line" placeholder="https://line.me/ti/g2/xxxxxxxxxxxx"></label>
+            <p class="helper" style="font-size:10px;color:var(--sub);margin-top:-4px">＊ 招待制なので一般公開はされません。定型文の <code>{{LINEオープンチャット}}</code> タグで個別案内する用</p>
+
+            <p class="filter-label" style="margin-top:14px;margin-bottom:0">▼ ガイドページの案内文</p>
+            <label style="font-size:11px;font-weight:900;color:var(--sub)">サポート見出し<input class="input" id="org-support-title"></label>
+            <label style="font-size:11px;font-weight:900;color:var(--sub)">サポート説明文<textarea class="input" id="org-support-desc" rows="3" style="resize:vertical"></textarea></label>
+
+            <p class="filter-label" style="margin-top:14px;margin-bottom:0">▼ デザイン（将来：シリーズ展開時）</p>
+            <label style="font-size:11px;font-weight:900;color:var(--sub)">テーマカラー<input class="input" id="org-theme-color" type="color" value="#ED5F7D" style="height:46px"></label>
+
+            <button class="primary" onclick="saveOrgSettings()" style="margin-top:14px">設定を保存</button>
+            <p class="helper" style="font-size:10px;color:var(--sub)">＊ 設定はサイト全体に即反映されます（ヘッダーのInstagram・ガイドのサポート欄など）。</p>
+          </div>
+        </div>
+
+        <!-- アンケート管理 -->
+        <div id="admin-survey" class="admin-panel">
+          <button class="admin-panel-back" onclick="closeAdminPanel(event)"><svg class="icon"><use href="#i-chevron"/></svg>戻る</button>
+          <div class="admin-panel-head"><div><h3>アンケート管理</h3><p>来場者・出店者アンケートの編集、QRコード発行、結果集計ができます。</p></div><span class="badge" id="admin-survey-count">0件</span></div>
+
+          <label style="font-size:11px;font-weight:900;color:var(--sub);display:block;margin-bottom:8px">対象イベント
+            <select class="input" id="survey-event-sel" onchange="renderAdminSurveys()" style="margin-top:4px"></select>
+          </label>
+
+          <div id="admin-survey-host">
+            <!-- 動的描画 -->
+          </div>
+        </div>
+        </section>
     </main>
 
     <div id="apply-actions" class="sticky-form-actions single" style="display:none">
@@ -2334,24 +2192,24 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
     </div>
 
     <nav class="bottom-nav" aria-label="下部ナビゲーション">
-      <a class="active" href="#home" onclick="showPage('home', true)"><svg class="icon"><use href="#i-home"/></svg><span>ホーム</span></a>
-      <a href="#events" onclick="showPage('events', true)"><svg class="icon"><use href="#i-calendar"/></svg><span>イベント</span></a>
-      <a href="#news" onclick="showPage('news', true)"><svg class="icon"><use href="#i-bell"/></svg><span>お知らせ</span></a>
-      <a href="#guide" onclick="showPage('guide', true)"><svg class="icon"><use href="#i-book"/></svg><span>ガイド</span></a>
-      <a href="#mypage" onclick="showPage('mypage', true)"><svg class="icon"><use href="#i-user"/></svg><span>マイページ</span></a>
+      <a class="active" href="#home" onclick="showPage('home', true)" aria-label="ホーム"><svg class="icon"><use href="#i-home"/></svg><span>ホーム</span></a>
+      <a href="#events" onclick="showPage('events', true)" aria-label="イベント一覧"><svg class="icon"><use href="#i-calendar"/></svg><span>イベント</span></a>
+      <a href="#news" onclick="showPage('news', true)" aria-label="お知らせ"><svg class="icon"><use href="#i-bell"/></svg><span>お知らせ</span></a>
+      <a href="#archive" onclick="showPage('archive', true)" aria-label="アルバム"><svg class="icon"><use href="#i-camera"/></svg><span>アルバム</span></a>
+      <a href="#mypage" onclick="showPage('mypage', true)" aria-label="マイページ"><svg class="icon"><use href="#i-user"/></svg><span>マイページ</span></a>
     </nav>
   </div>
 
   <div id="drawer-backdrop" class="drawer-backdrop" onclick="closeDrawer(event)">
     <aside class="drawer" aria-label="メニュー">
       <div class="drawer-head">
-        <img class="drawer-logo" src="/mikke-ruu-logo.png" alt="Mikke ruu">
+        <img class="drawer-logo" src="./mikke-ruu-logo.png" alt="Mikke ruu">
         <button class="close" onclick="closeDrawer()">×</button>
       </div>
       <div class="drawer-menu">
         <button onclick="showPageFromDrawer('events')"><svg class="icon"><use href="#i-calendar"/></svg>イベント一覧</button>
         <button onclick="showPageFromDrawer('news')"><svg class="icon"><use href="#i-bell"/></svg>お知らせ</button>
-        <button onclick="showPageFromDrawer('archive')"><svg class="icon"><use href="#i-camera"/></svg>アーカイブ</button>
+        <button onclick="showPageFromDrawer('archive')"><svg class="icon"><use href="#i-camera"/></svg>アルバム</button>
         <button onclick="showPageFromDrawer('guide')"><svg class="icon"><use href="#i-book"/></svg>出店ガイド</button>
         <button onclick="showPageFromDrawer('faq')"><svg class="icon"><use href="#i-help"/></svg>FAQ</button>
         <button onclick="showPageFromDrawer('mypage')"><svg class="icon"><use href="#i-user"/></svg>マイページ</button>
@@ -2373,8 +2231,8 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
         </div>
         <p id="modal-desc" class="helper"></p>
         <div class="modal-profile-actions">
-          <a id="modal-instagram" href="#" target="_blank" rel="noopener"><svg class="icon"><use href="#i-instagram"/></svg>Instagram</a>
-          <a id="modal-uword-link" href="#" target="_blank" rel="noopener"><svg class="icon"><use href="#i-globe"/></svg>ユーワード</a>
+          <a id="modal-instagram" href="javascript:void(0)" target="_blank" rel="noopener"><svg class="icon"><use href="#i-instagram"/></svg>Instagram</a>
+          <a id="modal-uword-link" href="javascript:void(0)" target="_blank" rel="noopener"><svg class="icon"><use href="#i-globe"/></svg>ユーワード</a>
         </div>
       </div>
     </div>
@@ -2445,7 +2303,60 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
       setTimeout(function(){window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0},0);
       setTimeout(function(){window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0},80);
     }
+    // 管理画面パスワード保護
+    var ADMIN_PASSWORD = 'mikke2026'; // デモ用パスワード
+    var __adminAuthed = false;
+    function showAdminLogin(){
+      openSheet('主催者ページにログイン','安全のためパスワードが必要です',
+        '<div style="text-align:center;margin-bottom:14px">'+
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:48px;height:48px;color:var(--ruu);margin-bottom:8px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>'+
+          '<p class="helper" style="margin:0">主催者だけが操作できる画面です。<br>パスワードを入力してください。</p>'+
+        '</div>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">パスワード<input class="input" id="admin-pwd" type="password" placeholder="••••••••" autocomplete="current-password" autofocus></label>'+
+        '<p class="helper" style="font-size:10px;color:#c0b0d0;margin-top:-4px">＊デモ用パスワード：mikke2026</p>'+
+        '<div class="sheet-actions">'+
+          '<button class="primary" onclick="tryAdminLogin()">ログイン</button>'+
+          '<button class="secondary" onclick="closeSheet();showPage(\'home\',true)">キャンセル</button>'+
+        '</div>'
+      );
+      setTimeout(function(){
+        var input = document.getElementById('admin-pwd');
+        if(input){
+          input.focus();
+          input.addEventListener('keydown', function(e){if(e.key==='Enter'){e.preventDefault();tryAdminLogin()}});
+        }
+      }, 50);
+    }
+    function tryAdminLogin(){
+      var pwd = (document.getElementById('admin-pwd')||{value:''}).value;
+      if(pwd === ADMIN_PASSWORD){
+        __adminAuthed = true;
+        sessionStorage.setItem('mikke_admin_auth','1');
+        closeSheet();
+        showToast('ログインしました','success');
+        showPage('admin', true);
+      } else {
+        showToast('パスワードが違います','warn');
+        var input = document.getElementById('admin-pwd');
+        if(input){input.value='';input.focus()}
+      }
+    }
+    function logoutAdmin(){
+      __adminAuthed = false;
+      sessionStorage.removeItem('mikke_admin_auth');
+      showToast('ログアウトしました');
+      showPage('home', true);
+    }
+
     function showPage(id, rootNav){
+      // 管理ページへの遷移はパスワードチェック
+      if(id === 'admin'){
+        if(!__adminAuthed && sessionStorage.getItem('mikke_admin_auth') !== '1'){
+          showAdminLogin();
+          return;
+        }
+        __adminAuthed = true;
+      }
       var current=document.querySelector('.page.active');
       if(current && current.id && current.id !== id){previousPage = current.id}
       document.querySelectorAll('.page').forEach(function(page){page.classList.remove('active')});
@@ -2772,7 +2683,663 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
       );
     }
 
+    /* =========================
+       ユーザー向けページの動的化
+       ========================= */
+    var CURRENT_DETAIL_EVID = 'vol14';
+
+    function getUpcomingEvent(){
+      // TODAYより未来のイベントで最も近いもの
+      return (EVENTS||[]).filter(function(e){return e.date >= TODAY && e.status==='public'})
+        .sort(function(a,b){return a.date.localeCompare(b.date)})[0] || EVENTS[0];
+    }
+    function getFutureEvents(){
+      return (EVENTS||[]).filter(function(e){return e.date >= TODAY && e.status==='public'})
+        .sort(function(a,b){return a.date.localeCompare(b.date)});
+    }
+    function formatEvDateShort(ev){
+      var p = (ev.date||'').split('-');
+      if(p.length<3) return ev.date||'';
+      return p[0]+'.'+(+p[1])+'.'+(+p[2])+'（'+(ev.dayOfWeek||'')+'）';
+    }
+
+    // イベント詳細ページの動的描画
+    function viewEventDetail(evId){
+      CURRENT_DETAIL_EVID = evId;
+      showPage('detail');
+      renderDetailPage();
+    }
+    function renderDetailPage(){
+      var ev = (EVENTS||[]).find(function(e){return e.id===CURRENT_DETAIL_EVID});
+      var host = document.getElementById('detail-host');
+      if(!host || !ev) return;
+      var status = getEventEffectiveStatus(ev);
+      var statusBadge = status==='past' ? '<span class="badge mint">終了</span>' : status==='draft' ? '<span class="badge orange">準備中</span>' : '<span class="badge">募集中</span>';
+      // 出店者（確定者）
+      var confirmedApps = Array.from(document.querySelectorAll('#admin-applications .exhibitor-card'))
+        .filter(function(c){return c.dataset.event===ev.id && c.dataset.status==='confirmed'});
+      var exhibitorsHtml = confirmedApps.length ?
+        confirmedApps.map(function(c){
+          var name = c.dataset.shopname||'';
+          var cat = c.dataset.category;
+          var catLabel = cat==='retail'?'物販':cat==='food'?'飲食':cat==='session'?'セッション':cat==='treatment'?'施術':'-';
+          return '<button class="exhibitor-public-card" data-cat="'+cat+'" onclick="openExhibitorModal(event,\''+name.replace(/\'/g,"\\'")+'\',\'\',\''+catLabel+'\',\'\',\'\',\'\',\'\',\'\')">'+
+            '<span class="ex-img"></span>'+
+            '<div class="ex-info"><b>'+name+'</b><span>'+catLabel+'</span></div>'+
+          '</button>';
+        }).join('') :
+        '<p class="helper" style="grid-column:1/-1;text-align:center;padding:20px 0">現在の出店確定者はいません。準備中です。</p>';
+      // 交流会
+      var partyHtml = '';
+      if(ev.party && ev.party.enabled){
+        var pp = ev.party;
+        partyHtml = '<div class="card content" style="margin-top:14px;background:linear-gradient(135deg,#f3fdf8,#fff);border:1px solid #cce7dd">'+
+          '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">'+
+            '<svg class="icon" style="width:18px;height:18px;color:#3ba48a"><use href="#i-utensils"/></svg>'+
+            '<h2 class="event-title" style="font-size:16px;margin:0">'+(pp.title||'交流会')+'</h2>'+
+            '<span class="badge mint" style="margin-left:auto">あり</span>'+
+          '</div>'+
+          '<div class="event-meta">'+
+            '<span><svg class="icon"><use href="#i-calendar"/></svg> '+formatEvDateShort(ev)+' '+(pp.startTime||'')+'〜'+(pp.endTime||'')+'</span>'+
+            (pp.venue?'<span><svg class="icon"><use href="#i-map"/></svg> '+pp.venue+'</span>':'')+
+          '</div>'+
+          '<div class="status-stack" style="margin-top:10px">'+
+            (pp.fee?'<div class="status-item"><span>参加費</span><b>¥'+(parseInt(pp.fee)||0).toLocaleString()+'</b></div>':'')+
+            (pp.capacity?'<div class="status-item"><span>定員</span><b>'+pp.capacity+'名</b></div>':'')+
+            (pp.payment?'<div class="status-item"><span>支払い</span><b>'+pp.payment+'</b></div>':'')+
+            (pp.audience?'<div class="status-item"><span>受付範囲</span><b>'+pp.audience+'</b></div>':'')+
+          '</div>'+
+          (pp.description?'<p class="helper" style="margin-top:8px">'+pp.description+'</p>':'')+
+          '<a class="primary" href="#party" onclick="showPage(\'party\')" style="margin-top:10px">交流会に申し込む</a>'+
+        '</div>';
+      }
+      var applyBtn = status==='past'
+        ? '<button class="primary apply-link" onclick="openVisitorSurveyForm(\''+ev.id+'\')">⭐ 来場者アンケートに回答</button>'
+        : '<a class="primary apply-link" href="#apply" onclick="showPage(\'apply\')">出店申し込み</a>';
+
+      host.innerHTML =
+        '<article class="card event-card">'+
+          '<div class="event-photo"></div>'+
+          statusBadge+
+          '<h1 class="event-title">'+ev.name.replace(' たまプラーザ','<br>たまプラーザ').replace(' 錦糸町','<br>錦糸町').replace(' 宮前平','<br>宮前平').replace(' 渋谷','<br>渋谷')+'</h1>'+
+          '<div class="event-meta">'+
+            '<span><svg class="icon"><use href="#i-calendar"/></svg> '+formatEvDateShort(ev)+' '+(ev.startTime||'')+'〜'+(ev.endTime||'')+'</span>'+
+            (ev.venue?'<span><svg class="icon"><use href="#i-map"/></svg> '+ev.venue+'</span>':'')+
+            (ev.address?'<span><svg class="icon"><use href="#i-map"/></svg> '+ev.address+'</span>':'')+
+          '</div>'+
+          '<div class="home-expanded-actions" style="margin-top:10px">'+
+            '<a class="icon-action" href="javascript:void(0)" onclick="openMap(this)" data-address="'+(ev.address||'').replace(/"/g,'&quot;')+'"><svg class="icon"><use href="#i-map"/></svg>MAP</a>'+
+            '<a class="icon-action" href="javascript:void(0)" onclick="showPage(\'exhibitors\');renderExhibitorsPage(\''+ev.id+'\')"><svg class="icon"><use href="#i-user"/></svg>出店者</a>'+
+            ((ev.party&&ev.party.enabled)?'<a class="icon-action" href="#party" onclick="showPage(\'party\')"><svg class="icon"><use href="#i-utensils"/></svg>交流会参加</a>':'')+
+          '</div>'+
+          (ev.detail?'<p class="helper" style="margin-top:12px">'+ev.detail+'</p>':'')+
+          '<div class="actions application-actions">'+applyBtn+'</div>'+
+        '</article>'+
+        partyHtml+
+        '<div class="section-head"><h2 class="section-title">出店者（'+confirmedApps.length+'店舗）</h2></div>'+
+        '<div class="exhibitor-public-grid">'+exhibitorsHtml+'</div>';
+    }
+
+    // 出店者一覧ページの動的描画
+    var CURRENT_EXHIBITORS_EVID = 'vol14';
+    function renderExhibitorsPage(evId){
+      if(evId) CURRENT_EXHIBITORS_EVID = evId;
+      var ev = (EVENTS||[]).find(function(e){return e.id===CURRENT_EXHIBITORS_EVID});
+      if(!ev) return;
+      var sub = document.getElementById('exhibitors-subtitle');
+      if(sub) sub.textContent = ev.name + ' に参加する出店者さんをご紹介します。';
+      var apps = Array.from(document.querySelectorAll('#admin-applications .exhibitor-card'))
+        .filter(function(c){return c.dataset.event===ev.id && c.dataset.status==='confirmed'});
+      // タブのカウント
+      var tabs = document.querySelectorAll('#exhibitors-tabs button');
+      if(tabs.length>=5){
+        tabs[0].innerHTML = 'すべて '+apps.length;
+        tabs[1].innerHTML = '物販 '+apps.filter(function(c){return c.dataset.category==='retail'}).length;
+        tabs[2].innerHTML = '飲食 '+apps.filter(function(c){return c.dataset.category==='food'}).length;
+        tabs[3].innerHTML = 'セッション '+apps.filter(function(c){return c.dataset.category==='session'}).length;
+        tabs[4].innerHTML = '施術 '+apps.filter(function(c){return c.dataset.category==='treatment'}).length;
+      }
+      var grid = document.getElementById('exhibitor-public-grid');
+      if(!grid) return;
+      if(!apps.length){
+        grid.innerHTML = '<p class="helper" style="grid-column:1/-1;text-align:center;padding:30px 0">出店確定者の発表をお待ちください。</p>';
+        return;
+      }
+      grid.innerHTML = apps.map(function(c){
+        var name = c.dataset.shopname||'';
+        var cat = c.dataset.category;
+        var catLabel = cat==='retail'?'物販':cat==='food'?'飲食':cat==='session'?'セッション':cat==='treatment'?'施術':'-';
+        return '<button class="exhibitor-public-card" data-cat="'+cat+'" onclick="openExhibitorModal(event,\''+name.replace(/\'/g,"\\'")+'\',\'\',\''+catLabel+'\',\'\',\'\',\'\',\'\',\'\')">'+
+          '<span class="ex-img"></span>'+
+          '<div class="ex-info"><b>'+name+'</b><span>'+catLabel+'</span></div>'+
+        '</button>';
+      }).join('');
+    }
+
+    // ホームの「次回のイベント」を動的化
+    function renderHomeUpcoming(){
+      var ev = getUpcomingEvent();
+      if(!ev) return;
+      var card = document.querySelector('#home > article.event-card');
+      if(!card) return;
+      var titleEl = card.querySelector('.event-title');
+      var metaEl = card.querySelector('.event-meta');
+      var detailBtn = card.querySelector('button.secondary');
+      var applyBtn = card.querySelector('a.apply-link');
+      if(titleEl){
+        var html = ev.name.replace('Mikke bazar vol.','Mikke bazar vol.').replace(/(vol\.\d+)\s/, '$1<br>');
+        titleEl.innerHTML = html;
+      }
+      if(metaEl){
+        var p = ev.date.split('-');
+        var dt = (+p[1])+'/'+(+p[2])+'（'+ev.dayOfWeek+'） '+ev.startTime+'〜'+ev.endTime;
+        metaEl.innerHTML =
+          '<span><svg class="icon"><use href="#i-calendar"/></svg> '+dt+'</span>'+
+          (ev.address?'<span><svg class="icon"><use href="#i-map"/></svg> '+ev.address+'</span>':'')+
+          (ev.venue?'<span><svg class="icon"><use href="#i-map"/></svg> '+ev.venue+'</span>':'');
+      }
+      if(detailBtn){
+        detailBtn.onclick = function(){viewEventDetail(ev.id)};
+      }
+      // 「出店者」「MAP」リンクも対象イベントへ
+      var expandActions = card.querySelector('.home-expanded-actions');
+      if(expandActions){
+        var mapLink = expandActions.querySelector('a[data-address]');
+        if(mapLink) mapLink.dataset.address = ev.address || '';
+        var exLink = expandActions.querySelector('a[href="#exhibitors"]');
+        if(exLink) exLink.onclick = function(e){e.stopPropagation();showPage('exhibitors');renderExhibitorsPage(ev.id)};
+      }
+    }
+
+    // マイページのイベントカードを EVENTS と紐付け
+    function renderMypageEventCards(){
+      // mypage-event-1 → vol.14（confirmed）
+      // mypage-event-2 → vol.15（applied）
+      // mypage-event-3 → vol.13（ended）
+      [
+        {cardId:'mypage-event-1', evId:'vol14'},
+        {cardId:'mypage-event-2', evId:'vol15'},
+        {cardId:'mypage-event-3', evId:'vol13'}
+      ].forEach(function(map){
+        var ev = (EVENTS||[]).find(function(e){return e.id===map.evId});
+        if(!ev) return;
+        var detailEl = document.getElementById(map.cardId);
+        if(!detailEl) return;
+        var card = detailEl.closest('.mypage-event');
+        if(!card) return;
+        // タイトル
+        var titleEl = card.querySelector('.event-title');
+        if(titleEl){
+          var nameParts = ev.name.split(' ');
+          titleEl.innerHTML = nameParts.slice(0,2).join(' ')+'<br>'+nameParts.slice(2).join(' ');
+        }
+        // メタ
+        var metaEl = card.querySelector('.event-meta');
+        if(metaEl){
+          metaEl.innerHTML =
+            '<span><svg class="icon"><use href="#i-calendar"/></svg> '+formatEvDateShort(ev)+' '+ev.startTime+'〜'+ev.endTime+'</span>'+
+            (ev.address?'<span><svg class="icon"><use href="#i-map"/></svg> '+ev.address+'</span>':'')+
+            (ev.venue?'<span><svg class="icon"><use href="#i-map"/></svg> '+ev.venue+'</span>':'');
+        }
+        card.dataset.evid = ev.id;
+      });
+    }
+
     // 出店履歴シート
+    // MAPを開く（住所→Google Maps検索）
+    function openMap(el){
+      var addr = el && el.dataset ? el.dataset.address : '';
+      if(!addr){showToast('住所が設定されていません','warn');return}
+      var url = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(addr);
+      window.open(url, '_blank', 'noopener');
+    }
+    // イベント一覧ページ フィルター
+    function filterEventsPage(btn, f){
+      document.querySelectorAll('#events-filter-tabs button').forEach(function(b){b.classList.remove('active')});
+      if(btn) btn.classList.add('active');
+      document.querySelectorAll('#events .event-list .event-row').forEach(function(c){
+        var stat = c.dataset.evfilter || '';
+        var show = (f==='all' || stat===f || (f==='upcoming' && (stat==='recruiting' || stat==='dinner')));
+        c.style.display = show ? '' : 'none';
+        if(!show){
+          c.classList.remove('open');
+          var detailId = (c.getAttribute('onclick')||'').match(/\(\'([^']+)\'\)/);
+          if(detailId){var d=document.getElementById(detailId[1]);if(d)d.classList.remove('open')}
+        }
+      });
+    }
+    /* =========================
+       アンケートシステム
+       ========================= */
+    // アンケート回答データ（イベントID別）
+    var SURVEYS = [
+      // 来場者アンケート vol.12（過去イベント）
+      {id:'s-1', eventId:'vol12', type:'visitor', date:'2026.3.6', rating:5, goodPoint:'出店者さんとゆっくり話せて楽しかった', improvePoint:'導線が混雑したので案内表示を増やしてほしい', comment:'また参加したいです！'},
+      {id:'s-2', eventId:'vol12', type:'visitor', date:'2026.3.6', rating:4, goodPoint:'品揃えが豊富', improvePoint:'駐車場の案内', comment:''},
+      {id:'s-3', eventId:'vol12', type:'visitor', date:'2026.3.7', rating:5, goodPoint:'スタッフが親切', improvePoint:'', comment:'素敵なイベントでした'},
+      // 出店者アンケート vol.12
+      {id:'s-4', eventId:'vol12', type:'exhibitor', date:'2026.3.6', rating:4, salesFeel:'良かった', visitorReaction:'多くの方が立ち止まってくれた', improve:'隣との距離をもう少し', comment:'次回もよろしくお願いします'},
+      {id:'s-5', eventId:'vol12', type:'exhibitor', date:'2026.3.7', rating:5, salesFeel:'非常に良かった', visitorReaction:'リピーターが多かった', improve:'',  comment:''},
+      // 来場者アンケート vol.13
+      {id:'s-6', eventId:'vol13', type:'visitor', date:'2026.5.26', rating:5, goodPoint:'雰囲気が良い', improvePoint:'', comment:''}
+    ];
+
+    // アンケート質問テンプレ（編集可能）
+    var SURVEY_TEMPLATES = {
+      visitor: {
+        title: '来場者アンケート',
+        intro: 'ご来場ありがとうございました！今後の改善のため、感想をお聞かせください。',
+        questions: [
+          {id:'rating', type:'rating', label:'総合評価', required:true},
+          {id:'goodPoint', type:'text', label:'良かった点', placeholder:'例：出店者さんと話せて楽しかった', required:false},
+          {id:'improvePoint', type:'text', label:'改善希望', placeholder:'例：案内表示を増やしてほしい', required:false},
+          {id:'comment', type:'textarea', label:'その他のコメント（任意）', placeholder:'', required:false}
+        ]
+      },
+      exhibitor: {
+        title: '出店者アンケート',
+        intro: '出店者ならではの視点で振り返りをお願いします。',
+        questions: [
+          {id:'rating', type:'rating', label:'総合評価', required:true},
+          {id:'salesFeel', type:'select', label:'売上の感触', options:['非常に良かった','良かった','普通','もう少し'], required:true},
+          {id:'visitorReaction', type:'textarea', label:'来場者の反応', placeholder:'例：多くの方が立ち止まってくれた', required:false},
+          {id:'improve', type:'textarea', label:'改善要望', placeholder:'例：搬入動線が混雑した', required:false},
+          {id:'comment', type:'textarea', label:'運営への感想（任意）', placeholder:'', required:false}
+        ]
+      }
+    };
+
+    function getEventSurveys(eventId, type){
+      return SURVEYS.filter(function(s){return s.eventId===eventId && (!type || s.type===type)});
+    }
+    function getSurveyAverage(surveys){
+      if(!surveys.length) return 0;
+      var sum = surveys.reduce(function(a,s){return a + (parseInt(s.rating)||0)},0);
+      return (sum / surveys.length).toFixed(1);
+    }
+
+    // 来場者アンケートを開く
+    function openVisitorSurveyForm(eventId){
+      var ev = (EVENTS||[]).find(function(e){return e.id===eventId});
+      if(!ev) return;
+      openSheet('来場者アンケート', ev.name+'にご来場いただきありがとうございました',
+        '<p class="helper" style="margin:0 0 10px">よろしければ感想をお聞かせください。今後の改善に活かします。</p>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">総合評価<div id="sv-rating" style="display:flex;gap:6px;margin-top:6px;font-size:24px">'+
+          [1,2,3,4,5].map(function(n){return '<button type="button" data-r="'+n+'" onclick="setSurveyRating(this,'+n+')" style="background:none;border:none;cursor:pointer;font-size:28px;color:#dadada">★</button>'}).join('')+
+        '</div></label>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">良かった点<textarea class="input" id="sv-good" rows="2" placeholder="例：出店者さんと話せて楽しかった" style="resize:vertical"></textarea></label>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">改善希望<textarea class="input" id="sv-improve" rows="2" placeholder="例：案内表示を増やしてほしい" style="resize:vertical"></textarea></label>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">その他のコメント（任意）<textarea class="input" id="sv-comment" rows="2" style="resize:vertical"></textarea></label>'+
+        '<div class="sheet-actions">'+
+          '<button class="primary" onclick="submitVisitorSurvey(\''+eventId+'\')">送信する</button>'+
+          '<button class="secondary" onclick="closeSheet()">キャンセル</button>'+
+        '</div>'
+      );
+    }
+    // 出店者アンケートを開く
+    function openExhibitorSurveyForm(eventId){
+      var ev = (EVENTS||[]).find(function(e){return e.id===eventId});
+      if(!ev) return;
+      openSheet('出店者アンケート', ev.name+'にご出店いただきありがとうございました',
+        '<p class="helper" style="margin:0 0 10px">出店者さんならではの視点で振り返りをお願いします。</p>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">総合評価<div id="sv-rating" style="display:flex;gap:6px;margin-top:6px">'+
+          [1,2,3,4,5].map(function(n){return '<button type="button" data-r="'+n+'" onclick="setSurveyRating(this,'+n+')" style="background:none;border:none;cursor:pointer;font-size:28px;color:#dadada">★</button>'}).join('')+
+        '</div></label>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">売上の感触<select class="input" id="sv-sales"><option>非常に良かった</option><option>良かった</option><option>普通</option><option>もう少し</option></select></label>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">来場者の反応<textarea class="input" id="sv-reaction" rows="2" placeholder="例：多くの方が立ち止まってくれた" style="resize:vertical"></textarea></label>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">改善要望<textarea class="input" id="sv-improve2" rows="2" placeholder="例：搬入動線が混雑した" style="resize:vertical"></textarea></label>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">運営への感想（任意）<textarea class="input" id="sv-comment" rows="2" style="resize:vertical"></textarea></label>'+
+        '<div class="sheet-actions">'+
+          '<button class="primary" onclick="submitExhibitorSurvey(\''+eventId+'\')">送信する</button>'+
+          '<button class="secondary" onclick="closeSheet()">キャンセル</button>'+
+        '</div>'
+      );
+    }
+    window.__svRating = 0;
+    function setSurveyRating(btn, n){
+      window.__svRating = n;
+      var btns = document.querySelectorAll('#sv-rating button');
+      btns.forEach(function(b,i){b.style.color = (i<n) ? '#ffb800' : '#dadada'});
+    }
+    function submitVisitorSurvey(eventId){
+      if(!window.__svRating){showToast('星評価を選んでください','warn');return}
+      var s = {
+        id:'s-'+Date.now().toString(36), eventId:eventId, type:'visitor',
+        date:todayStr(), rating:window.__svRating,
+        goodPoint:(document.getElementById('sv-good')||{value:''}).value,
+        improvePoint:(document.getElementById('sv-improve')||{value:''}).value,
+        comment:(document.getElementById('sv-comment')||{value:''}).value
+      };
+      SURVEYS.push(s);
+      window.__svRating = 0;
+      showToast('ご協力ありがとうございました！','success');
+      closeSheet();
+      renderAdminSurveyPanel();
+    }
+    function submitExhibitorSurvey(eventId){
+      if(!window.__svRating){showToast('星評価を選んでください','warn');return}
+      var s = {
+        id:'s-'+Date.now().toString(36), eventId:eventId, type:'exhibitor',
+        date:todayStr(), rating:window.__svRating,
+        salesFeel:(document.getElementById('sv-sales')||{value:''}).value,
+        visitorReaction:(document.getElementById('sv-reaction')||{value:''}).value,
+        improve:(document.getElementById('sv-improve2')||{value:''}).value,
+        comment:(document.getElementById('sv-comment')||{value:''}).value
+      };
+      SURVEYS.push(s);
+      window.__svRating = 0;
+      showToast('ご回答ありがとうございました！','success');
+      closeSheet();
+      renderAdminSurveyPanel();
+    }
+
+    // 管理側：アンケート結果パネル（イベントごとに見られる）
+    function openSurveyResultsSheet(eventId){
+      var ev = (EVENTS||[]).find(function(e){return e.id===eventId});
+      if(!ev) return;
+      var visitors = getEventSurveys(eventId, 'visitor');
+      var exhibitors = getEventSurveys(eventId, 'exhibitor');
+      var avgV = getSurveyAverage(visitors);
+      var avgE = getSurveyAverage(exhibitors);
+      var renderList = function(list, type){
+        if(!list.length) return '<p class="helper" style="text-align:center;padding:14px 0">まだ回答がありません</p>';
+        return list.map(function(s){
+          var stars = '★'.repeat(s.rating) + '☆'.repeat(5-s.rating);
+          var detail = '';
+          if(type==='visitor'){
+            if(s.goodPoint) detail += '<div style="margin-top:5px"><b style="font-size:10px;color:var(--sub)">良かった点</b>：'+s.goodPoint+'</div>';
+            if(s.improvePoint) detail += '<div style="margin-top:5px"><b style="font-size:10px;color:var(--sub)">改善希望</b>：'+s.improvePoint+'</div>';
+          } else {
+            if(s.salesFeel) detail += '<div style="margin-top:5px"><b style="font-size:10px;color:var(--sub)">売上感触</b>：'+s.salesFeel+'</div>';
+            if(s.visitorReaction) detail += '<div style="margin-top:5px"><b style="font-size:10px;color:var(--sub)">来場者反応</b>：'+s.visitorReaction+'</div>';
+            if(s.improve) detail += '<div style="margin-top:5px"><b style="font-size:10px;color:var(--sub)">改善要望</b>：'+s.improve+'</div>';
+          }
+          if(s.comment) detail += '<div style="margin-top:5px"><b style="font-size:10px;color:var(--sub)">コメント</b>：'+s.comment+'</div>';
+          return '<div style="padding:10px 12px;background:#fdfbfe;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;font-size:12px;line-height:1.6"><div style="display:flex;justify-content:space-between"><span style="color:#ffb800;font-size:13px">'+stars+'</span><span style="font-size:10px;color:var(--sub)">'+s.date+'</span></div>'+detail+'</div>';
+        }).join('');
+      };
+      openSheet(ev.name+' アンケート結果','回答が集まると集計が見られます',
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">'+
+          '<div style="background:#fff5f7;border:1px solid #fde8ee;border-radius:14px;padding:11px;text-align:center">'+
+            '<p style="margin:0;font-size:10px;color:var(--sub);font-weight:900">来場者アンケート</p>'+
+            '<p style="margin:4px 0 0;font-size:22px;font-weight:900;color:var(--ruu)">'+visitors.length+'<span style="font-size:11px;color:var(--sub);font-weight:600">件</span></p>'+
+            '<p style="margin:2px 0 0;font-size:11px;color:#ffb800;font-weight:900">★'+(avgV||0)+'</p>'+
+          '</div>'+
+          '<div style="background:#f3fdf8;border:1px solid #cce7dd;border-radius:14px;padding:11px;text-align:center">'+
+            '<p style="margin:0;font-size:10px;color:var(--sub);font-weight:900">出店者アンケート</p>'+
+            '<p style="margin:4px 0 0;font-size:22px;font-weight:900;color:#3ba48a">'+exhibitors.length+'<span style="font-size:11px;color:var(--sub);font-weight:600">件</span></p>'+
+            '<p style="margin:2px 0 0;font-size:11px;color:#ffb800;font-weight:900">★'+(avgE||0)+'</p>'+
+          '</div>'+
+        '</div>'+
+        '<p class="ev-section-title" style="margin-top:0"><svg><use href="#i-user"/></svg>来場者の声（'+visitors.length+'件）</p>'+
+        renderList(visitors,'visitor')+
+        '<p class="ev-section-title"><svg><use href="#i-user"/></svg>出店者の声（'+exhibitors.length+'件）</p>'+
+        renderList(exhibitors,'exhibitor')+
+        '<div class="sheet-actions">'+
+          '<button class="secondary" onclick="closeSheet()">閉じる</button>'+
+        '</div>'
+      );
+    }
+    function renderAdminSurveyPanel(){
+      // イベント一覧再描画でカード内のアンケートリンクも更新
+      renderEventList();
+      renderAdminSurveys();
+    }
+
+    // 管理側アンケートパネル描画
+    function renderAdminSurveys(){
+      var sel = document.getElementById('survey-event-sel');
+      if(!sel) return;
+      // EVENTSからoption生成
+      if(!sel.options.length){
+        sel.innerHTML = (EVENTS||[]).map(function(e){
+          var p=e.date.split('-');
+          return '<option value="'+e.id+'">'+p[0]+'.'+(+p[1])+'.'+(+p[2])+' '+e.name+'</option>';
+        }).join('');
+      }
+      var evId = sel.value || (EVENTS[0]||{}).id;
+      var ev = (EVENTS||[]).find(function(e){return e.id===evId});
+      if(!ev) return;
+      var visitors = getEventSurveys(evId, 'visitor');
+      var exhibitors = getEventSurveys(evId, 'exhibitor');
+      var total = SURVEYS.length;
+      var badge = document.getElementById('admin-survey-count');
+      if(badge) badge.textContent = total+'件';
+
+      var host = document.getElementById('admin-survey-host');
+      if(!host) return;
+      // 来場者・出店者の2タイプそれぞれ
+      host.innerHTML = ['visitor','exhibitor'].map(function(type){
+        var label = type==='visitor' ? '来場者' : '出店者';
+        var color = type==='visitor' ? 'var(--ruu)' : '#3ba48a';
+        var bg = type==='visitor' ? '#fff5f7' : '#f3fdf8';
+        var border = type==='visitor' ? '#fde8ee' : '#cce7dd';
+        var surveys = type==='visitor' ? visitors : exhibitors;
+        var avg = getSurveyAverage(surveys);
+        var surveyUrl = (typeof location!=='undefined'?location.origin+location.pathname:'')+'#survey&ev='+evId+'&t='+type;
+        var qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(surveyUrl);
+        var tpl = SURVEY_TEMPLATES[type] || {};
+        return '<div style="background:'+bg+';border:1px solid '+border+';border-radius:16px;padding:14px;margin-bottom:14px">'+
+          '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">'+
+            '<div><h3 style="margin:0;font-size:15px;color:'+color+';font-weight:900">'+label+'アンケート</h3>'+
+              '<p style="margin:3px 0 0;font-size:11px;color:var(--sub)">'+surveys.length+'件 / 平均 ★'+(avg||'0.0')+'</p></div>'+
+          '</div>'+
+          '<div style="background:#fff;border-radius:12px;padding:11px;display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center;margin-bottom:10px">'+
+            '<img src="'+qrUrl+'" alt="QRコード" style="width:120px;height:120px;display:block;border-radius:8px">'+
+            '<div style="font-size:11px;color:var(--sub);line-height:1.55">'+
+              '<b style="color:var(--ink);font-size:12px;display:block;margin-bottom:4px">📲 来場時にスキャン</b>'+
+              'QRをチラシ・看板・席に表示してください。回答は即時集計されます。'+
+              '<button onclick="copyText(\''+surveyUrl+'\')" style="margin-top:8px;padding:6px 11px;border-radius:99px;background:#fff;border:1px solid '+border+';color:'+color+';font-size:11px;font-weight:900;cursor:pointer;font-family:inherit">URLをコピー</button>'+
+              '<button onclick="downloadQR(\''+qrUrl+'\',\''+label+'アンケート_'+ev.name.replace(/\\s/g,'_')+'\')" style="margin-top:8px;margin-left:6px;padding:6px 11px;border-radius:99px;background:#fff;border:1px solid '+border+';color:'+color+';font-size:11px;font-weight:900;cursor:pointer;font-family:inherit">QR画像をDL</button>'+
+            '</div>'+
+          '</div>'+
+          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">'+
+            '<button onclick="openSurveyEditor(\''+type+'\')" style="padding:9px;border-radius:10px;background:#fff;border:1px solid '+border+';color:'+color+';font-weight:900;font-size:12px;cursor:pointer">質問を編集</button>'+
+            '<button onclick="openSurveyResultsSheet(\''+evId+'\')" style="padding:9px;border-radius:10px;background:'+color+';border:none;color:#fff;font-weight:900;font-size:12px;cursor:pointer">結果を見る</button>'+
+          '</div>'+
+        '</div>';
+      }).join('');
+    }
+
+    // テキストコピー
+    function copyText(text){
+      if(navigator.clipboard){
+        navigator.clipboard.writeText(text).then(function(){showToast('URLをコピーしました','success')});
+      } else {
+        prompt('このURLをコピーしてください', text);
+      }
+    }
+    // QR画像ダウンロード
+    function downloadQR(url, filename){
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = filename + '.png';
+      a.target = '_blank';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast('QRコード画像を開きました — 長押しorクリックで保存','success');
+    }
+    // アンケート質問エディタ
+    function openSurveyEditor(type){
+      var tpl = SURVEY_TEMPLATES[type];
+      if(!tpl) return;
+      var typeLabel = type==='visitor' ? '来場者' : '出店者';
+      var qHtml = tpl.questions.map(function(q,i){
+        return '<div class="ev-info-cell" style="margin-bottom:6px">'+
+          '<span class="lbl">質問 '+(i+1)+'（'+q.type+'）</span>'+
+          '<input class="input" id="sq-'+i+'-label" value="'+(q.label||'').replace(/"/g,'&quot;')+'" placeholder="質問文" style="margin-top:5px">'+
+          (q.type==='text'||q.type==='textarea' ? '<input class="input" id="sq-'+i+'-ph" value="'+(q.placeholder||'').replace(/"/g,'&quot;')+'" placeholder="プレースホルダ" style="margin-top:5px">' : '')+
+          (q.type==='select' ? '<input class="input" id="sq-'+i+'-opts" value="'+(q.options||[]).join(',').replace(/"/g,'&quot;')+'" placeholder="選択肢（カンマ区切り）" style="margin-top:5px">' : '')+
+          '<label style="font-size:10px;color:var(--sub);margin-top:5px;display:block"><input type="checkbox" id="sq-'+i+'-req"'+(q.required?' checked':'')+'> 必須</label>'+
+        '</div>';
+      }).join('');
+      openSheet(typeLabel+'アンケートの質問を編集', '送信先のURLは変わらないので、回答開始後も編集可',
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">タイトル<input class="input" id="sq-title" value="'+tpl.title+'"></label>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">説明文<textarea class="input" id="sq-intro" rows="2" style="resize:vertical">'+tpl.intro+'</textarea></label>'+
+        '<p class="filter-label" style="margin-top:10px">質問一覧</p>'+
+        '<div id="sq-question-host">'+qHtml+'</div>'+
+        '<button type="button" onclick="addSurveyQuestion(\''+type+'\')" style="margin-top:8px;padding:9px;border-radius:99px;border:1px dashed var(--ruu);background:#fff;color:var(--ruu);font-weight:900;cursor:pointer;width:100%;font-size:12px">＋ 質問を追加</button>'+
+        '<div class="sheet-actions">'+
+          '<button class="primary" onclick="saveSurveyTemplate(\''+type+'\')">保存する</button>'+
+          '<button class="secondary" onclick="closeSheet()">キャンセル</button>'+
+        '</div>'
+      );
+    }
+    function addSurveyQuestion(type){
+      var host = document.getElementById('sq-question-host');
+      var i = host.querySelectorAll('.ev-info-cell').length;
+      var div = document.createElement('div');
+      div.className = 'ev-info-cell';
+      div.style.marginBottom = '6px';
+      div.innerHTML = '<span class="lbl">質問 '+(i+1)+'（textarea）</span>'+
+        '<input class="input" id="sq-'+i+'-label" placeholder="質問文" style="margin-top:5px">'+
+        '<input class="input" id="sq-'+i+'-ph" placeholder="プレースホルダ" style="margin-top:5px">'+
+        '<label style="font-size:10px;color:var(--sub);margin-top:5px;display:block"><input type="checkbox" id="sq-'+i+'-req"> 必須</label>';
+      host.appendChild(div);
+    }
+    function saveSurveyTemplate(type){
+      var tpl = SURVEY_TEMPLATES[type];
+      tpl.title = (document.getElementById('sq-title')||{value:tpl.title}).value;
+      tpl.intro = (document.getElementById('sq-intro')||{value:tpl.intro}).value;
+      // 既存質問の更新
+      tpl.questions.forEach(function(q, i){
+        q.label = (document.getElementById('sq-'+i+'-label')||{value:q.label}).value;
+        if(document.getElementById('sq-'+i+'-ph')) q.placeholder = document.getElementById('sq-'+i+'-ph').value;
+        if(document.getElementById('sq-'+i+'-opts')){
+          q.options = document.getElementById('sq-'+i+'-opts').value.split(',').map(function(s){return s.trim()}).filter(Boolean);
+        }
+        q.required = (document.getElementById('sq-'+i+'-req')||{checked:false}).checked;
+      });
+      // 新規追加された質問を取り込む
+      var host = document.getElementById('sq-question-host');
+      var existing = host.querySelectorAll('.ev-info-cell');
+      for(var i=tpl.questions.length; i<existing.length; i++){
+        var label = (document.getElementById('sq-'+i+'-label')||{value:''}).value;
+        if(!label) continue;
+        tpl.questions.push({
+          id:'q'+Date.now().toString(36)+i,
+          type:'textarea',
+          label:label,
+          placeholder:(document.getElementById('sq-'+i+'-ph')||{value:''}).value,
+          required:(document.getElementById('sq-'+i+'-req')||{checked:false}).checked
+        });
+      }
+      showToast('アンケートの質問を保存しました','success');
+      closeSheet();
+    }
+
+    /* =========================
+       サイト設定（主催者用）
+       ========================= */
+    var ORG_SETTINGS = {
+      name: 'Mikke ruu',
+      host: 'Mikke 運営チーム',
+      instagram: 'https://www.instagram.com/',
+      line: '', // 招待制オープンチャット（管理者の内部メモ用、公開しない）
+      website: '',
+      email: 'mikke.ruu2025@gmail.com',
+      supportAppUrl: '', // サポート申込み用の外部アプリURL
+      consultType: 'email', // 'email' | 'form'
+      supportTitle: 'よく分からないところは、まるごと相談できます。',
+      supportDesc: 'ユーワード登録後のページ作成、メニュー作成、アイキャッチ作成、出店準備の整理までサポートできます。',
+      themeColor: '#ED5F7D'
+    };
+
+    // 設定をフォームに反映
+    function loadOrgSettingsToForm(){
+      var s = ORG_SETTINGS;
+      var setVal = function(id, val){var el=document.getElementById(id);if(el) el.value = val||''};
+      setVal('org-name', s.name);
+      setVal('org-host', s.host);
+      setVal('org-instagram', s.instagram);
+      setVal('org-line', s.line);
+      setVal('org-website', s.website);
+      setVal('org-email', s.email);
+      setVal('org-support-app', s.supportAppUrl);
+      setVal('org-support-title', s.supportTitle);
+      setVal('org-support-desc', s.supportDesc);
+      setVal('org-theme-color', s.themeColor);
+      var ct = document.getElementById('org-consult-type');
+      if(ct) ct.value = s.consultType;
+    }
+    function saveOrgSettings(){
+      var get = function(id){return (document.getElementById(id)||{value:''}).value};
+      ORG_SETTINGS.name = get('org-name') || ORG_SETTINGS.name;
+      ORG_SETTINGS.host = get('org-host') || ORG_SETTINGS.host;
+      ORG_SETTINGS.instagram = get('org-instagram');
+      ORG_SETTINGS.line = get('org-line');
+      ORG_SETTINGS.website = get('org-website');
+      ORG_SETTINGS.email = get('org-email');
+      ORG_SETTINGS.supportAppUrl = get('org-support-app');
+      ORG_SETTINGS.consultType = get('org-consult-type');
+      ORG_SETTINGS.supportTitle = get('org-support-title') || ORG_SETTINGS.supportTitle;
+      ORG_SETTINGS.supportDesc = get('org-support-desc') || ORG_SETTINGS.supportDesc;
+      ORG_SETTINGS.themeColor = get('org-theme-color') || ORG_SETTINGS.themeColor;
+      applyOrgSettings();
+      showToast('サイト設定を保存しました — 即時反映されます','success');
+    }
+    // 設定をサイトに適用
+    function applyOrgSettings(){
+      var s = ORG_SETTINGS;
+      // ヘッダーInstagramリンク
+      var insta = document.getElementById('header-insta-link');
+      if(insta) insta.href = s.instagram || '#';
+      // ガイドサポート
+      var supTitle = document.getElementById('guide-support-title');
+      if(supTitle) supTitle.textContent = s.supportTitle;
+      var supDesc = document.getElementById('guide-support-desc');
+      if(supDesc) supDesc.textContent = s.supportDesc;
+      // テーマカラー
+      if(s.themeColor) document.documentElement.style.setProperty('--ruu', s.themeColor);
+    }
+    // 「無料で相談する」リンク
+    function openConsultLink(){
+      var s = ORG_SETTINGS;
+      if(s.consultType==='form'){
+        showPage('news');
+        showToast('運営にメッセージしたい場合は、お知らせページ末尾の連絡先からどうぞ');
+      } else {
+        // email デフォルト
+        window.location.href = 'mailto:' + (s.email || 'mikke.ruu2025@gmail.com') + '?subject=Mikke ruu お問い合わせ';
+      }
+    }
+    // 「サポートを見る」 → 外部の注文/サポート申込みアプリ
+    function openSupportApp(){
+      var url = (ORG_SETTINGS||{}).supportAppUrl;
+      if(url){
+        window.open(url, '_blank', 'noopener');
+      } else {
+        showToast('サポート申込先がまだ設定されていません','warn');
+      }
+    }
+
+    // 初期表示時に適用
+    document.addEventListener('DOMContentLoaded', applyOrgSettings);
+    setTimeout(applyOrgSettings, 300);
+    // 設定パネルを開いたとき、フォームに値を反映
+    var origToggle = window.toggleAdminPanel;
+    window.toggleAdminPanel = function(id){
+      if(origToggle) origToggle(id);
+      if(id === 'admin-org-settings') setTimeout(loadOrgSettingsToForm, 50);
+    };
+
+    // URL ハッシュからアンケート画面を開く
+    function checkSurveyUrlParams(){
+      var h = location.hash || '';
+      // #survey&ev=xxx&t=visitor
+      if(h.indexOf('survey')>-1 && h.indexOf('ev=')>-1){
+        var m = h.match(/ev=([^&]+)&t=([^&]+)/);
+        if(m){
+          var evId = m[1], type = m[2];
+          if(type==='visitor') openVisitorSurveyForm(evId);
+          else if(type==='exhibitor') openExhibitorSurveyForm(evId);
+        }
+      }
+    }
+    document.addEventListener('DOMContentLoaded', checkSurveyUrlParams);
+    setTimeout(checkSurveyUrlParams, 300);
+
     function openHistorySheet(e){
       if(e){e.preventDefault();e.stopPropagation()}
       openSheet('出店履歴', 'これまで参加したイベント',
@@ -2952,6 +3519,71 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
       }
     }
 
+    // ダッシュボード売上計算
+    function updateDashboardRevenue(ev){
+      if(!ev) return;
+      var isPast = getEventEffectiveStatus(ev)==='past';
+      // 出店料合計
+      var opts = ev.feeOptions || [];
+      var apps = Array.from(document.querySelectorAll('#admin-applications .exhibitor-card'))
+        .filter(function(c){return c.dataset.event === ev.id && c.dataset.status === 'confirmed'})
+        .map(function(c){return {feePlan:c.dataset.feeplan||'', party:c.dataset.party||''}});
+      if(isPast && ev.pastExhibitors){
+        ev.pastExhibitors.forEach(function(p){apps.push({feePlan:p.feePlan||'', party:p.partyJoined?'yes':''})});
+      }
+      var feeTotal = 0;
+      apps.forEach(function(a){
+        var p = opts.find(function(o){return o.id===a.feePlan});
+        if(p) feeTotal += p.yen;
+      });
+      // 交流会合計
+      var partyTotal = 0;
+      if(ev.party && ev.party.enabled){
+        var partyFee = parseInt(ev.party.fee||0)||0;
+        var exhibitorPartyCount = apps.filter(function(a){return a.party==='yes'}).length;
+        var generalPartyCount = parseInt(ev.party.generalCount||0)||0;
+        partyTotal = partyFee * (exhibitorPartyCount+generalPartyCount);
+      }
+      var grandTotal = feeTotal + partyTotal;
+      var labelEl = document.getElementById('dash-rev-label');
+      var amountEl = document.getElementById('dash-rev-amount');
+      var bdEl = document.getElementById('dash-rev-breakdown');
+      if(labelEl) labelEl.textContent = (isPast?'実績売上':'見込み売上')+'（出店料＋交流会）';
+      if(amountEl) amountEl.textContent = '¥'+grandTotal.toLocaleString();
+      if(bdEl){
+        bdEl.textContent = '出店料 ¥'+feeTotal.toLocaleString()+' ＋ 交流会 ¥'+partyTotal.toLocaleString();
+      }
+    }
+
+    // ダッシュボードから現在選択中のイベント詳細を開く
+    function openSelectedEventInList(){
+      var ev = getCurrentDashboardEvent();
+      if(!ev) return;
+      // 申込パネル等が開いていたら閉じる
+      closeAdminPanel();
+      setTimeout(function(){
+        // イベント一覧パネルを開く
+        var panel = document.getElementById('admin-event-list');
+        if(panel && !panel.classList.contains('open')){
+          toggleAdminPanel('admin-event-list');
+        }
+        // 該当イベントカードを展開＋スクロール
+        setTimeout(function(){
+          var card = document.getElementById('ev-'+ev.key);
+          if(card){
+            // 他のカードは閉じる
+            document.querySelectorAll('.ev-card.open').forEach(function(c){if(c!==card) c.classList.remove('open')});
+            card.classList.add('open');
+            card.scrollIntoView({behavior:'smooth', block:'start'});
+            // ハイライト
+            card.style.transition='box-shadow .3s';
+            card.style.boxShadow='0 0 0 3px var(--ruu)';
+            setTimeout(function(){card.style.boxShadow=''}, 1200);
+          }
+        }, 150);
+      }, 100);
+    }
+
     // 管理ダッシュボードのイベント切替：EVENTSデータと申込カードから動的計算
     (function(){
       window.applyEventData=function(key){
@@ -2998,14 +3630,34 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
         // 売上計算（出店料＋交流会）
         updateDashboardRevenue(ev);
       };
+      // 初期化時に対象イベントセレクトのchangeを拾う + 初回適用
+      var initDashboard = function(){
+        var sel=document.querySelector('.admin-selector');
+        if(!sel) return;
+        // EVENTSからoptionを動的生成
+        sel.innerHTML = (EVENTS||[]).filter(function(e){return getEventEffectiveStatus(e)!=='past'})
+          .concat((EVENTS||[]).filter(function(e){return getEventEffectiveStatus(e)==='past'}))
+          .map(function(e){
+            var p = e.date.split('-');
+            var dt = p[0]+'.'+(+p[1])+'.'+(+p[2])+'（'+e.dayOfWeek+'）';
+            var stat = getEventEffectiveStatus(e)==='past' ? '（終了）' : '';
+            return '<option value="'+e.id+'">'+dt+' '+e.name+stat+'</option>';
+          }).join('');
+        // 初回適用
+        if(sel.value) applyEventData(sel.value);
+      };
+      document.addEventListener('DOMContentLoaded', initDashboard);
+      setTimeout(initDashboard, 300);
       // 初期化時に対象イベントセレクトのchangeを拾う
       document.addEventListener('DOMContentLoaded', function(){
         var sel=document.querySelector('.admin-selector');
         if(sel){
           sel.addEventListener('change', function(){
-            var v=sel.value.indexOf('vol.15')!==-1?'vol15':'vol14';
+            var v=sel.value;
             applyEventData(v);
-            showToast(sel.value.split(' ')[0]+' のデータに切り替えました');
+            updateEventNoticeTargetLabel();
+            var ev = EVENTS.find(function(e){return e.id===v});
+            showToast((ev?ev.name.replace('Mikke bazar ',''):v)+' のデータに切り替えました');
           });
         }
       });
@@ -3127,11 +3779,23 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
     // イベント別データ一覧から、このイベントの出店者全員へお知らせ
     function getCurrentDashboardEvent(){
       var sel = document.querySelector('.admin-selector');
-      if(!sel) return {key:'vol14', label:'2026.6.17 vol.14 たまプラーザ', short:'vol.14 たまプラーザ'};
+      var defaultEv = {key:'vol14', label:'2026.6.17 vol.14 たまプラーザ', short:'vol.14 たまプラーザ'};
+      if(!sel) return defaultEv;
       var v = sel.value;
-      if(v.indexOf('vol.15')!==-1) return {key:'vol15', label:'2026.7.12 vol.15 錦糸町', short:'vol.15 錦糸町'};
-      if(v.indexOf('vol.12')!==-1) return {key:'vol12', label:'2026.5.20 vol.12 渋谷（アーカイブ）', short:'vol.12 渋谷'};
-      return {key:'vol14', label:'2026.6.17 vol.14 たまプラーザ', short:'vol.14 たまプラーザ'};
+      // 新形式：value はイベントID
+      if(typeof EVENTS!=='undefined'){
+        var ev = EVENTS.find(function(e){return e.id===v});
+        if(ev){
+          var p = ev.date.split('-');
+          var dt = p[0]+'.'+(+p[1])+'.'+(+p[2]);
+          var shortName = ev.name.replace('Mikke bazar ','');
+          return {key:ev.id, label:dt+' '+ev.name, short:shortName};
+        }
+      }
+      // フォールバック（旧テキスト形式）
+      if(v && v.indexOf && v.indexOf('vol.15')!==-1) return {key:'vol15', label:'2026.7.12 vol.15 錦糸町', short:'vol.15 錦糸町'};
+      if(v && v.indexOf && v.indexOf('vol.12')!==-1) return {key:'vol12', label:'2026.5.20 vol.12 渋谷', short:'vol.12 渋谷'};
+      return defaultEv;
     }
     function updateEventNoticeTargetLabel(){
       var ev = getCurrentDashboardEvent();
@@ -3395,7 +4059,7 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
     // individual の場合は targetPerson も持つ
     var NOTICES = [
       {id:'n-1', channel:'public', title:'Mikke Bazar vol.14 開催のお知らせ', body:'Mikke Bazar vol.14 たまプラーザの開催情報を公開しました。イベント詳細から出店者情報や交流会情報も確認できます。', image:'', date:'2026.5.28', read:false},
-      {id:'n-2', channel:'public', title:'アーカイブ写真を追加しました', body:'過去のMikke Bazarの様子を見られるアーカイブアルバムを更新しました。会場の雰囲気や作品紹介の参考にご覧ください。', image:'', date:'2026.5.20', read:true},
+      {id:'n-2', channel:'public', title:'アルバム写真を追加しました', body:'過去のMikke Bazarの様子を見られるアルバムを更新しました。会場の雰囲気や作品紹介の参考にご覧ください。', image:'', date:'2026.5.20', read:true},
       {id:'n-3', channel:'exhibitors-all', title:'出店ガイドを更新しました', body:'出店ガイドに「アイキャッチの作り方」セクションを追加しました。出店申し込み前にご確認ください。', image:'', date:'2026.5.18', read:false},
       {id:'n-4', channel:'event-exhibitors', targetEvent:'vol14', title:'vol.14 配置図を公開しました', body:'たまプラーザの配置図PDFを公開しました。あなたのブース番号はA-03です。\n\nPDF: https://example.com/vol14-map.pdf\n搬入口：北側エレベーター\n搬入時間：9:00〜9:45', image:'', date:'2026.5.25', read:false},
       {id:'n-5', channel:'event-exhibitors', targetEvent:'vol14', title:'vol.14 当日Zoom案内', body:'当日の朝にZoomで簡単なオリエンを行います。\n\nZoom URL: https://zoom.us/j/123456789\n時間：9:30〜9:45', image:'', date:'2026.5.27', read:false},
@@ -3431,7 +4095,7 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
       if(n.targetPerson){badges += '<span class="badge mint" style="margin-left:4px">あなた宛て</span>'}
       var bodyHtml = n.body.replace(/\n/g,'<br>').replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener" style="color:var(--ruu);font-weight:900;word-break:break-all">$1</a>');
       var unreadDot = !n.read ? '<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ruu);margin-right:6px;flex-shrink:0;vertical-align:middle"></span>' : '';
-      return '<button class="notice-card" data-channel="'+n.channel+'" data-id="'+n.id+'" onclick="onNoticeClick(\''+n.id+'\')">'+
+      return '<div class="notice-card" role="button" tabindex="0" data-channel="'+n.channel+'" data-id="'+n.id+'" onclick="onNoticeClick(\''+n.id+'\')">'+
         '<div class="notice-summary">'+
           thumb+
           '<div><b>'+unreadDot+n.title+'</b><span>'+n.date+'</span></div>'+
@@ -3442,14 +4106,28 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
           '<div class="notice-meta">'+badges+'</div>'+
           '<p class="helper" style="white-space:pre-wrap">'+bodyHtml+'</p>'+
         '</div>'+
-      '</button>';
+      '</div>';
     }
 
     function onNoticeClick(id){
-      var n = NOTICES.find(function(x){return x.id===id});
-      if(n && !n.read){n.read=true;renderAll()}
-      // 既存のtoggleNoticeを利用
+      // 1. まず展開／折りたたみ
       toggleNotice(id+'-d');
+      // 2. 既読化（再描画しない）
+      var n = NOTICES.find(function(x){return x.id===id});
+      if(n && !n.read){
+        n.read = true;
+        // 未読ドットだけ削除
+        var card = document.querySelector('[data-id="'+id+'"] .notice-summary b > span[style*="background:var(--ruu)"]');
+        if(card) card.remove();
+        // バッジ更新（再描画なし）
+        updateMypageNoticeCount();
+        var badge = document.getElementById('mypage-notice-count-badge');
+        if(badge){
+          var unread = NOTICES.filter(function(x){return noticeForCurrentUser(x) && !x.read && x.channel!=='public'}).length;
+          if(unread>0){badge.textContent=unread+'件未読';badge.className='badge orange';badge.style.display=''}
+          else{badge.textContent='すべて既読';badge.className='badge mint';badge.style.display=''}
+        }
+      }
     }
 
     // お知らせページ（#news） = 全体向けのみ（誰でも見れる）
@@ -3791,13 +4469,509 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
     }
 
     /* =========================
+       定型文（テンプレート）システム
+       ========================= */
+    var TPL_CATEGORIES = [
+      {id:'recruit', label:'募集'},
+      {id:'confirm', label:'確定通知'},
+      {id:'remind', label:'リマインド'},
+      {id:'thanks', label:'お礼'},
+      {id:'other', label:'その他'}
+    ];
+    var TEMPLATES = [
+      {id:'tpl-1', cat:'recruit', title:'Googleフォーム募集要項文', body:'🎪 {{イベント名}}\n出店者募集！！\n＼みんなで見つける・つながる・楽しむが集まる場所／\n\n開催日：{{日付}}（{{曜日}}） {{時間}}\n開催場所：{{場所}}\n住所：{{住所}}\n\n出店募集について\n出店数：{{定員}}\n出店料：\n{{出店料}}\n\n出店申込フォーム：\n{{募集URL}}'},
+      {id:'tpl-2', cat:'recruit', title:'ユーワード向け出店者募集文', body:'＼ユーワード加盟店のみなさまへ／\n{{イベント名}}\n\n📅 {{日付}}（{{曜日}}）{{時間}}\n📍 {{場所}}（{{住所}}）\n\nUW会員割引あり：\n{{出店料}}\n\n申込はこちら：{{募集URL}}\nアチーバーさんを通してのご紹介も歓迎です。'},
+      {id:'tpl-3', cat:'confirm', title:'出店確定 メール返信文', body:'{{イベント名}} 出店確定のお知らせ\n\nこの度はお申込みありがとうございました。出店確定のご連絡です。\n\n■ 開催日時：{{日付}}（{{曜日}}） {{時間}}\n■ 会場：{{場所}}\n■ 住所：{{住所}}\n■ Zoom説明会：{{ZoomDate}} {{ZoomTime}}\n  ID：{{ZoomID}} / パス：{{ZoomPass}}\n\nアイキャッチ画像のご提出、当日の搬入時間など、別途ご案内します。\nどうぞよろしくお願いいたします。\n\n――――――\nMikke ruu 運営'},
+      {id:'tpl-4', cat:'remind', title:'前日リマインド（LINE）', body:'いよいよ明日です！\n\n📅 {{日付}}（{{曜日}}）{{時間}}\n📍 {{場所}}\n\n搬入時間や持ち物は、マイページでご確認いただけます。\n気をつけていらしてください！\nお会いできるのを楽しみにしております🌸'},
+      {id:'tpl-5', cat:'thanks', title:'終了後のお礼（SNS）', body:'{{イベント名}}、無事終了しました！\n\nご来場・ご出店いただきましたみなさま、本当にありがとうございました。\n素敵な出会いと作品との時間に感謝です✨\n\n写真はアルバムで順次公開中。\n次回もどうぞお楽しみに！\n\n#Mikkeruu #ハンドメイドマルシェ'}
+    ];
+    var adminTplFilter = 'all';
+
+    // タグ置換
+    function replaceTplTags(text, ev){
+      if(!ev) return text;
+      var parts = (ev.date||'').split('-');
+      var dateStr = parts.length===3 ? parts[0]+'.'+(+parts[1])+'.'+(+parts[2]) : (ev.date||'');
+      var fees = (ev.feeOptions||[]).map(function(o){return o.label+' ¥'+o.yen.toLocaleString()}).join('\n');
+      var capTotal = (typeof getEventCapacityTotal==='function') ? getEventCapacityTotal(ev) : '';
+      return text
+        .replace(/\{\{イベント名\}\}/g, ev.name||'')
+        .replace(/\{\{日付\}\}/g, dateStr)
+        .replace(/\{\{曜日\}\}/g, ev.dayOfWeek||'')
+        .replace(/\{\{時間\}\}/g, (ev.startTime||'')+'〜'+(ev.endTime||''))
+        .replace(/\{\{場所\}\}/g, ev.venue||'')
+        .replace(/\{\{住所\}\}/g, ev.address||'')
+        .replace(/\{\{マップURL\}\}/g, ev.mapUrl||'')
+        .replace(/\{\{ZoomDate\}\}/g, ev.zoomDate||'')
+        .replace(/\{\{ZoomTime\}\}/g, ev.zoomTime||'')
+        .replace(/\{\{ZoomID\}\}/g, ev.zoomId||'')
+        .replace(/\{\{ZoomPass\}\}/g, ev.zoomPass||'')
+        .replace(/\{\{募集URL\}\}/g, 'https://mikke-ruu.app/events/'+ev.id+'/apply')
+        .replace(/\{\{出店料\}\}/g, fees)
+        .replace(/\{\{定員\}\}/g, capTotal+'店舗')
+        .replace(/\{\{ハッシュタグ\}\}/g, generateHashtags(ev))
+        .replace(/\{\{LINEオープンチャット\}\}/g, (typeof ORG_SETTINGS!=='undefined' ? (ORG_SETTINGS.line||'※未設定') : '※未設定'))
+        .replace(/\{\{オープンチャット\}\}/g, (typeof ORG_SETTINGS!=='undefined' ? (ORG_SETTINGS.line||'※未設定') : '※未設定'))
+        .replace(/\{\{LINEグループ\}\}/g, ev.lineGroupUrl||'※未設定')
+        .replace(/\{\{グループLINE\}\}/g, ev.lineGroupUrl||'※未設定');
+    }
+
+    function findTplCat(id){return TPL_CATEGORIES.find(function(c){return c.id===id})||TPL_CATEGORIES[4]}
+
+    // セレクトをEVENTSから生成
+    function refreshTplEventSelect(){
+      var sel = document.getElementById('tpl-event-sel');
+      if(!sel) return;
+      var current = sel.value;
+      sel.innerHTML = (EVENTS||[]).map(function(e){
+        var p=e.date.split('-');
+        var dt = p[0]+'.'+(+p[1])+'.'+(+p[2])+'（'+e.dayOfWeek+'）';
+        return '<option value="'+e.id+'">'+dt+' '+e.name+'</option>';
+      }).join('');
+      if(current && Array.from(sel.options).some(function(o){return o.value===current})) sel.value=current;
+    }
+
+    function renderAdminTemplates(){
+      refreshTplEventSelect();
+      var host = document.getElementById('admin-tpl-list');
+      if(!host) return;
+      var badge = document.getElementById('admin-tpl-count');
+      if(badge) badge.textContent = TEMPLATES.length+'件';
+      var list = TEMPLATES.slice();
+      if(adminTplFilter!=='all') list = list.filter(function(t){return t.cat===adminTplFilter});
+      if(!list.length){host.innerHTML='<p class="helper" style="text-align:center;padding:24px 0">該当する定型文はありません</p>';return}
+      var sel = document.getElementById('tpl-event-sel');
+      var evId = sel ? sel.value : (EVENTS[0]||{}).id;
+      var ev = (EVENTS||[]).find(function(e){return e.id===evId});
+      host.innerHTML = list.map(function(t){
+        var cat = findTplCat(t.cat);
+        var preview = replaceTplTags(t.body, ev);
+        var len = preview.length;
+        // 文字数のSNS別ステータス
+        var snsStatus = '';
+        var twStatus = len<=140?'ok':'over', lnStatus = len<=500?'ok':'over', thStatus = len<=500?'ok':'over';
+        snsStatus = '<div class="tpl-char-counter">'+
+          '<span class="cc-item '+twStatus+'">𝕏: '+len+'/140</span>'+
+          '<span class="cc-item '+lnStatus+'">LINE: '+len+'/500</span>'+
+          '<span class="cc-item '+thStatus+'">Threads: '+len+'/500</span>'+
+        '</div>';
+        var historyHtml = (t.history && t.history.length) ?
+          '<div class="tpl-history"><b>送信履歴：</b>'+t.history.slice(0,3).map(function(h){return h.date+'('+h.target+')'}).join(', ')+(t.history.length>3?' …':'')+'</div>' : '';
+        var imageHtml = t.image ? '<img src="'+t.image+'" alt="" style="width:100%;max-height:120px;object-fit:cover;border-radius:10px;margin-top:8px">' : '';
+        return '<div class="tpl-card" id="tpl-card-'+t.id+'">'+
+          '<div class="tpl-card-head" onclick="toggleTplCard(\''+t.id+'\')">'+
+            '<div>'+
+              '<h4 class="tpl-card-title"><span class="tpl-category-badge '+cat.id+'">'+cat.label+'</span>'+t.title+'</h4>'+
+              '<p class="tpl-card-sub">'+(preview.split('\n')[0]||'').substring(0,40)+'…</p>'+
+            '</div>'+
+            '<svg class="icon chev"><use href="#i-chevron"/></svg>'+
+          '</div>'+
+          '<div class="tpl-body">'+
+            snsStatus+
+            '<pre class="tpl-preview">'+escapeHtml(preview)+'</pre>'+
+            imageHtml+
+            historyHtml+
+            '<div class="tpl-actions">'+
+              '<button class="copy" onclick="copyTplText(\''+t.id+'\')">📋 コピーする</button>'+
+              '<button class="edit" onclick="openTplEditSheet(\''+t.id+'\')">編集</button>'+
+              '<button class="del" onclick="deleteTpl(\''+t.id+'\')" title="削除">×</button>'+
+            '</div>'+
+            '<div class="tpl-share-actions">'+
+              '<button class="share-btn line" onclick="shareTplTo(\''+t.id+'\',\'line\')">LINE</button>'+
+              '<button class="share-btn twitter" onclick="shareTplTo(\''+t.id+'\',\'twitter\')">𝕏</button>'+
+              '<button class="share-btn threads" onclick="shareTplTo(\''+t.id+'\',\'threads\')">Threads</button>'+
+              '<button class="share-btn notice" onclick="shareTplTo(\''+t.id+'\',\'notice\')">📣 お知らせ送信</button>'+
+              '<button class="share-btn duplicate" onclick="duplicateTpl(\''+t.id+'\')">📋 複製</button>'+
+            '</div>'+
+          '</div>'+
+        '</div>';
+      }).join('');
+    }
+
+    function escapeHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+    function toggleTplCard(id){
+      var c = document.getElementById('tpl-card-'+id);
+      if(!c) return;
+      var isOpen = c.classList.contains('open');
+      document.querySelectorAll('.tpl-card.open').forEach(function(x){if(x!==c) x.classList.remove('open')});
+      c.classList.toggle('open', !isOpen);
+    }
+    function filterAdminTpl(btn, f){
+      adminTplFilter = f;
+      document.querySelectorAll('#admin-tpl-tabs button').forEach(function(b){b.classList.remove('active')});
+      if(btn) btn.classList.add('active');
+      renderAdminTemplates();
+    }
+    function copyTplText(id){
+      var t = TEMPLATES.find(function(x){return x.id===id});
+      if(!t) return;
+      var sel = document.getElementById('tpl-event-sel');
+      var ev = sel ? (EVENTS||[]).find(function(e){return e.id===sel.value}) : null;
+      var text = replaceTplTags(t.body, ev);
+      var doCopy = function(){
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(function(){
+            recordTplHistory(t, ev, 'copy');
+            showToast('コピーしました（'+text.length+'文字）','success');
+          }).catch(function(){
+            window.prompt('このテキストをコピーしてください', text);
+          });
+        } else {
+          window.prompt('このテキストをコピーしてください', text);
+        }
+      };
+      doCopy();
+    }
+
+    // SNS共有
+    function shareTplTo(id, target){
+      var t = TEMPLATES.find(function(x){return x.id===id});
+      if(!t) return;
+      var sel = document.getElementById('tpl-event-sel');
+      var ev = sel ? (EVENTS||[]).find(function(e){return e.id===sel.value}) : null;
+      var text = replaceTplTags(t.body, ev);
+      var encoded = encodeURIComponent(text);
+      recordTplHistory(t, ev, target);
+      if(target==='line'){
+        window.open('https://line.me/R/share?text='+encoded, '_blank', 'noopener');
+      } else if(target==='twitter'){
+        window.open('https://twitter.com/intent/tweet?text='+encoded, '_blank', 'noopener');
+      } else if(target==='threads'){
+        // ThreadsはWeb Share APIまたはintent
+        window.open('https://www.threads.net/intent/post?text='+encoded, '_blank', 'noopener');
+      } else if(target==='web-share' && navigator.share){
+        navigator.share({title: t.title, text: text}).catch(function(){});
+      } else if(target==='notice'){
+        // お知らせとして送信
+        if(ev){
+          openSheet('このイベントの出店者全員にお知らせ', '送信先：'+ev.name,
+            '<div style="background:#fff5f7;border:1px solid #fde8ee;border-radius:12px;padding:10px 12px;font-size:12px"><b>'+ev.name+'</b>に届きます</div>'+
+            '<label style="font-size:11px;font-weight:900;color:var(--sub)">タイトル<input class="input" id="sne-title" value="'+t.title.replace(/"/g,'&quot;')+'"></label>'+
+            '<label style="font-size:11px;font-weight:900;color:var(--sub)">本文<textarea class="input" id="sne-body" rows="6" style="resize:vertical">'+text+'</textarea></label>'+
+            '<label style="font-size:11px;font-weight:900;color:var(--sub)">画像添付（任意）<input class="input" id="sne-image" type="file" accept="image/*"></label>'+
+            '<div class="sheet-actions">'+
+              '<button class="primary" onclick="sendEventNotice(\''+ev.id+'\',\''+ev.name.replace(/[\'\\\\]/g,'')+'\')">送信する</button>'+
+              '<button class="secondary" onclick="closeSheet()">キャンセル</button>'+
+            '</div>'
+          );
+        }
+      }
+    }
+
+    // 送信履歴記録
+    function recordTplHistory(t, ev, target){
+      if(!t.history) t.history = [];
+      t.history.unshift({date:new Date().toISOString().slice(0,10), eventId:ev?ev.id:'', target:target});
+      // 最新10件まで
+      if(t.history.length>10) t.history = t.history.slice(0,10);
+    }
+
+    // ハッシュタグ自動生成
+    function generateHashtags(ev){
+      if(!ev) return '#Mikkeruu';
+      var tags = ['#Mikkeruu'];
+      var m = ev.name.match(/vol\.?(\d+)/i);
+      if(m) tags.push('#vol'+m[1]);
+      // 会場名から地名抽出（漢字＋カタカナ）
+      if(ev.venue){
+        var venueClean = ev.venue.replace(/Cafe|cafe|スペース|会場|キャスト/gi,'').trim();
+        if(venueClean) tags.push('#'+venueClean.replace(/\s+/g,''));
+      }
+      // 名前から地名
+      var locMatch = ev.name.match(/(たまプラーザ|錦糸町|宮前平|渋谷|青葉|世田谷|目黒|新宿|池袋|品川|渋谷区|横浜)/);
+      if(locMatch && tags.indexOf('#'+locMatch[1])===-1) tags.push('#'+locMatch[1]);
+      tags.push('#ハンドメイドマルシェ');
+      return tags.join(' ');
+    }
+
+    // テンプレ複製
+    function duplicateTpl(id){
+      var t = TEMPLATES.find(function(x){return x.id===id});
+      if(!t) return;
+      var copy = {id:'tpl-'+Date.now().toString(36), cat:t.cat, title:t.title+'（コピー）', body:t.body, image:t.image||''};
+      TEMPLATES.unshift(copy);
+      renderAdminTemplates();
+      showToast('複製しました — 編集してください','success');
+      setTimeout(function(){openTplEditSheet(copy.id)}, 300);
+    }
+    function deleteTpl(id){
+      var t = TEMPLATES.find(function(x){return x.id===id});
+      if(!t) return;
+      if(!confirm('「'+t.title+'」を削除しますか？')) return;
+      TEMPLATES = TEMPLATES.filter(function(x){return x.id!==id});
+      renderAdminTemplates();
+      showToast('削除しました','warn');
+    }
+    // 新規 & 編集シート（共通）
+    function openTplEditSheet(id){openTplSheet(TEMPLATES.find(function(x){return x.id===id}), false)}
+    function openNewTplSheet(){
+      openTplSheet({id:'tpl-'+Date.now().toString(36), cat:'other', title:'', body:''}, true);
+    }
+    function openTplSheet(t, isNew){
+      var esc = function(s){return (s||'').replace(/"/g,'&quot;')};
+      var availableTags = ['{{イベント名}}','{{日付}}','{{曜日}}','{{時間}}','{{場所}}','{{住所}}','{{マップURL}}','{{ZoomDate}}','{{ZoomTime}}','{{ZoomID}}','{{ZoomPass}}','{{募集URL}}','{{出店料}}','{{定員}}','{{ハッシュタグ}}','{{LINEオープンチャット}}','{{LINEグループ}}'];
+      var emojiGroups = {
+        'イベント':['🎪','🎉','🎈','🛍️','🎁','🎀','🌟','✨'],
+        '日時/場所':['📅','📍','🕐','🗺️','🏠','🚶'],
+        '装飾':['💕','🌸','🌷','🌿','🍀','💐'],
+        '飲食':['☕','🍰','🍞','🥗','🍙','🍵'],
+        '連絡':['📧','📞','💬','🔔','📣','📋'],
+        '反応':['👍','😊','🙌','💖','🙏','👏']
+      };
+      var emojiHtml = '<div style="display:grid;gap:6px;margin-bottom:8px">'+
+        Object.keys(emojiGroups).map(function(g){
+          return '<div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap"><span style="font-size:9px;font-weight:900;color:var(--sub);width:54px">'+g+'</span>'+
+            emojiGroups[g].map(function(e){return '<button type="button" onclick="insertTplEmoji(\''+e+'\')" style="font-size:16px;width:30px;height:30px;border-radius:8px;background:#fff;border:1px solid var(--line);cursor:pointer;padding:0">'+e+'</button>'}).join('')+
+          '</div>';
+        }).join('')+
+      '</div>';
+      var imagePreview = t.image ? '<img id="te-img-prev" src="'+t.image+'" alt="" style="width:100%;max-height:140px;object-fit:cover;border-radius:10px;margin-top:6px">' : '<img id="te-img-prev" alt="" style="display:none">';
+      openSheet(isNew?'新しい定型文':'定型文を編集','タグを入れると選択イベントの情報に自動置換されます',
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">カテゴリ<select class="input" id="te-cat">'+
+          TPL_CATEGORIES.map(function(c){return '<option value="'+c.id+'"'+(c.id===t.cat?' selected':'')+'>'+c.label+'</option>'}).join('')+
+        '</select></label>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">タイトル<input class="input" id="te-title" value="'+esc(t.title)+'" placeholder="例：当日朝のLINEリマインド"></label>'+
+        '<details style="margin-top:4px"><summary style="font-size:11px;font-weight:900;color:var(--sub);cursor:pointer;padding:4px 0">📝 使えるタグ（クリックで本文に挿入）</summary>'+
+        '<div class="tpl-tag-chips" style="margin-top:6px">'+
+          availableTags.map(function(tag){return '<button type="button" onclick="insertTplTag(\''+tag+'\')">'+tag+'</button>'}).join('')+
+        '</div></details>'+
+        '<details style="margin-top:0"><summary style="font-size:11px;font-weight:900;color:var(--sub);cursor:pointer;padding:4px 0">😊 絵文字パレット</summary>'+
+          emojiHtml+
+        '</details>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">本文<textarea class="input" id="te-body" rows="10" placeholder="ここに文章を入力。&#10;&#10;例：&#10;{{イベント名}}&#10;{{日付}}（{{曜日}}）{{時間}}" style="resize:vertical;line-height:1.7">'+esc(t.body)+'</textarea></label>'+
+        '<div id="te-char-counter" style="display:flex;flex-wrap:wrap;gap:8px;font-size:10px;color:var(--sub);font-weight:850;margin-top:-6px;margin-bottom:4px"></div>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">画像添付（任意）<input class="input" id="te-image-file" type="file" accept="image/*" onchange="handleTplImage(this)"></label>'+
+        imagePreview+
+        '<div style="background:#fdf3e8;border:1px dashed #f0d9c8;border-radius:10px;padding:9px 11px;margin-top:4px"><p style="margin:0;font-size:10px;font-weight:900;color:#c8824f">📝 プレビュー（送信されるテキスト）</p><pre id="te-preview" style="margin:5px 0 0;font-size:11px;color:var(--ink);white-space:pre-wrap;line-height:1.65;max-height:140px;overflow:auto;font-family:inherit"></pre></div>'+
+        '<div class="sheet-actions">'+
+          '<button class="primary" onclick="saveTpl(\''+t.id+'\','+isNew+')">'+(isNew?'追加する':'保存する')+'</button>'+
+          '<button class="secondary" onclick="closeSheet()">キャンセル</button>'+
+        '</div>'
+      );
+      // 編集中の画像URL一時保存
+      window.__editTplImage = t.image || '';
+      // プレビュー初期化＋本文変更時のリアルタイム更新
+      setTimeout(function(){
+        var update = function(){
+          var sel = document.getElementById('tpl-event-sel');
+          var ev = sel ? (EVENTS||[]).find(function(e){return e.id===sel.value}) : null;
+          var bodyVal = (document.getElementById('te-body')||{value:''}).value;
+          var replaced = replaceTplTags(bodyVal, ev);
+          var prev = document.getElementById('te-preview');
+          if(prev) prev.textContent = replaced;
+          // 文字数カウンター
+          var cc = document.getElementById('te-char-counter');
+          var len = replaced.length;
+          if(cc){
+            var ok = function(label, limit){
+              var color = len<=limit ? '#3ba48a' : '#c84a4a';
+              return '<span style="color:'+color+'">'+label+': '+len+'/'+limit+(len>limit?' ⚠':'')+'</span>';
+            };
+            cc.innerHTML = ok('𝕏', 140) + ok('LINE', 500) + ok('Threads', 500) + ok('Instagram', 2200);
+          }
+        };
+        update();
+        var body = document.getElementById('te-body');
+        if(body) body.addEventListener('input', update);
+      },20);
+    }
+    function insertTplEmoji(emoji){
+      var body = document.getElementById('te-body');
+      if(!body) return;
+      var s = body.selectionStart, e = body.selectionEnd, v = body.value;
+      body.value = v.substring(0,s)+emoji+v.substring(e);
+      body.selectionStart = body.selectionEnd = s + emoji.length;
+      body.focus();
+      body.dispatchEvent(new Event('input'));
+    }
+    function handleTplImage(input){
+      var file = input.files && input.files[0];
+      if(!file) return;
+      var fr = new FileReader();
+      fr.onload = function(e){
+        window.__editTplImage = e.target.result;
+        var prev = document.getElementById('te-img-prev');
+        if(prev){prev.src = e.target.result; prev.style.display='block'}
+      };
+      fr.readAsDataURL(file);
+    }
+    function insertTplTag(tag){
+      var body = document.getElementById('te-body');
+      if(!body) return;
+      var start = body.selectionStart;
+      var end = body.selectionEnd;
+      var val = body.value;
+      body.value = val.substring(0, start) + tag + val.substring(end);
+      body.selectionStart = body.selectionEnd = start + tag.length;
+      body.focus();
+      body.dispatchEvent(new Event('input'));
+    }
+    function saveTpl(id, isNew){
+      var t = isNew ? null : TEMPLATES.find(function(x){return x.id===id});
+      if(!isNew && !t) return;
+      var title = (document.getElementById('te-title')||{value:''}).value.trim();
+      var body = (document.getElementById('te-body')||{value:''}).value;
+      var cat = (document.getElementById('te-cat')||{value:'other'}).value;
+      var image = window.__editTplImage || '';
+      if(!title || !body){showToast('タイトルと本文を入力してください','warn');return}
+      if(isNew){
+        TEMPLATES.unshift({id:id, cat:cat, title:title, body:body, image:image});
+      } else {
+        t.title = title; t.body = body; t.cat = cat; t.image = image;
+      }
+      window.__editTplImage = '';
+      renderAdminTemplates();
+      showToast(isNew?'追加しました':'保存しました','success');
+      closeSheet();
+    }
+
+    /* =========================
+       FAQ システム
+       ========================= */
+    var FAQ_CATEGORIES = [
+      {id:'apply', label:'出店・申し込みについて', icon:'i-file'},
+      {id:'uword', label:'ユーワードについて', icon:'i-book'},
+      {id:'other', label:'その他', icon:'i-help'}
+    ];
+    var FAQS = [
+      {id:'f-1', cat:'apply', q:'出店するにはどうすればいいですか？', a:'「出店ガイド」を確認してから、イベント詳細ページの申込フォームよりお申し込みください。Mikke主催イベントはMikke ruu内で申し込みできます。'},
+      {id:'f-2', cat:'apply', q:'会員じゃないと出店できませんか？', a:'トライアル出店が可能なイベントもあります。イベントごとに条件が異なるため、申し込みページの案内をご確認ください。'},
+      {id:'f-3', cat:'apply', q:'出店料金はいくらですか？', a:'イベントごとに異なります。出店料はイベント詳細ではなく、申込フォーム内で確認できるようにしています。'},
+      {id:'f-4', cat:'apply', q:'申し込みのキャンセルはできますか？', a:'各イベントのキャンセルポリシーに従います。申し込み後に変更やキャンセルが必要な場合は、できるだけ早めにご連絡ください。'},
+      {id:'f-5', cat:'uword', q:'紹介者IDはどこで確認できますか？', a:'紹介してくれた方に直接確認してください。IDがないとユーワード登録ができないため、ご注意ください。'},
+      {id:'f-6', cat:'uword', q:'ホームページメニューは必ず作らないといけませんか？', a:'ポイント決済や来場者への案内に使うため、加盟店になったらホームページメニューを整えておくのがおすすめです。難しい場合はサポートも相談できます。'},
+      {id:'f-7', cat:'other', q:'食べ物や飲み物の販売はできますか？', a:'イベントによって異なります。食品販売には保健所の許可が必要な場合があります。詳細は各イベントの案内をご確認ください。'},
+      {id:'f-8', cat:'other', q:'雨天の場合はどうなりますか？', a:'室内開催を基本としているため、原則として雨天決行です。荒天などで変更がある場合は、お知らせやマイページでご案内します。'},
+      {id:'f-9', cat:'other', q:'問い合わせ先はどこですか？', a:'お問い合わせは mikke.ruu2025@gmail.com までお気軽にどうぞ。今後はアプリ内のお問い合わせ導線も整えていきます。'}
+    ];
+    var adminFAQFilter = 'all';
+
+    function findFAQCat(id){return FAQ_CATEGORIES.find(function(c){return c.id===id})||FAQ_CATEGORIES[2]}
+
+    // ユーザー側FAQ描画（カテゴリ別＋検索）
+    function renderUserFAQs(){
+      var host = document.getElementById('faq-list-host');
+      if(!host) return;
+      var search = document.getElementById('faq-search');
+      var q = search ? (search.value||'').trim().toLowerCase() : '';
+      var html = '';
+      FAQ_CATEGORIES.forEach(function(cat){
+        var list = FAQS.filter(function(f){return f.cat===cat.id});
+        if(q){
+          list = list.filter(function(f){return (f.q+' '+f.a).toLowerCase().indexOf(q)!==-1});
+        }
+        if(!list.length) return;
+        html += '<h2 class="faq-section-title"><svg class="icon"><use href="#'+cat.icon+'"/></svg>'+cat.label+'</h2>'+
+          '<div class="faq-group">'+
+          list.map(function(f, i){
+            var highlight = function(s){
+              if(!q) return s;
+              return s.replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark style="background:#ffe6ec;color:var(--ruu);padding:0 2px;border-radius:3px">$1</mark>');
+            };
+            return '<details class="faq-card"'+(q?' open':'')+'>'+
+              '<summary><span class="faq-q">Q</span><span>'+highlight(f.q)+'</span><svg class="icon faq-arrow"><use href="#i-chevron"/></svg></summary>'+
+              '<div class="faq-answer">'+highlight(f.a)+'</div>'+
+            '</details>';
+          }).join('')+
+          '</div>';
+      });
+      if(!html){
+        host.innerHTML = '<p class="helper" style="text-align:center;padding:32px 0">該当するFAQはありません。<br>キーワードを変えるか、下のお問い合わせをご利用ください。</p>';
+      } else {
+        host.innerHTML = html;
+      }
+    }
+
+    // 管理側FAQ一覧描画
+    function renderAdminFAQs(){
+      var host = document.getElementById('admin-faq-list');
+      if(!host) return;
+      var list = FAQS.slice();
+      if(adminFAQFilter!=='all') list = list.filter(function(f){return f.cat===adminFAQFilter});
+      var badge = document.getElementById('admin-faq-count');
+      if(badge) badge.textContent = FAQS.length+'件';
+      if(!list.length){
+        host.innerHTML = '<p class="helper" style="text-align:center;padding:24px 0">該当するFAQはありません</p>';
+        return;
+      }
+      host.innerHTML = list.map(function(f){
+        var cat = findFAQCat(f.cat);
+        return '<article class="admin-work-card" data-fid="'+f.id+'">'+
+          '<h4>'+f.q+'</h4>'+
+          '<p>['+cat.label+'] '+f.a.substring(0,80)+(f.a.length>80?'…':'')+'</p>'+
+          '<div class="admin-card-actions">'+
+            '<button onclick="openFAQEditSheet(\''+f.id+'\')">編集</button>'+
+            '<button onclick="deleteFAQ(\''+f.id+'\')">削除</button>'+
+          '</div>'+
+        '</article>';
+      }).join('');
+    }
+    function filterAdminFAQs(btn, cat){
+      adminFAQFilter = cat;
+      document.querySelectorAll('#admin-faq-tabs button').forEach(function(b){b.classList.remove('active')});
+      if(btn) btn.classList.add('active');
+      renderAdminFAQs();
+    }
+
+    function postFAQ(){
+      var cat = (document.getElementById('faq-new-cat')||{value:'other'}).value;
+      var q = (document.getElementById('faq-new-q')||{value:''}).value.trim();
+      var a = (document.getElementById('faq-new-a')||{value:''}).value.trim();
+      if(!q || !a){showToast('質問と回答を入力してください','warn');return}
+      var f = {id:'f-'+Date.now().toString(36), cat:cat, q:q, a:a};
+      FAQS.unshift(f);
+      document.getElementById('faq-new-q').value='';
+      document.getElementById('faq-new-a').value='';
+      renderAdminFAQs();
+      renderUserFAQs();
+      showToast('FAQを追加しました','success');
+    }
+    function openFAQEditSheet(id){
+      var f = FAQS.find(function(x){return x.id===id});
+      if(!f) return;
+      var esc = function(s){return (s||'').replace(/"/g,'&quot;')};
+      openSheet('FAQを編集', '質問と回答を変更できます',
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">カテゴリ<select class="input" id="fe-cat">'+
+          FAQ_CATEGORIES.map(function(c){return '<option value="'+c.id+'"'+(c.id===f.cat?' selected':'')+'>'+c.label+'</option>'}).join('')+
+        '</select></label>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">質問<input class="input" id="fe-q" value="'+esc(f.q)+'"></label>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">回答<textarea class="input" id="fe-a" rows="5" style="resize:vertical">'+esc(f.a)+'</textarea></label>'+
+        '<div class="sheet-actions">'+
+          '<button class="primary" onclick="saveFAQEdit(\''+id+'\')">保存する</button>'+
+          '<button class="secondary" onclick="closeSheet()">キャンセル</button>'+
+        '</div>'
+      );
+    }
+    function saveFAQEdit(id){
+      var f = FAQS.find(function(x){return x.id===id});
+      if(!f) return;
+      f.cat = (document.getElementById('fe-cat')||{value:f.cat}).value;
+      f.q = (document.getElementById('fe-q')||{value:f.q}).value.trim() || f.q;
+      f.a = (document.getElementById('fe-a')||{value:f.a}).value.trim() || f.a;
+      renderAdminFAQs();
+      renderUserFAQs();
+      showToast('FAQを保存しました','success');
+      closeSheet();
+    }
+    function deleteFAQ(id){
+      var f = FAQS.find(function(x){return x.id===id});
+      if(!f) return;
+      if(!confirm('「'+f.q+'」を削除しますか？')) return;
+      FAQS = FAQS.filter(function(x){return x.id!==id});
+      renderAdminFAQs();
+      renderUserFAQs();
+      showToast('削除しました','warn');
+    }
+
+    /* =========================
        イベント一覧（管理側）
        ========================= */
     var TODAY = '2026-05-26';
     // EVENTSは「イベント作成」フォームと同じ項目をすべて持つ
     var EVENTS = [
       {
-        id:'vol14', kind:'バザール', content:'ハンドメイドマルシェ', name:'Mikke bazar vol.14 たまプラーザ',
+        id:'vol14', kind:'バザール', content:'ハンドメイドマルシェ', name:'Mikke bazar vol.14 たまプラーザ', lineGroupUrl:'https://line.me/ti/g/example_vol14',
         date:'2026-06-17', dayOfWeek:'水', startTime:'10:00', endTime:'16:00',
         venue:'Peoplewise Cafe', address:'神奈川県横浜市青葉区美しが丘1-1-2',
         mapUrl:'https://www.google.com/maps/search/?api=1&query=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%9D%92%E8%91%89%E5%8C%BA%E7%BE%8E%E3%81%97%E3%81%8C%E4%B8%981-1-2',
@@ -3822,7 +4996,7 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
         }
       },
       {
-        id:'vol15', kind:'バザール', content:'ハンドメイドマルシェ', name:'Mikke bazar vol.15 錦糸町',
+        id:'vol15', kind:'バザール', content:'ハンドメイドマルシェ', name:'Mikke bazar vol.15 錦糸町', lineGroupUrl:'',
         date:'2026-07-12', dayOfWeek:'日', startTime:'10:00', endTime:'16:00',
         venue:'錦糸町イベントスペース', address:'東京都墨田区江東橋3-9-10', mapUrl:'',
         feeOptions:[
@@ -3839,7 +5013,7 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
         party:{enabled:false}
       },
       {
-        id:'vol13', kind:'バザール', content:'ハンドメイドマルシェ', name:'Mikke bazar vol.13 宮前平',
+        id:'vol13', kind:'バザール', content:'ハンドメイドマルシェ', name:'Mikke bazar vol.13 宮前平', lineGroupUrl:'https://line.me/ti/g/example_vol13',
         date:'2026-05-25', dayOfWeek:'月', startTime:'10:00', endTime:'16:00',
         venue:'アリーノカフェ', address:'神奈川県川崎市宮前区宮前平1-2-3', mapUrl:'',
         feeOptions:[
@@ -3863,7 +5037,7 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
         ]
       },
       {
-        id:'vol12', kind:'バザール', content:'ハンドメイドマルシェ', name:'Mikke bazar vol.12 渋谷',
+        id:'vol12', kind:'バザール', content:'ハンドメイドマルシェ', name:'Mikke bazar vol.12 渋谷', lineGroupUrl:'https://line.me/ti/g/example_vol12',
         date:'2026-03-05', dayOfWeek:'水', startTime:'10:00', endTime:'17:00',
         venue:'渋谷キャストスペース', address:'東京都渋谷区渋谷1-23-21', mapUrl:'',
         feeOptions:[
@@ -4174,6 +5348,18 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
           '<div class="ev-info-cell"><span class="lbl">Zoom ID</span><span class="val">'+(ev.zoomId||'-')+'</span></div>'+
           '<div class="ev-info-cell"><span class="lbl">パス</span><span class="val">'+(ev.zoomPass||'-')+'</span></div>'+
         '</div>' : '';
+      var lineGroupSection = ev.lineGroupUrl ?
+        '<p class="ev-section-title"><svg><use href="#i-utensils"/></svg>このイベントのグループLINE</p>'+
+        '<div class="ev-revenue" style="background:linear-gradient(135deg,#e8f5e9,#fff);border-color:#cce7d8">'+
+          '<div class="ev-revenue-row"><span class="lbl">グループURL</span><span class="val" style="font-size:11px;word-break:break-all">'+ev.lineGroupUrl+'</span></div>'+
+          '<div class="ev-revenue-actual" style="margin-top:6px">'+
+            '<button onclick="copyText(\''+ev.lineGroupUrl+'\')" style="background:#06c755;color:#fff;border:none;padding:7px 14px;border-radius:99px;font-weight:900;font-size:12px;cursor:pointer;flex:1">📋 URLをコピー</button>'+
+            '<button onclick="window.open(\''+ev.lineGroupUrl+'\',\'_blank\')" style="background:#fff;color:#06c755;border:1px solid #06c755;padding:7px 14px;border-radius:99px;font-weight:900;font-size:12px;cursor:pointer">開く</button>'+
+          '</div>'+
+          '<p style="margin:6px 0 0;font-size:10px;color:var(--sub)">＊ 出店確定者だけに送るURLです（一般には共有しない）</p>'+
+        '</div>' :
+        '<p class="ev-section-title"><svg><use href="#i-utensils"/></svg>このイベントのグループLINE</p>'+
+        '<p class="helper" style="margin:0;font-size:11px">未設定です。編集ボタンから設定できます。</p>';
       var imagesInfo = '<div class="ev-info-grid">'+
         '<div class="ev-info-cell"><span class="lbl">チラシ画像</span><span class="val">'+(ev.flyers||0)+'枚</span></div>'+
         '<div class="ev-info-cell"><span class="lbl">会場写真</span><span class="val">'+(ev.photos||0)+'枚</span></div>'+
@@ -4234,6 +5420,7 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
           '<p class="ev-section-title"><svg><use href="#i-file"/></svg>各種期限</p>'+
           '<div class="ev-info-grid">'+deadlineGrid+'</div>'+
           zoomGrid+
+          lineGroupSection+
           '<p class="ev-section-title"><svg><use href="#i-megaphone"/></svg>イベント詳細</p>'+
           '<div class="app-comment-box">'+(ev.detail||'-')+'</div>'+
           '<p class="ev-section-title"><svg><use href="#i-camera"/></svg>画像</p>'+
@@ -4246,6 +5433,8 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
             (s==='upcoming' || s==='draft' ?
               '<button class="full" onclick="openAllAppsPanel();setTimeout(function(){var sel=document.getElementById(\'apps-event-filter\');if(sel){sel.value=\''+ev.id+'\';filterAppsCombined()}},150)">このイベントの申込一覧を見る</button>'+
               '<button class="full" style="background:#fff;border:1px solid var(--ruu);color:var(--ruu)" onclick="openEventNoticeFromList(\''+ev.id+'\')">このイベントの出店者全員にお知らせ</button>' : '')+
+            (s==='past' ?
+              '<button class="full" style="background:#fff;border:1px solid #ffb800;color:#c8924a" onclick="openSurveyResultsSheet(\''+ev.id+'\')">⭐ アンケート結果を見る（来場者'+getEventSurveys(ev.id,"visitor").length+'/出店者'+getEventSurveys(ev.id,"exhibitor").length+'件）</button>' : '')+
             '<button class="edit" onclick="openEventEditSheet(\''+ev.id+'\')">編集</button>'+
             '<button class="del" onclick="deleteEvent(\''+ev.id+'\')">削除</button>'+
             '<button class="full" style="background:#fff;border:1px solid var(--line);color:var(--ink)" onclick="duplicateEvent(\''+ev.id+'\')">このイベントを元に新規作成</button>'+
@@ -4429,6 +5618,8 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
           '<label style="font-size:11px;font-weight:900;color:var(--sub)">Zoom ID<input class="input" id="ee-zoom-id" value="'+esc(ev.zoomId)+'" placeholder="123 456 7890"></label>'+
           '<label style="font-size:11px;font-weight:900;color:var(--sub)">Zoom パス<input class="input" id="ee-zoom-pass" value="'+esc(ev.zoomPass)+'" placeholder="123123"></label>'+
         '</div>'+
+        '<label style="font-size:11px;font-weight:900;color:var(--sub)">このイベントのグループLINE URL<input class="input" id="ee-line-group" value="'+esc(ev.lineGroupUrl)+'" placeholder="https://line.me/ti/g/xxxxxxxxxxxx"></label>'+
+        '<p class="helper" style="font-size:10px;color:var(--sub);margin-top:-4px">＊ 出店確定者だけに案内するグループLINEのURL。イベントごとに別URL。</p>'+
         '<label style="font-size:11px;font-weight:900;color:var(--sub)">イベント詳細<textarea class="input" id="ee-detail" rows="3" placeholder="イベント詳細に表示する内容を入力..." style="resize:vertical">'+esc(ev.detail)+'</textarea></label>'+
         '<label style="font-size:11px;font-weight:900;color:var(--sub)">チラシ画像（最大4枚）<input class="input" id="ee-flyers" type="file" multiple accept="image/*"></label>'+
         '<label style="font-size:11px;font-weight:900;color:var(--sub)">会場写真（最大4枚）<input class="input" id="ee-photos" type="file" multiple accept="image/*"></label>'+
@@ -4563,6 +5754,7 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
       ev.zoomTime = v('ee-zoom-time');
       ev.zoomId = v('ee-zoom-id');
       ev.zoomPass = v('ee-zoom-pass');
+      ev.lineGroupUrl = v('ee-line-group');
       ev.detail = v('ee-detail');
       ev.status = v('ee-status');
       // 画像枚数（アップロードファイル数）
@@ -4920,6 +6112,14 @@ https://mikke-ruu.app/events/vol14-tamaplaza/apply</div></details>
       renderHomeAlbums();
       renderAdminAlbums();
       renderEventList();
+      renderUserFAQs();
+      renderAdminFAQs();
+      renderAdminTemplates();
+      renderHomeUpcoming();
+      renderDetailPage();
+      renderExhibitorsPage();
+      renderMypageEventCards();
+      renderAdminSurveys();
       updateMypageNoticeCount();
     }
 
