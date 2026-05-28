@@ -966,6 +966,8 @@
               <input class="input" id="apply-name" placeholder="お名前（フルネーム）">
               <input class="input" id="apply-kana" placeholder="ふりがな">
               <input class="input" id="apply-email" type="email" placeholder="メールアドレス">
+              <p class="helper" id="apply-reuse-hint" style="display:none;margin:2px 0 0"></p>
+              <button class="secondary" type="button" id="apply-reuse-btn" onclick="applyReusePreviousData()" style="display:none">前回の入力内容を読み込む</button>
             </div>
           </div>
 
@@ -1093,6 +1095,12 @@
           <div style="width:74px;height:74px;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;background:var(--soft);color:var(--ruu)"><svg class="icon" style="width:40px;height:40px"><use href="#i-check"/></svg></div>
           <h1 class="event-title">お申し込みが完了しました！</h1>
           <p class="helper">運営が内容を確認します。</p>
+          <div class="admin-note-box" id="complete-login-box" style="text-align:left;margin-top:14px;display:none">
+            <b>マイページ用ログインURL（テスト表示）</b><br>
+            <span class="helper" id="complete-login-mail" style="display:block;margin-top:6px"></span>
+            <a id="complete-login-link" href="#" target="_blank" rel="noopener" style="display:block;margin-top:6px;color:var(--ruu);font-size:12px;line-height:1.5;word-break:break-all"></a>
+            <button class="secondary" type="button" onclick="copyCompleteLoginUrl()" style="margin-top:8px">ログインURLをコピー</button>
+          </div>
 
           <a class="primary" style="margin-top:18px" href="#mypage" onclick="showPage('mypage')">マイページへ</a>
         </div>
@@ -1461,6 +1469,7 @@
             <label style="font-size:11px;font-weight:900;color:var(--sub)">投稿先
               <select class="input" id="notice-channel" onchange="onNoticeChannelChange()">
                 <option value="public">全体向け（誰でも見える）</option>
+                <option value="app-update">アプリ更新（全ユーザー向け）</option>
                 <option value="exhibitors-all">出店者全体向け</option>
                 <option value="event-exhibitors" selected>イベント別出店者向け</option>
                 <option value="individual">出店者個人向け</option>
@@ -1501,6 +1510,7 @@
           <div class="admin-mini-tabs" style="margin-top:18px">
             <button class="active" onclick="filterAdminNotices(this,'all')">すべて</button>
             <button onclick="filterAdminNotices(this,'public')">全体</button>
+            <button onclick="filterAdminNotices(this,'app-update')">アプリ更新</button>
             <button onclick="filterAdminNotices(this,'exhibitors-all')">出店者全体</button>
             <button onclick="filterAdminNotices(this,'event-exhibitors')">イベント別</button>
             <button onclick="filterAdminNotices(this,'individual')">個人</button>
@@ -1774,6 +1784,106 @@
     var APPLY_TERMS_ACK = false;
     var APPLICATIONS = [];
     var PARTY_APPLICATIONS = [];
+    var APP_STATE_KEY = 'mikke_preview_state_v3';
+    var LOGIN_TOKEN_KEY = 'mikke_preview_login_tokens_v1';
+    var LOGIN_LINK_BUFFER = '';
+    var LOGIN_TOKENS = {};
+    var __stateDirty = false;
+    function markStateDirty(){__stateDirty = true;}
+    function parseJsonSafe(raw, fallback){
+      if(!raw) return fallback;
+      try{return JSON.parse(raw);}catch(e){return fallback;}
+    }
+    function captureProfileSnapshot(){
+      var getText = function(id){var el=document.getElementById(id);return el?(el.textContent||'').trim():'';};
+      return {
+        name:getText('mypage-name'),
+        uwordid:getText('mypage-uwordid'),
+        cat:getText('mypage-cat'),
+        content:getText('mypage-content'),
+        appeal:getText('mypage-appeal'),
+        instagram:getText('mypage-instagram'),
+        uword:getText('mypage-uword'),
+        privName:getText('priv-name'),
+        privKana:getText('priv-kana'),
+        privMember:getText('priv-member'),
+        privAchiever:getText('priv-achiever'),
+        privMail:getText('priv-mail'),
+        eyecatchUrl:window.__mypageEyecatchUrl||''
+      };
+    }
+    function applyProfileSnapshot(profile){
+      if(!profile) return;
+      var setText = function(id, value){
+        if(value==null || value==='') return;
+        var el = document.getElementById(id);
+        if(el) el.textContent = value;
+      };
+      setText('mypage-name', profile.name);
+      setText('mypage-uwordid', profile.uwordid);
+      setText('mypage-cat', profile.cat);
+      setText('mypage-content', profile.content);
+      setText('mypage-appeal', profile.appeal);
+      setText('mypage-instagram', profile.instagram);
+      setText('mypage-uword', profile.uword);
+      setText('priv-name', profile.privName);
+      setText('priv-kana', profile.privKana);
+      setText('priv-member', profile.privMember);
+      setText('priv-achiever', profile.privAchiever);
+      setText('priv-mail', profile.privMail);
+      if(profile.eyecatchUrl){
+        window.__mypageEyecatchUrl = profile.eyecatchUrl;
+      }
+    }
+    function saveAppState(){
+      var payload = {
+        events: Array.isArray(EVENTS) ? EVENTS : [],
+        applications: Array.isArray(APPLICATIONS) ? APPLICATIONS : [],
+        partyApplications: Array.isArray(PARTY_APPLICATIONS) ? PARTY_APPLICATIONS : [],
+        notices: Array.isArray(NOTICES) ? NOTICES : [],
+        albums: Array.isArray(ALBUMS) ? ALBUMS : [],
+        templates: Array.isArray(TEMPLATES) ? TEMPLATES : [],
+        surveys: Array.isArray(SURVEYS) ? SURVEYS : [],
+        faqs: Array.isArray(FAQS) ? FAQS : [],
+        currentUserRole: CURRENT_USER_ROLE || 'general',
+        currentUserId: CURRENT_USER_ID || '',
+        currentUserEmail: CURRENT_USER_EMAIL || '',
+        currentUserEvents: CURRENT_USER_EVENTS || {},
+        currentDetailEventId: CURRENT_DETAIL_EVID || '',
+        currentPartyEventId: CURRENT_PARTY_EVID || '',
+        orgSettings: ORG_SETTINGS || {},
+        profile: captureProfileSnapshot()
+      };
+      try{
+        localStorage.setItem(APP_STATE_KEY, JSON.stringify(payload));
+        localStorage.setItem(LOGIN_TOKEN_KEY, JSON.stringify(LOGIN_TOKENS||{}));
+        __stateDirty = false;
+      }catch(e){}
+    }
+    function loadAppState(){
+      var state = parseJsonSafe(localStorage.getItem(APP_STATE_KEY), null);
+      if(state){
+        if(Array.isArray(state.events)) EVENTS = state.events;
+        if(Array.isArray(state.applications)) APPLICATIONS = state.applications;
+        if(Array.isArray(state.partyApplications)) PARTY_APPLICATIONS = state.partyApplications;
+        if(Array.isArray(state.notices)) NOTICES = state.notices;
+        if(Array.isArray(state.albums)) ALBUMS = state.albums;
+        if(Array.isArray(state.templates)) TEMPLATES = state.templates;
+        if(Array.isArray(state.surveys)) SURVEYS = state.surveys;
+        if(Array.isArray(state.faqs)) FAQS = state.faqs;
+        if(state.orgSettings && typeof state.orgSettings==='object') ORG_SETTINGS = Object.assign({}, ORG_SETTINGS||{}, state.orgSettings);
+        CURRENT_USER_ROLE = state.currentUserRole || CURRENT_USER_ROLE || 'general';
+        CURRENT_USER_ID = state.currentUserId || CURRENT_USER_ID || '';
+        CURRENT_USER_EMAIL = state.currentUserEmail || CURRENT_USER_EMAIL || '';
+        CURRENT_USER_EVENTS = state.currentUserEvents || CURRENT_USER_EVENTS || {};
+        CURRENT_DETAIL_EVID = state.currentDetailEventId || CURRENT_DETAIL_EVID || '';
+        CURRENT_PARTY_EVID = state.currentPartyEventId || CURRENT_PARTY_EVID || '';
+        applyProfileSnapshot(state.profile||null);
+      }
+      LOGIN_TOKENS = parseJsonSafe(localStorage.getItem(LOGIN_TOKEN_KEY), LOGIN_TOKENS || {});
+    }
+    setInterval(function(){if(__stateDirty) saveAppState();}, 1500);
+    window.addEventListener('beforeunload', saveAppState);
     function scrollAppTop(){
       window.scrollTo(0,0);
       document.documentElement.scrollTop = 0;
@@ -1872,6 +1982,7 @@
       next.textContent = applyStep === 6 ? '出店申込する' : '次へ';
       APPLY_EVENT_ID = getCurrentApplyEventId();
       renderApplyFeePlans();
+      if(applyStep === 1){updateApplyReuseHint();}
       if(applyStep === 5){renderApplyPartyInfo();}
       if(applyStep === 6){
         renderApplyConfirmation();
@@ -1966,6 +2077,86 @@
       APPLY_TERMS_ACK = true;
       closeSheet();
       updateApplyTermsUI();
+    }
+    var APPLY_REUSE_CANDIDATE = null;
+    function findLatestApplicationByEmail(email){
+      var key = String(email||'').trim().toLowerCase();
+      if(!key) return null;
+      return (APPLICATIONS||[]).find(function(app){
+        return String(app.email||'').trim().toLowerCase()===key;
+      }) || null;
+    }
+    function updateApplyReuseHint(){
+      var emailEl = document.getElementById('apply-email');
+      var hintEl = document.getElementById('apply-reuse-hint');
+      var btnEl = document.getElementById('apply-reuse-btn');
+      if(!emailEl || !hintEl || !btnEl) return;
+      var hit = findLatestApplicationByEmail(emailEl.value);
+      APPLY_REUSE_CANDIDATE = hit;
+      if(!hit){
+        hintEl.style.display = 'none';
+        btnEl.style.display = 'none';
+        return;
+      }
+      hintEl.textContent = 'このメールで以前の申込があります（'+(hit.shopname||'屋号未入力')+'）。';
+      hintEl.style.display = '';
+      btnEl.style.display = '';
+    }
+    function setRadioByName(name, value){
+      var radios = document.querySelectorAll('input[name="'+name+'"]');
+      var done = false;
+      radios.forEach(function(r){
+        var isMatch = r.value===value;
+        r.checked = isMatch;
+        if(isMatch) done = true;
+      });
+      return done;
+    }
+    function applyReusePreviousData(){
+      var hit = APPLY_REUSE_CANDIDATE;
+      if(!hit){showToast('読み込みできる前回データがありません','warn');return;}
+      var setValue = function(id, value){
+        var el = document.getElementById(id);
+        if(el) el.value = value || '';
+      };
+      setValue('apply-name', hit.personname||'');
+      setValue('apply-kana', hit.kana||'');
+      setValue('apply-shop', hit.shopname||'');
+      setValue('apply-content', hit.content||'');
+      setValue('apply-comment', hit.comment||'');
+      setValue('apply-email', hit.email||'');
+      setValue('apply-uwid', hit.uwid||'');
+      setValue('apply-achiever', hit.achiever||'');
+      setValue('apply-social', hit.social||'');
+
+      var categoryLabel = getApplyCategoryLabel(hit.category||'');
+      if(categoryLabel && categoryLabel!=='-'){
+        setValue('apply-category', categoryLabel);
+      }
+      if(hit.member){
+        setRadioByName('member', hit.member);
+      }
+      if(hit.first){
+        setRadioByName('first', hit.first);
+      }
+      if(hit.party){
+        setRadioByName('party', hit.party);
+      }
+      if(hit.feeplan){
+        setRadioByName('fee-plan', hit.feeplan);
+      }
+      updateMemberFields();
+      CURRENT_USER_EMAIL = hit.email || CURRENT_USER_EMAIL;
+      showToast('前回の入力内容を反映しました','success');
+      markStateDirty();
+    }
+    function bindApplyReuseEvents(){
+      var emailEl = document.getElementById('apply-email');
+      if(!emailEl || emailEl.dataset.reuseBound==='1') return;
+      emailEl.dataset.reuseBound = '1';
+      emailEl.addEventListener('input', updateApplyReuseHint);
+      emailEl.addEventListener('blur', updateApplyReuseHint);
+      updateApplyReuseHint();
     }
     function getApplyFeePlanByEvent(eventId, planId){
       var ev = (EVENTS||[]).find(function(e){return e.id===eventId;});
@@ -2106,6 +2297,84 @@
         return c==='&'?'&amp;':c==='<'?'&lt;':c==='>'?'&gt;':c==='"'?'&quot;':'&#39;';
       });
     }
+    function refreshCurrentUserEventsByEmail(email){
+      var key = String(email||'').trim().toLowerCase();
+      if(!key) return;
+      var next = {};
+      (APPLICATIONS||[]).forEach(function(app){
+        if(String(app.email||'').trim().toLowerCase()!==key) return;
+        next[app.event] = app.status==='confirmed' ? 'confirmed' : 'applied';
+      });
+      CURRENT_USER_EVENTS = next;
+    }
+    function issueLoginToken(email, personId){
+      var token = 'lg-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8);
+      LOGIN_TOKENS[token] = {
+        email: email || '',
+        personId: personId || '',
+        createdAt: new Date().toISOString()
+      };
+      markStateDirty();
+      saveAppState();
+      return token;
+    }
+    function buildMagicLoginUrl(token){
+      if(!token) return '';
+      var base = location.origin + location.pathname;
+      return base + '?login=' + encodeURIComponent(token) + '#mypage';
+    }
+    function showCompleteLoginInfo(email, loginUrl){
+      var box = document.getElementById('complete-login-box');
+      var mailEl = document.getElementById('complete-login-mail');
+      var linkEl = document.getElementById('complete-login-link');
+      LOGIN_LINK_BUFFER = loginUrl || '';
+      if(!box || !mailEl || !linkEl){
+        return;
+      }
+      if(!loginUrl){
+        box.style.display = 'none';
+        return;
+      }
+      box.style.display = '';
+      mailEl.textContent = '送付先：' + (email||'-');
+      linkEl.textContent = loginUrl;
+      linkEl.href = loginUrl;
+    }
+    function copyCompleteLoginUrl(){
+      if(!LOGIN_LINK_BUFFER){
+        showToast('コピーできるURLがありません','warn');
+        return;
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(LOGIN_LINK_BUFFER).then(function(){
+          showToast('ログインURLをコピーしました','success');
+        }).catch(function(){
+          showToast('コピーに失敗しました','warn');
+        });
+      }else{
+        showToast('この端末ではコピーに対応していません','warn');
+      }
+    }
+    function tryLoginByUrlToken(){
+      var params = new URLSearchParams(location.search||'');
+      var token = params.get('login');
+      if(!token) return false;
+      var info = (LOGIN_TOKENS||{})[token];
+      if(!info || !info.email){
+        showToast('ログインURLの有効期限が切れているか、無効です','warn');
+        return false;
+      }
+      CURRENT_USER_ROLE = 'exhibitor';
+      CURRENT_USER_EMAIL = info.email;
+      CURRENT_USER_ID = info.personId || CURRENT_USER_ID || '';
+      refreshCurrentUserEventsByEmail(info.email);
+      var clean = location.origin + location.pathname + '#mypage';
+      history.replaceState(null,'',clean);
+      showPage('mypage', true);
+      showToast('マイページにログインしました','success');
+      markStateDirty();
+      return true;
+    }
     function getAppStatusLabel(status){
       return status==='confirmed'?'出店確定':(status==='hold'?'保留':'新規');
     }
@@ -2241,6 +2510,7 @@
         eyecatch: data.eyecatch ? '1' : '0',
         category: data.categoryKey,
         party: data.party || 'tbd',
+        first: data.first || 'first',
         personname: data.personName,
         shopname: data.shopName,
         feeplan: data.feePlanId,
@@ -2249,6 +2519,7 @@
         member: data.member,
         uwid: data.uwid,
         achiever: data.achiever,
+        social: data.social,
         content: data.content,
         comment: data.comment,
         createdAt: todayStr()
@@ -2259,6 +2530,7 @@
       if(typeof CURRENT_USER_EVENTS==='object'){
         CURRENT_USER_EVENTS[data.eventId] = 'applied';
       }
+      refreshCurrentUserEventsByEmail(CURRENT_USER_EMAIL);
       var social = data.social || '';
       var memberLabel = data.member==='uw' ? 'ユーワード会員' : '非会員';
       var generatedUwordId = data.uwid ? String(data.uwid) : ('MKR-'+Date.now().toString().slice(-5));
@@ -2285,9 +2557,14 @@
       renderApplications();
       renderEventList();
       renderMypageEventCards();
+      var token = issueLoginToken(CURRENT_USER_EMAIL, CURRENT_USER_ID);
+      var loginUrl = buildMagicLoginUrl(token);
+      showCompleteLoginInfo(CURRENT_USER_EMAIL, loginUrl);
       showPage('complete');
       applyStep = 1;
       resetApplyTermsAck();
+      markStateDirty();
+      saveAppState();
       showToast('出店申込を受付しました','success');
     }
     function toggleInlineDetail(){var detail=document.getElementById('home-inline-detail');if(detail){detail.classList.toggle('open')}}
@@ -2345,7 +2622,12 @@
     }
     document.addEventListener('click',function(event){var link=event.target.closest && event.target.closest('a[onclick*="showPage"]');if(link){event.preventDefault()}},true);
     function updatePartyVisibility(){}
-    window.addEventListener('DOMContentLoaded',function(){renderApplicationButtons();showPage((location.hash || '#home').replace('#',''), true);updatePartyVisibility();});
+    window.addEventListener('DOMContentLoaded',function(){
+      renderApplicationButtons();
+      bindApplyReuseEvents();
+      showPage((location.hash || '#home').replace('#',''), true);
+      updatePartyVisibility();
+    });
     // 出店申込一覧 フィルター統合（ステータスチップ＋ドロップダウン＋検索のAND条件）
     function filterAppsCombined(){
       var statusChip=document.querySelector('#admin-applications .app-status-chip.active');
@@ -2649,6 +2931,8 @@
 
       renderPartyPage();
       renderEventList();
+      markStateDirty();
+      saveAppState();
       showToast('交流会参加を受け付けました','success');
       openSheet('交流会のお申し込みを受け付けました', ev.name,
         '<p class="helper" style="margin:0 0 8px">ご登録ありがとうございました。確認メールをお送りします。</p>'+
@@ -4609,15 +4893,15 @@ mikke.ruu2025@gmail.com`,
     }
 
     function channelLabel(ch){
-      return ch==='public'?'全体':ch==='exhibitors-all'?'出店者全体':ch==='event-exhibitors'?'イベント別':ch==='individual'?'個人':'';
+      return ch==='public'?'全体':ch==='app-update'?'アプリ更新':ch==='exhibitors-all'?'出店者全体':ch==='event-exhibitors'?'イベント別':ch==='individual'?'個人':'';
     }
     function channelBadgeClass(ch){
-      return ch==='public'?'':ch==='exhibitors-all'?'mint':ch==='event-exhibitors'?'orange':ch==='individual'?'':'';
+      return ch==='public'?'':ch==='app-update'?'orange':ch==='exhibitors-all'?'mint':ch==='event-exhibitors'?'orange':ch==='individual'?'':'';
     }
 
     // ある出店者にお知らせが届くか
     function noticeForCurrentUser(n){
-      if(n.channel==='public') return true;
+      if(n.channel==='public' || n.channel==='app-update') return true;
       if(CURRENT_USER_ROLE!=='exhibitor') return false;
       if(n.channel==='exhibitors-all') return true; // 出店者向け（プロトタイプではログイン中ユーザーは出店者）
       if(n.channel==='event-exhibitors') return !!CURRENT_USER_EVENTS[n.targetEvent];
@@ -4663,6 +4947,7 @@ mikke.ruu2025@gmail.com`,
       var n = NOTICES.find(function(x){return x.id===id});
       if(n && !n.read){
         n.read = true;
+        markStateDirty();
         // 未読ドットだけ削除
         var unreadDot = (card || document).querySelector('.notice-summary b > span[style*="background:var(--ruu)"]');
         if(unreadDot) unreadDot.remove();
@@ -4681,8 +4966,8 @@ mikke.ruu2025@gmail.com`,
     function renderNews(){
       var host = document.getElementById('news-list');
       if(!host) return;
-      var list = NOTICES.filter(function(n){return n.channel==='public'});
-      if(!list.length){host.innerHTML='<p class="helper" style="text-align:center;padding:40px 0">全体向けのお知らせはありません</p>';return}
+      var list = NOTICES.filter(function(n){return n.channel==='public' || n.channel==='app-update'});
+      if(!list.length){host.innerHTML='<p class="helper" style="text-align:center;padding:40px 0">お知らせはありません</p>';return}
       host.innerHTML = list.map(function(n){return buildNoticeCard(n)}).join('');
     }
     // 互換用（マイページのアイコンアクションから呼ばれる）
@@ -4692,7 +4977,7 @@ mikke.ruu2025@gmail.com`,
     function renderHomeNotices(){
       var host = document.getElementById('home-news-list');
       if(!host) return;
-      var list = NOTICES.filter(function(n){return n.channel==='public'}).slice(0,3);
+      var list = NOTICES.filter(function(n){return n.channel==='public' || n.channel==='app-update'}).slice(0,3);
       if(!list.length){host.innerHTML='<p class="helper" style="text-align:center;padding:20px 0">お知らせはありません</p>';return}
       host.innerHTML = list.map(function(n){return buildNoticeCard(n)}).join('');
     }
@@ -4858,6 +5143,7 @@ mikke.ruu2025@gmail.com`,
         var willReach = noticeForCurrentUser(n);
         var msg = '投稿しました' + (willReach?' — あなた（出店者）にも届きます':' — 対象の出店者に通知');
         showToast(msg,'success');
+        markStateDirty();
         renderAll();
       });
     }
@@ -4886,6 +5172,7 @@ mikke.ruu2025@gmail.com`,
         clearNoticeComposerForm(true);
         setNoticeComposerMode('new');
         showToast('保存しました','success');
+        markStateDirty();
         renderAll();
       });
     }
@@ -4900,6 +5187,7 @@ mikke.ruu2025@gmail.com`,
         clearNoticeComposerForm(true);
         setNoticeComposerMode('new');
         showToast('複製して再投稿しました','success');
+        markStateDirty();
         renderAll();
       });
     }
@@ -4908,6 +5196,7 @@ mikke.ruu2025@gmail.com`,
       if(!confirm('このお知らせを削除しますか？')) return;
       NOTICES = NOTICES.filter(function(x){return x.id!==id});
       showToast('削除しました');
+      markStateDirty();
       renderAll();
     }
     function editNotice(id){
@@ -6986,11 +7275,17 @@ mikke.ruu2025@gmail.com`,
       renderAdminTemplates();
       renderAdminSurveys();
       updateMypageNoticeCount();
+      saveAppState();
     }
 
     // 初期化
     document.addEventListener('DOMContentLoaded', function(){
+      loadAppState();
+      if(typeof applyOrgSettings==='function') applyOrgSettings();
+      if(CURRENT_USER_EMAIL) refreshCurrentUserEventsByEmail(CURRENT_USER_EMAIL);
       renderAll();
+      bindApplyReuseEvents();
+      tryLoginByUrlToken();
     });
     // 即実行も保険で
     setTimeout(renderAll, 100);
