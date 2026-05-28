@@ -174,7 +174,7 @@
     .input{width:100%;min-height:52px;border:1px solid #efe2df;border-radius:17px;padding:13px 14px;background:#fffdfb;color:var(--ink);font-size:16px;line-height:1.45}
     input[type="date"].input,input[type="time"].input{cursor:pointer}
     textarea.input{min-height:96px;resize:vertical}.input:focus{outline:3px solid rgba(237,95,125,.14);border-color:#ed9caf}
-    .apply-shell{padding-bottom:82px}
+    .apply-shell{padding-bottom:170px}
     .stepper{margin:4px 0 16px}.step-line{display:grid;grid-template-columns:repeat(6,1fr);align-items:center;gap:4px}
     .step-dot{position:relative;display:grid;place-items:center;gap:4px;color:#b7aab0;font-size:10px;font-weight:850}
     .step-dot:before{content:"";width:22px;height:22px;border-radius:50%;border:1px solid #dbcfd3;background:#fff;display:block}
@@ -190,7 +190,7 @@
     .terms-link.done small{color:#3ba48a}
     .image-upload{border:1px dashed #e5cbd1;border-radius:20px;padding:14px;background:#fffafa;display:grid;grid-template-columns:86px 1fr;gap:12px;align-items:center}
     .image-preview{width:86px;height:86px;border-radius:18px;background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect width=%22800%22 height=%22600%22 fill=%22%23f0edf4%22/%3E%3C/svg%3E") center/cover}
-    .sticky-form-actions{position:fixed;left:50%;bottom:74px;transform:translateX(-50%);width:min(100%,440px);z-index:17;padding:10px 16px;background:linear-gradient(180deg,rgba(255,255,255,0),#fff 26%)}
+    .sticky-form-actions{position:fixed;left:50%;bottom:calc(74px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(100%,440px);z-index:22;padding:10px 16px;background:linear-gradient(180deg,rgba(255,255,255,0),#fff 26%)}
     .sticky-form-actions .actions{margin:0}.sticky-form-actions.single .actions{grid-template-columns:1fr}
     .auto-save{display:flex;align-items:center;gap:6px;color:var(--sub);font-size:12px;font-weight:800;margin:8px 0 0}
     .admin-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.task{display:block;padding:16px}.task p{margin:0;color:var(--sub);font-size:12px;font-weight:850}.task strong{display:block;margin-top:5px;color:var(--ruu);font-size:34px}
@@ -522,6 +522,15 @@
     #sheet-body input.input,#sheet-body select.input,#sheet-body textarea.input{font-size:15px !important}
     .sheet-actions{display:grid;gap:10px;margin-top:18px}
     .sheet-actions .primary,.sheet-actions .secondary{min-height:46px;display:grid;place-items:center;text-align:center}
+    @media (max-width:430px){
+      .wrap{padding:14px 12px 120px}
+      .sheet-card{max-height:92vh;padding:16px 14px calc(24px + env(safe-area-inset-bottom))}
+      .sheet-body{gap:12px}
+      .admin-two-col,.ev-info-grid,.map-info-grid,.app-info-grid{grid-template-columns:1fr}
+      .event-data-summary{grid-template-columns:1fr}
+      .sticky-form-actions{width:min(100%,440px);padding:8px 12px 10px}
+      .apply-shell{padding-bottom:182px}
+    }
     /* 配置図 */
     .map-box{background:#faf7fc;border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:12px}
     .map-img{width:100%;aspect-ratio:4/3;background:repeating-linear-gradient(45deg,#fff,#fff 12px,#faf2f4 12px,#faf2f4 24px);border-radius:14px;display:grid;place-items:center;color:#b88;font-weight:900;font-size:13px;border:1px dashed #e2c8d2}
@@ -631,7 +640,7 @@
             <span><svg class="icon"><use href="#i-map"/></svg> Peoplewise Cafe</span>
           </div>
           <div class="actions application-actions">
-            <button class="secondary" id="home-detail-btn" onclick="viewEventDetail(getUpcomingEvent().id)">イベント詳細を見る</button>
+            <button class="secondary" id="home-detail-btn" onclick="viewUpcomingEventDetail()">イベント詳細を見る</button>
             <a class="primary apply-link" href="#apply" onclick="showPage('apply')">出店申し込み</a>
           </div>
           <div id="home-inline-detail" class="inline-detail">
@@ -2307,6 +2316,29 @@
       });
       CURRENT_USER_EVENTS = next;
     }
+    function syncMypageProfileFromLatestApplication(){
+      if(!CURRENT_USER_EMAIL) return;
+      var key = CURRENT_USER_EMAIL.toLowerCase();
+      var latest = (APPLICATIONS||[]).find(function(app){
+        return String(app.email||'').toLowerCase()===key;
+      });
+      if(!latest) return;
+      var nameEl = document.getElementById('mypage-name');
+      if(nameEl){
+        var cur = (nameEl.textContent||'').trim();
+        if(!cur || cur==='未入力' || cur===latest.personname){
+          nameEl.textContent = latest.shopname || latest.personname || cur;
+        }
+      }
+      var catEl = document.getElementById('mypage-cat');
+      if(catEl && (!catEl.textContent || catEl.textContent.trim()==='未入力')){
+        catEl.textContent = getApplyCategoryLabel(latest.category||'') || '未入力';
+      }
+      var contentEl = document.getElementById('mypage-content');
+      if(contentEl && (!contentEl.textContent || contentEl.textContent.trim()==='未入力')){
+        contentEl.textContent = latest.content || '未入力';
+      }
+    }
     function issueLoginToken(email, personId){
       var token = 'lg-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8);
       LOGIN_TOKENS[token] = {
@@ -2541,7 +2573,7 @@
       var appealEl = document.getElementById('mypage-appeal');
       var igEl = document.getElementById('mypage-instagram');
       var uwordUrlEl = document.getElementById('mypage-uword');
-      if(nameEl) nameEl.textContent = data.personName;
+      if(nameEl) nameEl.textContent = data.shopName || data.personName;
       if(catEl) catEl.textContent = data.categoryLabel || catEl.textContent;
       if(contentEl) contentEl.textContent = data.content || '未入力';
       if(appealEl) appealEl.textContent = data.comment || data.content || '未入力';
@@ -3035,18 +3067,18 @@
     function getUpcomingEvent(){
       // TODAYより未来の公開イベントで最も近いもの
       return (EVENTS||[])
-        .filter(function(e){return e.date >= TODAY && e.status==='public'})
-        .sort(function(a,b){return a.date.localeCompare(b.date)})[0] || null;
+        .filter(function(e){return normalizeDateInput(e.date) >= TODAY && e.status==='public'})
+        .sort(compareEventDateAsc)[0] || null;
     }
     function getFirstPublicEvent(){
       return (EVENTS||[])
         .filter(function(e){return e.status==='public'})
-        .sort(function(a,b){return a.date.localeCompare(b.date)})[0] || null;
+        .sort(compareEventDateAsc)[0] || null;
     }
     function getFutureEvents(){
       return (EVENTS||[])
-        .filter(function(e){return e.date >= TODAY && e.status==='public'})
-        .sort(function(a,b){return a.date.localeCompare(b.date)});
+        .filter(function(e){return normalizeDateInput(e.date) >= TODAY && e.status==='public'})
+        .sort(compareEventDateAsc);
     }
     function formatEvDateShort(ev){
       var p = (ev.date||'').split('-');
@@ -3135,6 +3167,11 @@
     }
 
     // イベント詳細ページの動的描画
+    function viewUpcomingEventDetail(){
+      var ev = getUpcomingEvent() || getFirstPublicEvent();
+      if(!ev){showToast('表示できるイベントがありません','warn');return;}
+      viewEventDetail(ev.id);
+    }
     function viewEventDetail(evId){
       CURRENT_DETAIL_EVID = evId;
       showPage('detail');
@@ -3254,6 +3291,7 @@
       var ev = getUpcomingEvent();
       var card = document.querySelector('#home > article.event-card');
       if(!card) return;
+      card.onclick = null;
       if(!ev){
         var anyPublic = getFirstPublicEvent();
         card.innerHTML =
@@ -3264,6 +3302,11 @@
           (anyPublic ? '<div class="actions application-actions"><button class="secondary" onclick="viewEventDetail(\''+anyPublic.id+'\')">直近イベントを見る</button></div>' : '');
         return;
       }
+      card.style.cursor = 'pointer';
+      card.onclick = function(e){
+        if(e && e.target && e.target.closest && e.target.closest('a,button,input,select,textarea,label')) return;
+        viewEventDetail(ev.id);
+      };
       var titleEl = card.querySelector('.event-title');
       var metaEl = card.querySelector('.event-meta');
       var detailBtn = card.querySelector('button.secondary');
@@ -3275,8 +3318,7 @@
         titleEl.innerHTML = html;
       }
       if(metaEl){
-        var p = ev.date.split('-');
-        var dt = (+p[1])+'/'+(+p[2])+'（'+ev.dayOfWeek+'） '+ev.startTime+'〜'+ev.endTime;
+        var dt = formatEvDateShort(ev)+' '+(ev.startTime||'')+'〜'+(ev.endTime||'');
         metaEl.innerHTML =
           '<span><svg class="icon"><use href="#i-calendar"/></svg> '+dt+'</span>'+
           (ev.address?'<span><svg class="icon"><use href="#i-map"/></svg> '+ev.address+'</span>':'')+
@@ -3365,7 +3407,7 @@
           var ap = getEventEffectiveStatus(a)==='past';
           var bp = getEventEffectiveStatus(b)==='past';
           if(ap!==bp) return ap ? 1 : -1;
-          return a.date.localeCompare(b.date);
+          return compareEventDateAsc(a,b);
         })
         .slice(0,3);
       ['mypage-event-1','mypage-event-2','mypage-event-3'].forEach(function(cardId, idx){
@@ -3496,7 +3538,7 @@
       if(!host) return;
       var list = (EVENTS||[])
         .filter(canShowInPublicEvents)
-        .sort(function(a,b){return a.date.localeCompare(b.date)})
+        .sort(compareEventDateAsc)
         .slice(0, 6);
       if(!list.length){
         host.innerHTML = '<p class="helper" style="text-align:center;padding:20px 0">お気に入りに表示できるイベントがありません。</p>';
@@ -3517,7 +3559,7 @@
       var query = ((queryEl && queryEl.value) || '').trim().toLowerCase();
       var list = (EVENTS||[])
         .filter(canShowInPublicEvents)
-        .sort(function(a,b){return a.date.localeCompare(b.date)});
+        .sort(compareEventDateAsc);
       if(eventsPageFilter==='recruiting'){
         list = list.filter(function(ev){return getEventPublicTag(ev)==='recruiting';});
       }else if(eventsPageFilter==='upcoming'){
@@ -3729,10 +3771,14 @@
       if(!sel) return;
       // EVENTSからoption生成（毎回同期）
       var current = sel.value;
-      sel.innerHTML = (EVENTS||[]).map(function(e){
-        var p=e.date.split('-');
-        return '<option value="'+e.id+'">'+p[0]+'.'+(+p[1])+'.'+(+p[2])+' '+e.name+'</option>';
-      }).join('');
+      if(!(EVENTS||[]).length){
+        sel.innerHTML = '<option value="">イベントがありません</option>';
+      }else{
+        sel.innerHTML = (EVENTS||[]).slice().sort(compareEventDateAsc).map(function(e){
+          var dt = formatEvDateShort(e);
+          return '<option value="'+e.id+'">'+dt+' '+(e.name||'イベント名未設定')+'</option>';
+        }).join('');
+      }
       if(current && Array.from(sel.options).some(function(o){return o.value===current})){
         sel.value = current;
       }
@@ -4068,7 +4114,7 @@ mikke.ruu2025@gmail.com`,
       if(e){e.preventDefault();e.stopPropagation()}
       var endedEvents = (EVENTS||[]).filter(function(ev){
         return getEventEffectiveStatus(ev)==='past';
-      }).sort(function(a,b){return b.date.localeCompare(a.date);});
+      }).sort(function(a,b){return compareEventDateAsc(b,a);});
       var historyHtml = endedEvents.length
         ? endedEvents.map(function(ev){
             return '<article class="admin-work-card"><h4>'+formatEvDateShort(ev)+' '+ev.name+'</h4><p>終了イベント</p></article>';
@@ -4396,7 +4442,8 @@ mikke.ruu2025@gmail.com`,
         var confirmedCnt = apps.filter(function(c){return c.dataset.status==='confirmed'}).length;
         var lineNotInvited = apps.filter(function(c){return c.dataset.line!=='1'}).length;
         var eyeNotSubmitted = apps.filter(function(c){return c.dataset.eyecatch!=='1'}).length;
-        var partyYes = apps.filter(function(c){return c.dataset.party==='yes'}).length;
+        var partyCounts = getPartyParticipantCounts(ev);
+        var partyYes = partyCounts.total;
         var byCat = function(cat){return apps.filter(function(c){return c.dataset.category===cat && (c.dataset.status==='new' || c.dataset.status==='confirmed')}).length};
         var capR=(ev.capacities||{}).retail||0, capF=(ev.capacities||{}).food||0, capS=(ev.capacities||{}).session||0, capT=(ev.capacities||{}).treatment||0;
         var capacity = capR+capF+capS+capT;
@@ -4438,10 +4485,10 @@ mikke.ruu2025@gmail.com`,
         sel.innerHTML = (EVENTS||[]).filter(function(e){return getEventEffectiveStatus(e)!=='past'})
           .concat((EVENTS||[]).filter(function(e){return getEventEffectiveStatus(e)==='past'}))
           .map(function(e){
-            var p = e.date.split('-');
-            var dt = p[0]+'.'+(+p[1])+'.'+(+p[2])+'（'+e.dayOfWeek+'）';
+            var iso = normalizeDateInput(e.date);
+            var dt = iso ? formatEvDateShort({date:iso, dayOfWeek:(e.dayOfWeek||computeDayOfWeek(iso)||'')}) : '日付未設定';
             var stat = getEventEffectiveStatus(e)==='past' ? '（終了）' : '';
-            return '<option value="'+e.id+'">'+dt+' '+e.name+stat+'</option>';
+            return '<option value="'+e.id+'">'+dt+' '+(e.name||'イベント名未設定')+stat+'</option>';
           }).join('');
         if(!sel.options.length){
           sel.innerHTML = '';
@@ -4594,8 +4641,7 @@ mikke.ruu2025@gmail.com`,
       var first = (EVENTS||[])[0];
       if(!sel){
         if(first){
-          var p0 = first.date.split('-');
-          return {key:first.id, label:p0[0]+'.'+(+p0[1])+'.'+(+p0[2])+' '+first.name, short:first.name.replace('Mikke bazar ','')};
+          return {key:first.id, label:formatEvDateShort(first)+' '+(first.name||''), short:(first.name||'').replace('Mikke bazar ','')};
         }
         return {key:'', label:'対象イベントなし', short:'対象イベントなし'};
       }
@@ -4603,15 +4649,13 @@ mikke.ruu2025@gmail.com`,
       if(typeof EVENTS!=='undefined'){
         var ev = EVENTS.find(function(e){return e.id===v});
         if(ev){
-          var p = ev.date.split('-');
-          var dt = p[0]+'.'+(+p[1])+'.'+(+p[2]);
+          var dt = formatEvDateShort(ev);
           var shortName = ev.name.replace('Mikke bazar ','');
           return {key:ev.id, label:dt+' '+ev.name, short:shortName};
         }
       }
       if(first){
-        var p1 = first.date.split('-');
-        return {key:first.id, label:p1[0]+'.'+(+p1[1])+'.'+(+p1[2])+' '+first.name, short:first.name.replace('Mikke bazar ','')};
+        return {key:first.id, label:formatEvDateShort(first)+' '+(first.name||''), short:(first.name||'').replace('Mikke bazar ','')};
       }
       return {key:'', label:'対象イベントなし', short:'対象イベントなし'};
     }
@@ -5455,12 +5499,21 @@ mikke.ruu2025@gmail.com`,
       var sel = document.getElementById('tpl-event-sel');
       if(!sel) return;
       var current = sel.value;
-      sel.innerHTML = (EVENTS||[]).map(function(e){
-        var p=e.date.split('-');
-        var dt = p[0]+'.'+(+p[1])+'.'+(+p[2])+'（'+e.dayOfWeek+'）';
-        return '<option value="'+e.id+'">'+dt+' '+e.name+'</option>';
+      var list = (EVENTS||[]).slice().sort(compareEventDateAsc);
+      if(!list.length){
+        sel.innerHTML = '<option value="">イベントがありません</option>';
+        sel.disabled = true;
+        return;
+      }
+      sel.disabled = false;
+      sel.innerHTML = list.map(function(e){
+        var iso = normalizeDateInput(e.date);
+        var dt = iso ? formatEvDateShort({date:iso, dayOfWeek:(e.dayOfWeek||computeDayOfWeek(iso)||'')}) : '日付未設定';
+        return '<option value="'+e.id+'">'+dt+' '+(e.name||'イベント名未設定')+'</option>';
       }).join('');
-      if(current && Array.from(sel.options).some(function(o){return o.value===current})) sel.value=current;
+      if(current && Array.from(sel.options).some(function(o){return o.value===current})){
+        sel.value=current;
+      }
     }
 
     function renderAdminTemplates(){
@@ -5906,6 +5959,38 @@ mikke.ruu2025@gmail.com`,
       var day = String(d.getDate()).padStart(2,'0');
       return y+'-'+m+'-'+day;
     })();
+    function normalizeDateInput(v){
+      var s = String(v==null?'':v).trim();
+      if(!s) return '';
+      s = s.replace(/\//g,'-').replace(/\./g,'-');
+      var m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+      if(!m) return '';
+      var y = m[1];
+      var mo = String(parseInt(m[2],10)||0).padStart(2,'0');
+      var da = String(parseInt(m[3],10)||0).padStart(2,'0');
+      if(mo==='00' || da==='00') return '';
+      return y+'-'+mo+'-'+da;
+    }
+    function normalizeOptionalDateInPlace(obj, key){
+      if(!obj) return;
+      var val = normalizeDateInput(obj[key]);
+      obj[key] = val || '';
+    }
+    function computeDayOfWeek(dateStr){
+      var iso = normalizeDateInput(dateStr);
+      if(!iso) return '';
+      var d = new Date(iso+'T00:00:00');
+      if(Number.isNaN(d.getTime())) return '';
+      return ['日','月','火','水','木','金','土'][d.getDay()] || '';
+    }
+    function compareEventDateAsc(a, b){
+      var ad = normalizeDateInput(a && a.date);
+      var bd = normalizeDateInput(b && b.date);
+      if(ad && bd) return ad.localeCompare(bd);
+      if(ad && !bd) return -1;
+      if(!ad && bd) return 1;
+      return 0;
+    }
     // EVENTSは「イベント作成」フォームと同じ項目をすべて持つ
     var EVENTS = [];
     var eventListFilter = 'all';
@@ -5913,6 +5998,16 @@ mikke.ruu2025@gmail.com`,
       (EVENTS||[]).forEach(function(ev){
         if(!ev.payment) ev.payment = '当日現金';
         if(!ev.party) ev.party = {enabled:false};
+        normalizeOptionalDateInPlace(ev, 'date');
+        normalizeOptionalDateInPlace(ev, 'deadline');
+        normalizeOptionalDateInPlace(ev, 'eyecatchDeadline');
+        normalizeOptionalDateInPlace(ev, 'zoomDate');
+        if(ev.party){
+          normalizeOptionalDateInPlace(ev.party, 'deadline');
+        }
+        if(!ev.dayOfWeek && ev.date){
+          ev.dayOfWeek = computeDayOfWeek(ev.date);
+        }
       });
     }
 
@@ -5925,7 +6020,12 @@ mikke.ruu2025@gmail.com`,
       return Array.from(document.querySelectorAll('#admin-applications .exhibitor-card'))
         .filter(function(c){return c.dataset.event===ev.id && c.dataset.category===cat && (c.dataset.status==='confirmed' || c.dataset.status==='new')}).length;
     }
-    function isEventPast(ev){return ev.date < TODAY}
+    function isEventPast(ev){
+      if(!ev) return false;
+      var d = normalizeDateInput(ev.date);
+      if(!d) return false;
+      return d < TODAY;
+    }
     function getEventEffectiveStatus(ev){
       if(ev.status==='draft') return 'draft';
       if(isEventPast(ev)) return 'past';
@@ -6021,7 +6121,8 @@ mikke.ruu2025@gmail.com`,
       var hold = apps.filter(function(c){return c.dataset.status==='hold'}).length;
       var line = apps.filter(function(c){return c.dataset.line==='1'}).length;
       var eye = apps.filter(function(c){return c.dataset.eyecatch==='1'}).length;
-      var partyYes = apps.filter(function(c){return c.dataset.party==='yes'}).length;
+      var partyCounts = getPartyParticipantCounts(ev);
+      var partyYes = partyCounts.total;
       // 過去イベントは pastExhibitors も加味
       if(getEventEffectiveStatus(ev)==='past'){
         var pastCnt = (ev.pastExhibitors||[]).length;
@@ -6366,7 +6467,7 @@ mikke.ruu2025@gmail.com`,
         return;
       }
       // 日付順（新しい→古い）
-      list.sort(function(a,b){return b.date.localeCompare(a.date)});
+      list.sort(function(a,b){return compareEventDateAsc(b,a)});
       host.innerHTML = list.map(buildEventListCard).join('');
       syncPublicEventViews();
     }
@@ -7173,17 +7274,17 @@ mikke.ruu2025@gmail.com`,
     });
 
     function refreshEventLinkedSelectors(){
-      var sorted = (EVENTS||[]).slice().sort(function(a,b){return b.date.localeCompare(a.date);});
+      var sorted = (EVENTS||[]).slice().sort(function(a,b){return compareEventDateAsc(b,a);});
 
       var appsSel = document.getElementById('apps-event-filter');
       if(appsSel){
         var appsCurrent = appsSel.value || 'all';
         var html = '<option value="all">すべてのイベント（過去含む）</option>';
         html += sorted.map(function(e){
-          var p = e.date.split('-');
-          var dt = p[0]+'.'+(+p[1])+'.'+(+p[2])+'（'+(e.dayOfWeek||'')+'）';
+          var iso = normalizeDateInput(e.date);
+          var dt = iso ? formatEvDateShort({date:iso, dayOfWeek:(e.dayOfWeek||computeDayOfWeek(iso)||'')}) : '日付未設定';
           var stat = getEventEffectiveStatus(e)==='past' ? '（終了）' : '';
-          return '<option value="'+e.id+'">'+dt+' '+e.name+stat+'</option>';
+          return '<option value="'+e.id+'">'+dt+' '+(e.name||'イベント名未設定')+stat+'</option>';
         }).join('');
         appsSel.innerHTML = html;
         if(Array.from(appsSel.options).some(function(o){return o.value===appsCurrent;})) appsSel.value = appsCurrent;
@@ -7268,6 +7369,7 @@ mikke.ruu2025@gmail.com`,
       renderAdminAlbums();
       renderApplications();
       renderEventList();
+      syncMypageProfileFromLatestApplication();
       renderMypageNotices();
       renderAdminNotices();
       renderUserFAQs();
